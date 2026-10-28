@@ -1,0 +1,363 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="description" content="Job-ready dual-track lab: Circuit Vision (electronics CV) and Network Config & Management. Curated repos, quizzes, and checklists." />
+  <title>Circuit Vision Lab · Job Learning Portal</title>
+  <link rel="stylesheet" href="styles.css" />
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>⚡</text></svg>" />
+</head>
+<body>
+  <a class="skip-link" href="#main">Skip to content</a>
+
+  <header class="site-header">
+    <div class="header-inner">
+      <a class="brand" href="#home" data-nav="home">
+        <span class="brand-mark" aria-hidden="true">⚡</span>
+        <span>
+          <strong>Circuit Vision Lab</strong>
+          <small>Job learning portal</small>
+        </span>
+      </a>
+      <button type="button" class="nav-toggle" id="navToggle" aria-expanded="false" aria-controls="siteNav" aria-label="Open menu">☰</button>
+      <nav class="site-nav" id="siteNav" aria-label="Primary">
+        <a href="#home" data-nav="home">Home</a>
+        <a href="#circuit" data-nav="circuit">Circuit Vision</a>
+        <a href="#network" data-nav="network">Networks</a>
+        <a href="#resources" data-nav="resources">All resources</a>
+        <button type="button" class="theme-btn" id="themeToggle" aria-label="Toggle dark mode" title="Toggle theme">◐</button>
+      </nav>
+    </div>
+  </header>
+
+  <main id="main">
+    <!-- HOME -->
+    <section id="home" class="view active" aria-labelledby="home-title">
+      <div class="hero">
+        <p class="eyebrow">On-the-job resource · No signup</p>
+        <h1 id="home-title">Learn circuit vision &amp; network automation for work</h1>
+        <p class="lede">Two practical tracks you can use at your desk: recognize boards and schematics from images, and configure/manage networks with industry tools. Start with a short path, then use the job aids when you need them.</p>
+        <div class="hero-actions">
+          <a class="btn primary" href="#circuit" data-nav="circuit">Track A · Circuit Vision</a>
+          <a class="btn secondary" href="#network" data-nav="network">Track B · Networks</a>
+        </div>
+      </div>
+
+      <div class="track-cards">
+        <article class="track-card circuit">
+          <div class="track-badge">Track A</div>
+          <h2>Circuit Vision</h2>
+          <p>Turn PCB photos and schematics into component lists and netlists. Build intuition for parts, capture quality, SPICE terms, and which open-source tools fit which job.</p>
+          <ul class="card-list">
+            <li>Curated learning repos</li>
+            <li>Component ID quiz</li>
+            <li>Photo &amp; handoff checklists</li>
+            <li>Tool decision guide</li>
+          </ul>
+          <a class="btn primary" href="#circuit" data-nav="circuit">Start Circuit Vision →</a>
+        </article>
+        <article class="track-card network">
+          <div class="track-badge">Track B</div>
+          <h2>Network Config &amp; Management</h2>
+          <p>From first SSH session to topology-as-code. Labs, Netmiko, Containerlab, and change-control checklists you can use on real tickets.</p>
+          <ul class="card-list">
+            <li>Beginner → automation path</li>
+            <li>Config change checklist</li>
+            <li>Netmiko cheat sheet</li>
+            <li>Protocol quick reference</li>
+          </ul>
+          <a class="btn primary" href="#network" data-nav="network">Start Networks →</a>
+        </article>
+      </div>
+
+      <div class="panel start-here">
+        <h2>Start here (on the job)</h2>
+        <ol class="steps">
+          <li><strong>Pick a track</strong> that matches today’s work (board photo vs. device config).</li>
+          <li><strong>Follow the learning path</strong> — open the linked repos in order; don’t try to master everything at once.</li>
+          <li><strong>Use the job aids</strong> as living checklists while you work (quiz, photo checklist, change control).</li>
+          <li><strong>Search resources</strong> when you need a specific tool or concept.</li>
+        </ol>
+        <p class="hint"><a href="#resources" data-nav="resources">Browse &amp; filter all curated resources →</a></p>
+      </div>
+    </section>
+
+    <!-- CIRCUIT VISION -->
+    <section id="circuit" class="view" aria-labelledby="circuit-title" hidden>
+      <header class="view-header">
+        <p class="eyebrow">Track A · Electronics</p>
+        <h1 id="circuit-title">Circuit Vision</h1>
+        <p class="lede">Circuit vision means using computer vision / ML (or structured pipelines) to go from a <em>photo or drawing of a circuit</em> to something engineers can use: component IDs, connections, a netlist, or a SPICE simulation input.</p>
+      </header>
+
+      <nav class="subnav" aria-label="Circuit Vision sections">
+        <a href="#circuit-path">Learning path</a>
+        <a href="#circuit-quiz">Component quiz</a>
+        <a href="#circuit-photo">Photo checklist</a>
+        <a href="#circuit-glossary">Glossary</a>
+        <a href="#circuit-tools">Tool guide</a>
+      </nav>
+
+      <article id="circuit-path" class="panel">
+        <h2>Learning path</h2>
+        <p>Work top to bottom. Each link is a public GitHub project you can clone and run locally.</p>
+        <ol class="path-list">
+          <li>
+            <a href="https://github.com/JKc66/CircuitVision" target="_blank" rel="noopener">JKc66/CircuitVision</a>
+            <span class="tag">Start here · Streamlit</span>
+            <p>Upload a circuit image → detect parts → build a netlist. Best quick interactive intro for the job.</p>
+          </li>
+          <li>
+            <a href="https://github.com/s39674/Image2schematic" target="_blank" rel="noopener">s39674/Image2schematic</a>
+            <span class="tag">Pipeline</span>
+            <p>Clear PCB-photo → schematic narrative. Great for understanding the full processing pipeline.</p>
+          </li>
+          <li>
+            <a href="https://github.com/s39674/PCB-Component-Detection" target="_blank" rel="noopener">s39674/PCB-Component-Detection</a>
+            <span class="tag">Detection</span>
+            <p>Focus on locating and classifying components on boards — the CV core skill.</p>
+          </li>
+          <li>
+            <a href="https://github.com/SanderGi/PCB-Detection" target="_blank" rel="noopener">SanderGi/PCB-Detection</a>
+            <span class="tag">Detection</span>
+            <p>Another PCB detection approach; compare datasets and model choices with the previous repo.</p>
+          </li>
+          <li>
+            <a href="https://github.com/NYCU-AI-EDA/Netlistify" target="_blank" rel="noopener">NYCU-AI-EDA/Netlistify</a>
+            <span class="tag">Advanced · SPICE</span>
+            <p>Stronger models for schematic → SPICE / netlist. Use when you need simulation-ready output.</p>
+          </li>
+        </ol>
+      </article>
+
+      <article id="circuit-quiz" class="panel">
+        <h2>Component ID quiz</h2>
+        <p>Practice recognizing common parts. No server required — score stays in this browser.</p>
+        <div class="quiz" id="componentQuiz">
+          <div class="quiz-progress" id="quizProgress" aria-live="polite"></div>
+          <div class="quiz-visual" id="quizVisual" aria-hidden="true"></div>
+          <p class="quiz-prompt" id="quizPrompt"></p>
+          <div class="quiz-options" id="quizOptions" role="group" aria-label="Answers"></div>
+          <p class="quiz-feedback" id="quizFeedback" role="status"></p>
+          <div class="quiz-actions">
+            <button type="button" class="btn secondary" id="quizNext" hidden>Next</button>
+            <button type="button" class="btn primary" id="quizRestart" hidden>Restart quiz</button>
+          </div>
+        </div>
+      </article>
+
+      <article id="circuit-photo" class="panel">
+        <h2>Photograph a board for CV / handoff</h2>
+        <p>Toggle items as you capture. State is saved in this browser.</p>
+        <ul class="checklist" id="photoChecklist" data-key="cv-photo-checklist"></ul>
+        <button type="button" class="btn ghost" id="resetPhotoChecklist">Reset checklist</button>
+      </article>
+
+      <article id="circuit-glossary" class="panel">
+        <h2>SPICE / netlist glossary</h2>
+        <dl class="glossary" id="spiceGlossary"></dl>
+      </article>
+
+      <article id="circuit-tools" class="panel">
+        <h2>When to use which tool</h2>
+        <div class="decision" id="toolGuide"></div>
+      </article>
+    </section>
+
+    <!-- NETWORK -->
+    <section id="network" class="view" aria-labelledby="network-title" hidden>
+      <header class="view-header">
+        <p class="eyebrow">Track B · Infrastructure</p>
+        <h1 id="network-title">Network Config &amp; Management</h1>
+        <p class="lede">Learn to connect safely to devices, change configs with backups and rollback plans, then automate with Python (Netmiko), labs (NetAutLabs, Containerlab, netlab), and Cisco DevNet materials.</p>
+      </header>
+
+      <nav class="subnav" aria-label="Network sections">
+        <a href="#net-path">Learning path</a>
+        <a href="#net-lab">Lab path</a>
+        <a href="#net-change">Change checklist</a>
+        <a href="#net-netmiko">Netmiko sheet</a>
+        <a href="#net-protocols">Protocols</a>
+      </nav>
+
+      <article id="net-path" class="panel">
+        <h2>Learning path</h2>
+        <ol class="path-list">
+          <li>
+            <a href="https://github.com/NetAutLabs/netautlabs" target="_blank" rel="noopener">NetAutLabs/netautlabs</a>
+            <span class="tag">Start here · Labs</span>
+            <p>Beginner→pro network automation labs; Codespaces-friendly for learning on the job.</p>
+          </li>
+          <li>
+            <a href="https://github.com/CiscoDevNet/netprog_basics" target="_blank" rel="noopener">CiscoDevNet/netprog_basics</a>
+            <span class="tag">Course</span>
+            <p>Structured NetDevOps fundamentals from Cisco DevNet.</p>
+          </li>
+          <li>
+            <a href="https://developer.cisco.com/learning/" target="_blank" rel="noopener">Cisco DevNet Learning Labs</a>
+            <span class="tag">Interactive</span>
+            <p>Official sandboxes and learning tracks for APIs, automation, and platforms.</p>
+          </li>
+          <li>
+            <a href="https://github.com/ktbyers/netmiko" target="_blank" rel="noopener">ktbyers/netmiko</a>
+            <span class="tag">Core skill</span>
+            <p>Multi-vendor SSH library — the workhorse for config push/pull in Python.</p>
+          </li>
+          <li>
+            <a href="https://github.com/srl-labs/containerlab" target="_blank" rel="noopener">srl-labs/containerlab</a>
+            <span class="tag">Topology-as-code</span>
+            <p>Spin up real lab topologies as code for safe practice.</p>
+          </li>
+          <li>
+            <a href="https://github.com/ipspace/netlab" target="_blank" rel="noopener">ipspace/netlab</a>
+            <span class="tag">Lab orchestration</span>
+            <p>High-level lab provisioning; pairs well with automation practice.</p>
+          </li>
+          <li>
+            <a href="https://github.com/networktocode/awesome-network-automation" target="_blank" rel="noopener">networktocode/awesome-network-automation</a>
+            <span class="tag">Directory</span>
+            <p>Curated list of tools, books, and communities when you need the next rabbit hole.</p>
+          </li>
+        </ol>
+      </article>
+
+      <article id="net-lab" class="panel">
+        <h2>Lab path: beginner → automation → topology-as-code</h2>
+        <ol class="steps numbered-big">
+          <li>
+            <h3>1 · Foundations</h3>
+            <p>Complete early NetAutLabs modules. Practice SSH login, show commands, and reading running-config. Parallel: skim Cisco DevNet “Programming Basics”.</p>
+          </li>
+          <li>
+            <h3>2 · Scripted changes</h3>
+            <p>Write small Netmiko scripts: backup config, apply a VLAN/ACL change, verify with show commands. Always keep a local backup file.</p>
+          </li>
+          <li>
+            <h3>3 · Structured automation</h3>
+            <p>Add Ansible roles or simple NAPALM/Netmiko wrappers. Use inventory files; never hard-code credentials in scripts you share.</p>
+          </li>
+          <li>
+            <h3>4 · Topology-as-code</h3>
+            <p>Build a Containerlab or netlab topology that mirrors a slice of production. Rehearse changes there before production windows.</p>
+          </li>
+        </ol>
+      </article>
+
+      <article id="net-change" class="panel">
+        <h2>Config change checklist</h2>
+        <p>Use before any production or shared-lab change. Saved in this browser.</p>
+        <ul class="checklist" id="changeChecklist" data-key="net-change-checklist"></ul>
+        <button type="button" class="btn ghost" id="resetChangeChecklist">Reset checklist</button>
+      </article>
+
+      <article id="net-netmiko" class="panel">
+        <h2>Netmiko quick-start cheat sheet</h2>
+        <pre class="code-block" tabindex="0"><code># pip install netmiko
+from netmiko import ConnectHandler
+
+device = {
+    "device_type": "cisco_ios",  # or juniper, arista_eos, ...
+    "host": "192.0.2.10",
+    "username": "admin",
+    "password": "REDACTED",
+    # "secret": "enable_secret",  # if needed
+}
+
+with ConnectHandler(**device) as conn:
+    conn.enable()  # if enable/secret required
+    # Backup
+    running = conn.send_command("show running-config")
+    open("backup.cfg", "w").write(running)
+
+    # Change (send_config_set auto-enters config mode)
+    output = conn.send_config_set([
+        "interface GigabitEthernet0/1",
+        "description lab-uplink",
+        "no shutdown",
+    ])
+    print(output)
+
+    # Save
+    conn.save_config()
+    # Verify
+    print(conn.send_command("show interfaces description"))</code></pre>
+        <ul class="tips">
+          <li>Prefer vault / env vars for passwords — never commit secrets.</li>
+          <li>Use <code>send_command_timing</code> for prompts that hang on paging; disable paging (<code>terminal length 0</code>) early.</li>
+          <li>Check <a href="https://github.com/ktbyers/netmiko" target="_blank" rel="noopener">supported device_type values</a> for your vendor.</li>
+        </ul>
+      </article>
+
+      <article id="net-protocols" class="panel">
+        <h2>Common protocols cheat sheet</h2>
+        <div class="table-wrap">
+          <table class="data-table">
+            <thead>
+              <tr>
+                <th>Protocol / tool</th>
+                <th>What it’s for</th>
+                <th>When to use</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td><strong>SSH</strong></td>
+                <td>Interactive CLI + scripted sessions (Netmiko)</td>
+                <td>Day-to-day show/config on almost every box</td>
+              </tr>
+              <tr>
+                <td><strong>NETCONF</strong></td>
+                <td>XML RPC over SSH; structured config/state</td>
+                <td>Vendor supports YANG models; need transactional edits</td>
+              </tr>
+              <tr>
+                <td><strong>RESTCONF</strong></td>
+                <td>HTTP REST over YANG models</td>
+                <td>API-friendly automation; controllers &amp; modern platforms</td>
+              </tr>
+              <tr>
+                <td><strong>Ansible</strong></td>
+                <td>Agentless playbooks / roles (often SSH)</td>
+                <td>Fleet changes, idempotent workflows, team playbooks</td>
+              </tr>
+              <tr>
+                <td><strong>gNMI / gRPC</strong></td>
+                <td>Modern telemetry &amp; config (where supported)</td>
+                <td>Streaming telemetry, cloud-native NOS</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </article>
+    </section>
+
+    <!-- RESOURCES -->
+    <section id="resources" class="view" aria-labelledby="resources-title" hidden>
+      <header class="view-header">
+        <p class="eyebrow">Directory</p>
+        <h1 id="resources-title">All resources</h1>
+        <p class="lede">Filter by track or search by name / keyword. Opens the official GitHub or docs pages.</p>
+      </header>
+      <div class="resource-controls">
+        <label class="sr-only" for="resourceSearch">Search resources</label>
+        <input type="search" id="resourceSearch" placeholder="Search repos, tools, topics…" autocomplete="off" />
+        <div class="filter-chips" role="group" aria-label="Filter by track">
+          <button type="button" class="chip active" data-filter="all">All</button>
+          <button type="button" class="chip" data-filter="circuit">Circuit Vision</button>
+          <button type="button" class="chip" data-filter="network">Networks</button>
+        </div>
+      </div>
+      <div class="resource-grid" id="resourceGrid"></div>
+      <p class="empty-state" id="resourceEmpty" hidden>No matches. Try another keyword.</p>
+    </section>
+  </main>
+
+  <footer class="site-footer">
+    <p>Prepared for learning · Circuit Vision lab</p>
+    <p class="footer-meta">Static job aid · No accounts · Links go to public GitHub / Cisco DevNet</p>
+  </footer>
+
+  <script src="app.js"></script>
+</body>
+</html>
