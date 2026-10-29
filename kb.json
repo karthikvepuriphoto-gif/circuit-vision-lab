@@ -1,0 +1,1478 @@
+[
+ {
+  "track": "circuit",
+  "q": "What is circuit vision?",
+  "k": "definition overview image schematic pcb",
+  "a": "Using computer vision to turn a photo or drawing of a circuit (schematic or PCB) into structured data: detected components, connections, a netlist, or SPICE input.",
+  "src": [
+   {
+    "t": "JKc66/CircuitVision",
+    "u": "https://github.com/JKc66/CircuitVision"
+   },
+   {
+    "t": "s39674/Image2schematic",
+    "u": "https://github.com/s39674/Image2schematic"
+   }
+  ]
+ },
+ {
+  "track": "circuit",
+  "q": "Where should I start learning circuit vision?",
+  "k": "beginner start first",
+  "a": "Start with JKc66/CircuitVision (upload an image, see detected parts and a netlist), then study Image2schematic for the full pipeline, then the PCB detection repos, and Netlistify for SPICE-quality output.",
+  "src": [
+   {
+    "t": "JKc66/CircuitVision",
+    "u": "https://github.com/JKc66/CircuitVision"
+   },
+   {
+    "t": "s39674/Image2schematic",
+    "u": "https://github.com/s39674/Image2schematic"
+   },
+   {
+    "t": "NYCU-AI-EDA/Netlistify",
+    "u": "https://github.com/NYCU-AI-EDA/Netlistify"
+   }
+  ]
+ },
+ {
+  "track": "circuit",
+  "q": "What does JKc66/CircuitVision do?",
+  "k": "circuitvision streamlit app",
+  "a": "It is a Streamlit app: you upload a circuit image, it detects components and builds a netlist. Good for a quick hands-on demo. Check its README for install steps.",
+  "src": [
+   {
+    "t": "JKc66/CircuitVision",
+    "u": "https://github.com/JKc66/CircuitVision"
+   }
+  ]
+ },
+ {
+  "track": "circuit",
+  "q": "What is Netlistify?",
+  "k": "netlistify spice schematic",
+  "a": "A research project from NYCU AI-EDA that converts schematic images into netlists/SPICE. Use it when you need simulation-oriented output. See the repo README for models and setup.",
+  "src": [
+   {
+    "t": "NYCU-AI-EDA/Netlistify",
+    "u": "https://github.com/NYCU-AI-EDA/Netlistify"
+   }
+  ]
+ },
+ {
+  "track": "circuit",
+  "q": "What is Image2schematic?",
+  "k": "pcb photo schematic pipeline",
+  "a": "A project that goes from a PCB photo toward a schematic, showing the steps: preprocessing, component detection, and trace/connection reconstruction.",
+  "src": [
+   {
+    "t": "s39674/Image2schematic",
+    "u": "https://github.com/s39674/Image2schematic"
+   }
+  ]
+ },
+ {
+  "track": "circuit",
+  "q": "Which repo detects components on a PCB photo?",
+  "k": "pcb detection components board",
+  "a": "Look at s39674/PCB-Component-Detection and SanderGi/PCB-Detection. Try both on your own board photos and compare.",
+  "src": [
+   {
+    "t": "s39674/PCB-Component-Detection",
+    "u": "https://github.com/s39674/PCB-Component-Detection"
+   },
+   {
+    "t": "SanderGi/PCB-Detection",
+    "u": "https://github.com/SanderGi/PCB-Detection"
+   }
+  ]
+ },
+ {
+  "track": "circuit",
+  "q": "Schematic image vs PCB photo — what's the difference for CV?",
+  "k": "schematic pcb difference",
+  "a": "A schematic is a clean line drawing of symbols and wires, so symbol detection plus line tracing works well. A PCB photo has real parts, shadows, traces on several layers, and hidden vias, so it is much harder and often incomplete.",
+  "src": [
+   {
+    "t": "s39674/Image2schematic",
+    "u": "https://github.com/s39674/Image2schematic"
+   },
+   {
+    "t": "JKc66/CircuitVision",
+    "u": "https://github.com/JKc66/CircuitVision"
+   }
+  ]
+ },
+ {
+  "track": "circuit",
+  "q": "What is a netlist?",
+  "k": "netlist definition nets nodes",
+  "a": "A text list of the components and the nets (electrical nodes) that each pin connects to. It is what simulators and layout tools consume.",
+  "src": [
+   {
+    "t": "ngspice docs",
+    "u": "https://ngspice.sourceforge.io/docs.html"
+   },
+   {
+    "t": "NYCU-AI-EDA/Netlistify",
+    "u": "https://github.com/NYCU-AI-EDA/Netlistify"
+   }
+  ]
+ },
+ {
+  "track": "circuit",
+  "q": "What is SPICE?",
+  "k": "spice simulator simulation",
+  "a": "SPICE is a circuit simulator family. You feed it a netlist with component values and models, and it computes voltages and currents (DC, AC, transient). ngspice is a free open-source version.",
+  "src": [
+   {
+    "t": "ngspice docs",
+    "u": "https://ngspice.sourceforge.io/docs.html"
+   }
+  ]
+ },
+ {
+  "track": "circuit",
+  "q": "How do I simulate a netlist?",
+  "k": "simulate ngspice run",
+  "a": "Install ngspice, save the netlist as a .cir/.sp file with an analysis line (e.g. .tran or .op) and .end, then run: ngspice file.cir. See the ngspice manual for analysis commands.",
+  "src": [
+   {
+    "t": "ngspice docs",
+    "u": "https://ngspice.sourceforge.io/docs.html"
+   }
+  ]
+ },
+ {
+  "track": "circuit",
+  "q": "What does a SPICE resistor line look like?",
+  "k": "spice syntax resistor line",
+  "a": "Format: R<name> <node1> <node2> <value>, e.g. R1 in out 10k. Capacitors start with C, inductors with L, diodes with D, voltage sources with V.",
+  "src": [
+   {
+    "t": "ngspice docs",
+    "u": "https://ngspice.sourceforge.io/docs.html"
+   }
+  ]
+ },
+ {
+  "track": "circuit",
+  "q": "What is node 0 in SPICE?",
+  "k": "ground node 0 gnd",
+  "a": "Node 0 is ground, the reference for every voltage. Every SPICE circuit needs a path to node 0.",
+  "src": [
+   {
+    "t": "ngspice docs",
+    "u": "https://ngspice.sourceforge.io/docs.html"
+   }
+  ]
+ },
+ {
+  "track": "circuit",
+  "q": "What is a .model statement?",
+  "k": "model spice diode transistor",
+  "a": "It defines parameters for semiconductor devices (diodes, transistors), e.g. .model D1N4148 D(...). Without a correct model, simulation of active parts is not meaningful.",
+  "src": [
+   {
+    "t": "ngspice docs",
+    "u": "https://ngspice.sourceforge.io/docs.html"
+   }
+  ]
+ },
+ {
+  "track": "circuit",
+  "q": "What is a BOM?",
+  "k": "bill of materials bom",
+  "a": "Bill of Materials: the list of part types, values, packages, and quantities. Detected components can be grouped into a BOM after CV.",
+  "src": [
+   {
+    "t": "JKc66/CircuitVision",
+    "u": "https://github.com/JKc66/CircuitVision"
+   }
+  ]
+ },
+ {
+  "track": "circuit",
+  "q": "What are reference designators?",
+  "k": "designator r1 c1 u1 annotation",
+  "a": "Labels like R1, C3, U2, Q1, D4. The letter tells the part type: R resistor, C capacitor, L inductor, D diode, Q transistor, U IC, J connector, Y crystal, F fuse.",
+  "src": [
+   {
+    "t": "JKc66/CircuitVision",
+    "u": "https://github.com/JKc66/CircuitVision"
+   }
+  ]
+ },
+ {
+  "track": "circuit",
+  "q": "How do I identify a resistor?",
+  "k": "resistor identify color bands",
+  "a": "Through-hole resistors are small cylinders with color bands; SMD resistors are small black rectangles with a printed number code (e.g. 103 = 10k). Schematic symbol: zigzag or rectangle. Designator R.",
+  "src": [
+   {
+    "t": "s39674/PCB-Component-Detection",
+    "u": "https://github.com/s39674/PCB-Component-Detection"
+   }
+  ]
+ },
+ {
+  "track": "circuit",
+  "q": "How do I read SMD resistor codes?",
+  "k": "smd code 103 472",
+  "a": "Three-digit code: two digits then the multiplier power of ten. 103 = 10 x 10^3 = 10 kΩ; 472 = 4.7 kΩ. An R marks the decimal point (4R7 = 4.7 Ω).",
+  "src": [
+   {
+    "t": "s39674/PCB-Component-Detection",
+    "u": "https://github.com/s39674/PCB-Component-Detection"
+   }
+  ]
+ },
+ {
+  "track": "circuit",
+  "q": "How do I identify a capacitor?",
+  "k": "capacitor identify electrolytic ceramic",
+  "a": "Ceramic SMD caps are tan/brown rectangles usually with no marking; electrolytics are cylinders with a stripe marking the negative lead. Symbol: two parallel plates (one curved for polarized). Designator C.",
+  "src": [
+   {
+    "t": "s39674/PCB-Component-Detection",
+    "u": "https://github.com/s39674/PCB-Component-Detection"
+   }
+  ]
+ },
+ {
+  "track": "circuit",
+  "q": "How do I tell diode polarity?",
+  "k": "diode polarity cathode stripe",
+  "a": "The band/stripe marks the cathode. In the symbol, the bar is the cathode and the triangle points toward it (direction of conventional current).",
+  "src": [
+   {
+    "t": "s39674/PCB-Component-Detection",
+    "u": "https://github.com/s39674/PCB-Component-Detection"
+   }
+  ]
+ },
+ {
+  "track": "circuit",
+  "q": "How do I identify an IC?",
+  "k": "ic chip package u",
+  "a": "ICs are black packages with many pins (SOIC, QFP, QFN, BGA). A dot or notch marks pin 1. Designator U. Read the part number on top and look up the datasheet.",
+  "src": [
+   {
+    "t": "s39674/PCB-Component-Detection",
+    "u": "https://github.com/s39674/PCB-Component-Detection"
+   }
+  ]
+ },
+ {
+  "track": "circuit",
+  "q": "How do I find pin 1 on a chip?",
+  "k": "pin 1 dot notch",
+  "a": "Look for a dot, dimple, notch, or beveled edge; pin 1 is next to it, and pins count counter-clockwise from the top view on most packages.",
+  "src": [
+   {
+    "t": "s39674/PCB-Component-Detection",
+    "u": "https://github.com/s39674/PCB-Component-Detection"
+   }
+  ]
+ },
+ {
+  "track": "circuit",
+  "q": "How do I identify an inductor?",
+  "k": "inductor coil identify",
+  "a": "Often a coil of wire, or a block marked with a code; power inductors are larger dark squares. Symbol: a series of loops. Designator L.",
+  "src": [
+   {
+    "t": "s39674/PCB-Component-Detection",
+    "u": "https://github.com/s39674/PCB-Component-Detection"
+   }
+  ]
+ },
+ {
+  "track": "circuit",
+  "q": "How do I identify a transistor?",
+  "k": "transistor mosfet bjt package",
+  "a": "Three-terminal parts in TO-92, SOT-23, or TO-220 packages. Designator Q. Check the printed code against the datasheet to know the pinout.",
+  "src": [
+   {
+    "t": "s39674/PCB-Component-Detection",
+    "u": "https://github.com/s39674/PCB-Component-Detection"
+   }
+  ]
+ },
+ {
+  "track": "circuit",
+  "q": "How should I photograph a board for circuit vision?",
+  "k": "photo capture lighting camera",
+  "a": "Use even diffuse lighting, keep the camera parallel to the board, fill the frame, focus on markings, shoot both sides, and keep original full-resolution files. See the Photo checklist on the Circuit Vision page.",
+  "src": [
+   {
+    "t": "s39674/Image2schematic",
+    "u": "https://github.com/s39674/Image2schematic"
+   },
+   {
+    "t": "s39674/PCB-Component-Detection",
+    "u": "https://github.com/s39674/PCB-Component-Detection"
+   }
+  ]
+ },
+ {
+  "track": "circuit",
+  "q": "Why is glare a problem in PCB photos?",
+  "k": "glare reflection lighting",
+  "a": "Glare washes out markings and makes shiny solder look like other features, which hurts detection and OCR. Use diffuse light or a polarizer and avoid direct flash.",
+  "src": [
+   {
+    "t": "s39674/PCB-Component-Detection",
+    "u": "https://github.com/s39674/PCB-Component-Detection"
+   }
+  ]
+ },
+ {
+  "track": "circuit",
+  "q": "What resolution should board photos be?",
+  "k": "resolution megapixel quality",
+  "a": "Use the highest resolution you can and avoid compression. Small SMD markings need many pixels; tile and stitch large boards rather than shrinking them.",
+  "src": [
+   {
+    "t": "s39674/PCB-Component-Detection",
+    "u": "https://github.com/s39674/PCB-Component-Detection"
+   }
+  ]
+ },
+ {
+  "track": "circuit",
+  "q": "What is YOLO?",
+  "k": "yolo object detection ultralytics",
+  "a": "YOLO is a fast object detection model family. In circuit vision it locates components with bounding boxes. Ultralytics documents training on custom datasets.",
+  "src": [
+   {
+    "t": "Ultralytics YOLO docs",
+    "u": "https://docs.ultralytics.com/"
+   }
+  ]
+ },
+ {
+  "track": "circuit",
+  "q": "How do I train YOLO on my own components?",
+  "k": "train custom dataset yolo labels",
+  "a": "Label images with boxes per class (resistor, capacitor, ...), arrange them in YOLO format with a data YAML, then train with the Ultralytics CLI or Python API. Follow the Ultralytics training guide.",
+  "src": [
+   {
+    "t": "Ultralytics YOLO docs",
+    "u": "https://docs.ultralytics.com/"
+   }
+  ]
+ },
+ {
+  "track": "circuit",
+  "q": "How many images do I need to train a detector?",
+  "k": "dataset size images training",
+  "a": "There's no fixed number; more varied labeled images help. Start with a pretrained model and fine-tune; check validation mAP to see if you need more data.",
+  "src": [
+   {
+    "t": "Ultralytics YOLO docs",
+    "u": "https://docs.ultralytics.com/"
+   }
+  ]
+ },
+ {
+  "track": "circuit",
+  "q": "What is mAP?",
+  "k": "map metric precision recall",
+  "a": "Mean Average Precision: the standard detection accuracy metric combining precision and recall across classes and IoU thresholds. Higher is better.",
+  "src": [
+   {
+    "t": "Ultralytics YOLO docs",
+    "u": "https://docs.ultralytics.com/"
+   }
+  ]
+ },
+ {
+  "track": "circuit",
+  "q": "What is SAM (Segment Anything)?",
+  "k": "sam segment anything segmentation mask",
+  "a": "Meta's Segment Anything Model produces pixel masks for objects from prompts like points or boxes. It can outline parts or traces, but it does not know component classes by itself.",
+  "src": [
+   {
+    "t": "Segment Anything (Meta)",
+    "u": "https://github.com/facebookresearch/segment-anything"
+   }
+  ]
+ },
+ {
+  "track": "circuit",
+  "q": "Detection vs segmentation — which do I need?",
+  "k": "detection segmentation difference",
+  "a": "Detection gives boxes + labels (good for counting/identifying parts). Segmentation gives exact pixel outlines (good for traces, pads, precise shapes). Many pipelines combine both.",
+  "src": [
+   {
+    "t": "Ultralytics YOLO docs",
+    "u": "https://docs.ultralytics.com/"
+   },
+   {
+    "t": "Segment Anything (Meta)",
+    "u": "https://github.com/facebookresearch/segment-anything"
+   }
+  ]
+ },
+ {
+  "track": "circuit",
+  "q": "How do I read part markings with OCR?",
+  "k": "ocr text markings easyocr",
+  "a": "Crop each detected component and run OCR (e.g. EasyOCR) on it. Tiny laser-etched text often needs upscaling, contrast enhancement, and manual checking.",
+  "src": [
+   {
+    "t": "EasyOCR",
+    "u": "https://github.com/JaidedAI/EasyOCR"
+   }
+  ]
+ },
+ {
+  "track": "circuit",
+  "q": "Why does OCR fail on chip markings?",
+  "k": "ocr fail low contrast",
+  "a": "Markings are small, low-contrast, and often rotated. Improve lighting, crop tightly, rotate upright, upscale, and verify manually.",
+  "src": [
+   {
+    "t": "EasyOCR",
+    "u": "https://github.com/JaidedAI/EasyOCR"
+   }
+  ]
+ },
+ {
+  "track": "circuit",
+  "q": "How are wires/connections found in a schematic image?",
+  "k": "wire line tracing connections",
+  "a": "Pipelines remove detected symbols, then trace remaining lines (e.g. with thresholding and line/contour detection) and find junctions to group pins into nets.",
+  "src": [
+   {
+    "t": "s39674/Image2schematic",
+    "u": "https://github.com/s39674/Image2schematic"
+   },
+   {
+    "t": "NYCU-AI-EDA/Netlistify",
+    "u": "https://github.com/NYCU-AI-EDA/Netlistify"
+   }
+  ]
+ },
+ {
+  "track": "circuit",
+  "q": "Can circuit vision recover connections from a PCB photo?",
+  "k": "pcb traces connections multilayer",
+  "a": "Only partially. Top-layer traces are visible, but inner layers and vias under parts are hidden. Expect to verify with a multimeter continuity check or the design files.",
+  "src": [
+   {
+    "t": "s39674/Image2schematic",
+    "u": "https://github.com/s39674/Image2schematic"
+   }
+  ]
+ },
+ {
+  "track": "circuit",
+  "q": "How do I verify a CV-generated netlist?",
+  "k": "verify netlist check",
+  "a": "Compare against the schematic or design files, spot-check nets with a continuity meter, check that every part has the expected pin count, and simulate a simple case.",
+  "src": [
+   {
+    "t": "ngspice docs",
+    "u": "https://ngspice.sourceforge.io/docs.html"
+   },
+   {
+    "t": "NYCU-AI-EDA/Netlistify",
+    "u": "https://github.com/NYCU-AI-EDA/Netlistify"
+   }
+  ]
+ },
+ {
+  "track": "circuit",
+  "q": "Which tool should I use for a quick demo?",
+  "k": "demo quick tool choice",
+  "a": "CircuitVision (Streamlit) is the fastest way to show image → parts → netlist.",
+  "src": [
+   {
+    "t": "JKc66/CircuitVision",
+    "u": "https://github.com/JKc66/CircuitVision"
+   }
+  ]
+ },
+ {
+  "track": "circuit",
+  "q": "Which tool for SPICE-ready output?",
+  "k": "spice output tool choice",
+  "a": "Netlistify targets schematic-to-netlist conversion for simulation.",
+  "src": [
+   {
+    "t": "NYCU-AI-EDA/Netlistify",
+    "u": "https://github.com/NYCU-AI-EDA/Netlistify"
+   }
+  ]
+ },
+ {
+  "track": "circuit",
+  "q": "How do I run a Streamlit app?",
+  "k": "streamlit run python",
+  "a": "Install requirements (pip install -r requirements.txt), then run: streamlit run <app file>.py and open the local URL it prints. Check the repo README for the exact file name.",
+  "src": [
+   {
+    "t": "JKc66/CircuitVision",
+    "u": "https://github.com/JKc66/CircuitVision"
+   }
+  ]
+ },
+ {
+  "track": "circuit",
+  "q": "What is a Python virtual environment and why use one?",
+  "k": "venv virtualenv python setup",
+  "a": "A venv isolates a project's packages: python -m venv .venv, then activate it and pip install. It avoids version conflicts between repos.",
+  "src": [
+   {
+    "t": "JKc66/CircuitVision",
+    "u": "https://github.com/JKc66/CircuitVision"
+   }
+  ]
+ },
+ {
+  "track": "circuit",
+  "q": "Do I need a GPU?",
+  "k": "gpu cuda hardware",
+  "a": "Inference on a few images works on CPU. Training detectors is much faster with an NVIDIA GPU; cloud notebooks are an option.",
+  "src": [
+   {
+    "t": "Ultralytics YOLO docs",
+    "u": "https://docs.ultralytics.com/"
+   }
+  ]
+ },
+ {
+  "track": "circuit",
+  "q": "What is image preprocessing?",
+  "k": "preprocessing grayscale threshold",
+  "a": "Steps like resizing, grayscale, denoising, contrast adjustment, thresholding, and perspective correction that make images easier for models.",
+  "src": [
+   {
+    "t": "s39674/Image2schematic",
+    "u": "https://github.com/s39674/Image2schematic"
+   }
+  ]
+ },
+ {
+  "track": "circuit",
+  "q": "How do I fix a tilted photo?",
+  "k": "perspective warp correction homography",
+  "a": "Apply a perspective transform (homography) using the four board corners, e.g. with OpenCV getPerspectiveTransform + warpPerspective.",
+  "src": [
+   {
+    "t": "s39674/Image2schematic",
+    "u": "https://github.com/s39674/Image2schematic"
+   }
+  ]
+ },
+ {
+  "track": "circuit",
+  "q": "What is a footprint vs symbol?",
+  "k": "footprint symbol layout",
+  "a": "A symbol is the schematic drawing; a footprint is the physical copper pad pattern on the PCB. The same part has both.",
+  "src": [
+   {
+    "t": "JKc66/CircuitVision",
+    "u": "https://github.com/JKc66/CircuitVision"
+   }
+  ]
+ },
+ {
+  "track": "circuit",
+  "q": "What is a via?",
+  "k": "via pcb layer",
+  "a": "A plated hole connecting copper layers. Vias hide connections between layers, which limits photo-based reconstruction.",
+  "src": [
+   {
+    "t": "s39674/Image2schematic",
+    "u": "https://github.com/s39674/Image2schematic"
+   }
+  ]
+ },
+ {
+  "track": "circuit",
+  "q": "What should I include in a CV handoff?",
+  "k": "handoff documentation deliverable",
+  "a": "Original images, board name/revision, which side is which, the detected component list with confidence, open questions, and any manual corrections.",
+  "src": [
+   {
+    "t": "JKc66/CircuitVision",
+    "u": "https://github.com/JKc66/CircuitVision"
+   }
+  ]
+ },
+ {
+  "track": "circuit",
+  "q": "What is labeling/annotation for training?",
+  "k": "label annotation dataset",
+  "a": "Drawing boxes or masks on images and assigning class names so a model can learn. Consistent class definitions matter more than tools.",
+  "src": [
+   {
+    "t": "Ultralytics YOLO docs",
+    "u": "https://docs.ultralytics.com/"
+   }
+  ]
+ },
+ {
+  "track": "circuit",
+  "q": "How do I measure if a model is good enough?",
+  "k": "evaluate validation accuracy",
+  "a": "Hold out a test set of your real boards, check precision/recall per class, and review false detections visually.",
+  "src": [
+   {
+    "t": "Ultralytics YOLO docs",
+    "u": "https://docs.ultralytics.com/"
+   }
+  ]
+ },
+ {
+  "track": "circuit",
+  "q": "What is a confidence threshold?",
+  "k": "confidence threshold detection",
+  "a": "Detections below the threshold are discarded. Raise it for fewer false positives, lower it to miss fewer parts.",
+  "src": [
+   {
+    "t": "Ultralytics YOLO docs",
+    "u": "https://docs.ultralytics.com/"
+   }
+  ]
+ },
+ {
+  "track": "network",
+  "q": "Where do I start learning network automation?",
+  "k": "start beginner network automation",
+  "a": "Begin with NetAutLabs for hands-on labs and CiscoDevNet/netprog_basics for fundamentals, then learn Netmiko, then labs-as-code with Containerlab or netlab.",
+  "src": [
+   {
+    "t": "NetAutLabs",
+    "u": "https://github.com/NetAutLabs/netautlabs"
+   },
+   {
+    "t": "CiscoDevNet/netprog_basics",
+    "u": "https://github.com/CiscoDevNet/netprog_basics"
+   },
+   {
+    "t": "Netmiko docs",
+    "u": "https://ktbyers.github.io/netmiko/"
+   }
+  ]
+ },
+ {
+  "track": "network",
+  "q": "What is SSH?",
+  "k": "ssh secure shell cli",
+  "a": "Secure Shell: encrypted remote CLI access, normally TCP port 22. It's the main way to log into network devices and what Netmiko uses.",
+  "src": [
+   {
+    "t": "Netmiko docs",
+    "u": "https://ktbyers.github.io/netmiko/"
+   }
+  ]
+ },
+ {
+  "track": "network",
+  "q": "How do I enable SSH on a Cisco IOS device?",
+  "k": "enable ssh cisco ios crypto key",
+  "a": "Typical steps: set hostname and ip domain-name, crypto key generate rsa (2048 bits), ip ssh version 2, create a local user, then on line vty 0 4 set transport input ssh and login local. Check your platform's guide.",
+  "src": [
+   {
+    "t": "Cisco DevNet Learning Labs",
+    "u": "https://developer.cisco.com/learning/"
+   }
+  ]
+ },
+ {
+  "track": "network",
+  "q": "Why can't I SSH to a device?",
+  "k": "ssh fail timeout refused troubleshoot",
+  "a": "Check reachability (ping), that port 22 is open/ACLs allow you, SSH is enabled with keys generated, vty lines allow ssh, and credentials are correct. 'Connection refused' usually means SSH not enabled; timeout usually means path/firewall.",
+  "src": [
+   {
+    "t": "Netmiko docs",
+    "u": "https://ktbyers.github.io/netmiko/"
+   }
+  ]
+ },
+ {
+  "track": "network",
+  "q": "What is Netmiko?",
+  "k": "netmiko python ssh library",
+  "a": "A Python library by Kirk Byers that simplifies SSH to many network vendors: connect, send show commands, push config, save.",
+  "src": [
+   {
+    "t": "Netmiko docs",
+    "u": "https://ktbyers.github.io/netmiko/"
+   },
+   {
+    "t": "ktbyers/netmiko",
+    "u": "https://github.com/ktbyers/netmiko"
+   }
+  ]
+ },
+ {
+  "track": "network",
+  "q": "How do I install Netmiko?",
+  "k": "install netmiko pip",
+  "a": "pip install netmiko (ideally inside a virtual environment).",
+  "src": [
+   {
+    "t": "Netmiko docs",
+    "u": "https://ktbyers.github.io/netmiko/"
+   }
+  ]
+ },
+ {
+  "track": "network",
+  "q": "How do I run a show command with Netmiko?",
+  "k": "netmiko send_command show",
+  "a": "Create ConnectHandler(**device) with device_type, host, username, password, then output = conn.send_command('show ip interface brief').",
+  "src": [
+   {
+    "t": "Netmiko docs",
+    "u": "https://ktbyers.github.io/netmiko/"
+   }
+  ]
+ },
+ {
+  "track": "network",
+  "q": "How do I push config with Netmiko?",
+  "k": "netmiko send_config_set config",
+  "a": "Use conn.send_config_set([list of commands]); it enters and exits config mode for you. Then conn.save_config() if needed.",
+  "src": [
+   {
+    "t": "Netmiko docs",
+    "u": "https://ktbyers.github.io/netmiko/"
+   }
+  ]
+ },
+ {
+  "track": "network",
+  "q": "What device_type should I use in Netmiko?",
+  "k": "device_type platform vendor",
+  "a": "It matches the platform, e.g. cisco_ios, cisco_nxos, cisco_xr, arista_eos, juniper_junos. The Netmiko docs/repo list supported platforms.",
+  "src": [
+   {
+    "t": "Netmiko docs",
+    "u": "https://ktbyers.github.io/netmiko/"
+   },
+   {
+    "t": "ktbyers/netmiko",
+    "u": "https://github.com/ktbyers/netmiko"
+   }
+  ]
+ },
+ {
+  "track": "network",
+  "q": "How do I get structured output from Netmiko?",
+  "k": "textfsm parse structured use_textfsm",
+  "a": "Pass use_textfsm=True to send_command to parse output into Python data using TextFSM/ntc-templates when a template exists.",
+  "src": [
+   {
+    "t": "Netmiko docs",
+    "u": "https://ktbyers.github.io/netmiko/"
+   }
+  ]
+ },
+ {
+  "track": "network",
+  "q": "Netmiko times out — what do I do?",
+  "k": "netmiko timeout read_timeout",
+  "a": "Increase read_timeout on send_command for slow commands, check the prompt is detected, and confirm the device_type is correct.",
+  "src": [
+   {
+    "t": "Netmiko docs",
+    "u": "https://ktbyers.github.io/netmiko/"
+   }
+  ]
+ },
+ {
+  "track": "network",
+  "q": "How do I keep passwords out of scripts?",
+  "k": "credentials secrets password env",
+  "a": "Read them from environment variables, getpass, or a vault (e.g. Ansible Vault). Never commit them to Git.",
+  "src": [
+   {
+    "t": "Netmiko docs",
+    "u": "https://ktbyers.github.io/netmiko/"
+   },
+   {
+    "t": "Ansible docs",
+    "u": "https://docs.ansible.com/"
+   }
+  ]
+ },
+ {
+  "track": "network",
+  "q": "What is a VLAN?",
+  "k": "vlan definition layer 2",
+  "a": "A Virtual LAN splits one switch into separate Layer 2 broadcast domains, identified by a VLAN ID (1-4094).",
+  "src": [
+   {
+    "t": "Cisco DevNet Learning Labs",
+    "u": "https://developer.cisco.com/learning/"
+   }
+  ]
+ },
+ {
+  "track": "network",
+  "q": "How do I create a VLAN on Cisco IOS?",
+  "k": "create vlan cisco",
+  "a": "conf t, vlan 10, name USERS, then on an access port: interface Gi0/1, switchport mode access, switchport access vlan 10.",
+  "src": [
+   {
+    "t": "Cisco DevNet Learning Labs",
+    "u": "https://developer.cisco.com/learning/"
+   }
+  ]
+ },
+ {
+  "track": "network",
+  "q": "What is a trunk port?",
+  "k": "trunk 802.1q tagging",
+  "a": "A link that carries multiple VLANs using 802.1Q tags, typically between switches or to a router/firewall.",
+  "src": [
+   {
+    "t": "Cisco DevNet Learning Labs",
+    "u": "https://developer.cisco.com/learning/"
+   }
+  ]
+ },
+ {
+  "track": "network",
+  "q": "Access port vs trunk port?",
+  "k": "access trunk difference",
+  "a": "An access port carries one untagged VLAN for an end device; a trunk carries several tagged VLANs between network devices.",
+  "src": [
+   {
+    "t": "Cisco DevNet Learning Labs",
+    "u": "https://developer.cisco.com/learning/"
+   }
+  ]
+ },
+ {
+  "track": "network",
+  "q": "Devices in the same VLAN can't talk — why?",
+  "k": "vlan troubleshoot connectivity not working broken cannot talk ping fail",
+  "a": "Check both ports are in the same VLAN, the VLAN exists, the trunk allows it, the ports are up, and IP addresses are in the same subnet.",
+  "src": [
+   {
+    "t": "Cisco DevNet Learning Labs",
+    "u": "https://developer.cisco.com/learning/"
+   }
+  ]
+ },
+ {
+  "track": "network",
+  "q": "What is routing?",
+  "k": "routing layer 3 basics",
+  "a": "Forwarding packets between different IP networks based on a routing table. Routes come from connected interfaces, static config, or dynamic protocols like OSPF and BGP.",
+  "src": [
+   {
+    "t": "Cisco DevNet Learning Labs",
+    "u": "https://developer.cisco.com/learning/"
+   }
+  ]
+ },
+ {
+  "track": "network",
+  "q": "How do I add a static route?",
+  "k": "static route ip route",
+  "a": "Cisco IOS: ip route <destination> <mask> <next-hop>, e.g. ip route 10.2.0.0 255.255.0.0 192.168.1.1.",
+  "src": [
+   {
+    "t": "Cisco DevNet Learning Labs",
+    "u": "https://developer.cisco.com/learning/"
+   }
+  ]
+ },
+ {
+  "track": "network",
+  "q": "What is a default route?",
+  "k": "default route 0.0.0.0",
+  "a": "A route matching everything not otherwise known: ip route 0.0.0.0 0.0.0.0 <next-hop>. Commonly points to the internet edge.",
+  "src": [
+   {
+    "t": "Cisco DevNet Learning Labs",
+    "u": "https://developer.cisco.com/learning/"
+   }
+  ]
+ },
+ {
+  "track": "network",
+  "q": "What is OSPF?",
+  "k": "ospf dynamic routing igp",
+  "a": "A link-state interior routing protocol: routers share link info within areas and compute shortest paths. Common in enterprise networks.",
+  "src": [
+   {
+    "t": "Cisco DevNet Learning Labs",
+    "u": "https://developer.cisco.com/learning/"
+   },
+   {
+    "t": "netlab docs",
+    "u": "https://netlab.tools/"
+   }
+  ]
+ },
+ {
+  "track": "network",
+  "q": "What is BGP?",
+  "k": "bgp border gateway",
+  "a": "Border Gateway Protocol exchanges routes between autonomous systems (internet, data centers). It's policy-driven and runs over TCP 179.",
+  "src": [
+   {
+    "t": "netlab docs",
+    "u": "https://netlab.tools/"
+   }
+  ]
+ },
+ {
+  "track": "network",
+  "q": "How do I check the routing table?",
+  "k": "show ip route routing table",
+  "a": "Cisco: show ip route. Look for the route to your destination and its next hop.",
+  "src": [
+   {
+    "t": "Cisco DevNet Learning Labs",
+    "u": "https://developer.cisco.com/learning/"
+   }
+  ]
+ },
+ {
+  "track": "network",
+  "q": "What is a subnet mask?",
+  "k": "subnet mask cidr",
+  "a": "It splits an IP into network and host parts. /24 = 255.255.255.0 = 256 addresses (254 usable hosts).",
+  "src": [
+   {
+    "t": "Cisco DevNet Learning Labs",
+    "u": "https://developer.cisco.com/learning/"
+   }
+  ]
+ },
+ {
+  "track": "network",
+  "q": "How do I troubleshoot connectivity step by step?",
+  "k": "troubleshoot ping traceroute layers",
+  "a": "Go bottom up: link/interface up? correct VLAN? IP/mask/gateway right? ping gateway, then destination; traceroute to see where it stops; check ACLs and routes.",
+  "src": [
+   {
+    "t": "Cisco DevNet Learning Labs",
+    "u": "https://developer.cisco.com/learning/"
+   }
+  ]
+ },
+ {
+  "track": "network",
+  "q": "What does show ip interface brief tell me?",
+  "k": "show ip interface brief status",
+  "a": "Each interface's IP and its status/protocol. up/up is healthy; administratively down means shutdown is configured; up/down often means a Layer 2 problem.",
+  "src": [
+   {
+    "t": "Cisco DevNet Learning Labs",
+    "u": "https://developer.cisco.com/learning/"
+   }
+  ]
+ },
+ {
+  "track": "network",
+  "q": "What is NETCONF?",
+  "k": "netconf xml yang rpc",
+  "a": "An IETF protocol (RFC 6241) to read/change config using XML RPCs, usually over SSH port 830. Supports candidate configs and commit on capable devices.",
+  "src": [
+   {
+    "t": "RFC 6241 NETCONF",
+    "u": "https://datatracker.ietf.org/doc/html/rfc6241"
+   },
+   {
+    "t": "Cisco DevNet Learning Labs",
+    "u": "https://developer.cisco.com/learning/"
+   }
+  ]
+ },
+ {
+  "track": "network",
+  "q": "What is RESTCONF?",
+  "k": "restconf rest http yang",
+  "a": "An HTTP-based protocol (RFC 8040) to access YANG-modeled data with GET/PUT/PATCH/POST/DELETE, using JSON or XML.",
+  "src": [
+   {
+    "t": "RFC 8040 RESTCONF",
+    "u": "https://datatracker.ietf.org/doc/html/rfc8040"
+   },
+   {
+    "t": "Cisco DevNet Learning Labs",
+    "u": "https://developer.cisco.com/learning/"
+   }
+  ]
+ },
+ {
+  "track": "network",
+  "q": "What is YANG?",
+  "k": "yang data model",
+  "a": "A data modeling language describing device configuration and state. NETCONF and RESTCONF use YANG models.",
+  "src": [
+   {
+    "t": "RFC 6241 NETCONF",
+    "u": "https://datatracker.ietf.org/doc/html/rfc6241"
+   },
+   {
+    "t": "RFC 8040 RESTCONF",
+    "u": "https://datatracker.ietf.org/doc/html/rfc8040"
+   }
+  ]
+ },
+ {
+  "track": "network",
+  "q": "NETCONF vs RESTCONF — which should I use?",
+  "k": "netconf restconf compare",
+  "a": "NETCONF has richer transactions (candidate datastore, locking); RESTCONF is simpler for web/REST tooling. Use what your platform supports and your tools prefer.",
+  "src": [
+   {
+    "t": "RFC 6241 NETCONF",
+    "u": "https://datatracker.ietf.org/doc/html/rfc6241"
+   },
+   {
+    "t": "RFC 8040 RESTCONF",
+    "u": "https://datatracker.ietf.org/doc/html/rfc8040"
+   }
+  ]
+ },
+ {
+  "track": "network",
+  "q": "NETCONF/RESTCONF vs CLI scraping?",
+  "k": "api vs cli screen scraping",
+  "a": "APIs return structured data and validate changes; CLI scraping (Netmiko) works everywhere but needs output parsing. Many teams use both.",
+  "src": [
+   {
+    "t": "RFC 6241 NETCONF",
+    "u": "https://datatracker.ietf.org/doc/html/rfc6241"
+   },
+   {
+    "t": "Netmiko docs",
+    "u": "https://ktbyers.github.io/netmiko/"
+   }
+  ]
+ },
+ {
+  "track": "network",
+  "q": "What is Ansible?",
+  "k": "ansible playbook agentless",
+  "a": "An agentless automation tool. You write YAML playbooks that run tasks against an inventory of hosts; for network devices it connects via SSH/APIs.",
+  "src": [
+   {
+    "t": "Ansible docs",
+    "u": "https://docs.ansible.com/"
+   }
+  ]
+ },
+ {
+  "track": "network",
+  "q": "How do I configure Cisco devices with Ansible?",
+  "k": "ansible cisco ios collection",
+  "a": "Use the cisco.ios collection (e.g. cisco.ios.ios_config, ios_vlans) with ansible_connection: ansible.netcommon.network_cli and ansible_network_os: cisco.ios.ios.",
+  "src": [
+   {
+    "t": "Ansible cisco.ios collection",
+    "u": "https://docs.ansible.com/ansible/latest/collections/cisco/ios/index.html"
+   }
+  ]
+ },
+ {
+  "track": "network",
+  "q": "What is an Ansible inventory?",
+  "k": "inventory hosts groups",
+  "a": "A file listing hosts and groups (INI or YAML) plus variables like connection type and OS.",
+  "src": [
+   {
+    "t": "Ansible docs",
+    "u": "https://docs.ansible.com/"
+   }
+  ]
+ },
+ {
+  "track": "network",
+  "q": "What is an Ansible role?",
+  "k": "role structure reuse",
+  "a": "A reusable bundle of tasks, templates, variables, and handlers with a standard folder layout, so playbooks stay short.",
+  "src": [
+   {
+    "t": "Ansible docs",
+    "u": "https://docs.ansible.com/"
+   }
+  ]
+ },
+ {
+  "track": "network",
+  "q": "How do I do a dry run in Ansible?",
+  "k": "check mode dry run diff",
+  "a": "Run ansible-playbook with --check (and --diff to see changes). Not every module supports check mode.",
+  "src": [
+   {
+    "t": "Ansible docs",
+    "u": "https://docs.ansible.com/"
+   }
+  ]
+ },
+ {
+  "track": "network",
+  "q": "What is Ansible Vault?",
+  "k": "vault encrypt secrets",
+  "a": "It encrypts sensitive variables/files: ansible-vault create secrets.yml; run playbooks with --ask-vault-pass.",
+  "src": [
+   {
+    "t": "Ansible docs",
+    "u": "https://docs.ansible.com/"
+   }
+  ]
+ },
+ {
+  "track": "network",
+  "q": "What is Nornir?",
+  "k": "nornir python framework",
+  "a": "A Python automation framework: inventory plus concurrent task execution, using plugins like Netmiko or NAPALM. It's Ansible-like but pure Python.",
+  "src": [
+   {
+    "t": "Nornir docs",
+    "u": "https://nornir.readthedocs.io/"
+   }
+  ]
+ },
+ {
+  "track": "network",
+  "q": "Nornir vs Ansible?",
+  "k": "nornir ansible compare",
+  "a": "Ansible uses YAML playbooks and is easy to share; Nornir is Python code, faster and more flexible for developers. Pick based on your team's skills.",
+  "src": [
+   {
+    "t": "Nornir docs",
+    "u": "https://nornir.readthedocs.io/"
+   },
+   {
+    "t": "Ansible docs",
+    "u": "https://docs.ansible.com/"
+   }
+  ]
+ },
+ {
+  "track": "network",
+  "q": "What is NAPALM?",
+  "k": "napalm multivendor getters",
+  "a": "A Python library with a vendor-neutral API for getting facts and replacing/merging config, with compare_config and rollback on supported drivers.",
+  "src": [
+   {
+    "t": "NAPALM docs",
+    "u": "https://napalm.readthedocs.io/"
+   }
+  ]
+ },
+ {
+  "track": "network",
+  "q": "What is Containerlab?",
+  "k": "containerlab lab docker topology",
+  "a": "A tool to build network labs from a YAML topology file using container-based network OSs. clab deploy -t file.clab.yml starts it.",
+  "src": [
+   {
+    "t": "Containerlab docs",
+    "u": "https://containerlab.dev/"
+   }
+  ]
+ },
+ {
+  "track": "network",
+  "q": "How do I start a Containerlab topology?",
+  "k": "containerlab deploy destroy",
+  "a": "sudo containerlab deploy -t mylab.clab.yml; inspect with containerlab inspect; remove with containerlab destroy -t mylab.clab.yml.",
+  "src": [
+   {
+    "t": "Containerlab docs",
+    "u": "https://containerlab.dev/"
+   }
+  ]
+ },
+ {
+  "track": "network",
+  "q": "What is netlab?",
+  "k": "netlab ipspace lab",
+  "a": "A tool by ipSpace that builds labs from a high-level topology and also configures routing protocols for you, using Containerlab or libvirt as providers.",
+  "src": [
+   {
+    "t": "netlab docs",
+    "u": "https://netlab.tools/"
+   }
+  ]
+ },
+ {
+  "track": "network",
+  "q": "Containerlab vs netlab?",
+  "k": "containerlab netlab compare",
+  "a": "Containerlab deploys nodes and links; netlab sits on top, generating topology plus device configs (addressing, OSPF, BGP...). Use netlab for quick protocol labs.",
+  "src": [
+   {
+    "t": "Containerlab docs",
+    "u": "https://containerlab.dev/"
+   },
+   {
+    "t": "netlab docs",
+    "u": "https://netlab.tools/"
+   }
+  ]
+ },
+ {
+  "track": "network",
+  "q": "What is topology-as-code?",
+  "k": "topology as code lab git",
+  "a": "Describing your lab in a version-controlled file (YAML) so it can be rebuilt identically any time. Containerlab and netlab do this.",
+  "src": [
+   {
+    "t": "Containerlab docs",
+    "u": "https://containerlab.dev/"
+   },
+   {
+    "t": "netlab docs",
+    "u": "https://netlab.tools/"
+   }
+  ]
+ },
+ {
+  "track": "network",
+  "q": "Where can I practice on real Cisco gear for free?",
+  "k": "sandbox practice cisco free",
+  "a": "Cisco DevNet Sandboxes and Learning Labs provide free lab environments.",
+  "src": [
+   {
+    "t": "Cisco DevNet Learning Labs",
+    "u": "https://developer.cisco.com/learning/"
+   }
+  ]
+ },
+ {
+  "track": "network",
+  "q": "How do I back up a device config?",
+  "k": "backup config running",
+  "a": "Save show running-config to a dated file (Netmiko, Ansible, or a tool like Oxidized/RANCID), ideally committed to Git.",
+  "src": [
+   {
+    "t": "Netmiko docs",
+    "u": "https://ktbyers.github.io/netmiko/"
+   },
+   {
+    "t": "Ansible docs",
+    "u": "https://docs.ansible.com/"
+   }
+  ]
+ },
+ {
+  "track": "network",
+  "q": "How do I roll back a bad change?",
+  "k": "rollback revert config",
+  "a": "Options: re-apply the backup, use configure replace (Cisco IOS archive), commit confirmed / rollback on Junos/IOS-XR, or NAPALM rollback. Plan the rollback before the change.",
+  "src": [
+   {
+    "t": "NAPALM docs",
+    "u": "https://napalm.readthedocs.io/"
+   }
+  ]
+ },
+ {
+  "track": "network",
+  "q": "What is commit confirmed?",
+  "k": "commit confirmed rollback timer",
+  "a": "On Junos/IOS-XR, a commit that rolls back automatically unless you confirm within a timer, protecting you from locking yourself out.",
+  "src": [
+   {
+    "t": "RFC 6241 NETCONF",
+    "u": "https://datatracker.ietf.org/doc/html/rfc6241"
+   }
+  ]
+ },
+ {
+  "track": "network",
+  "q": "What should a change checklist include?",
+  "k": "change management checklist",
+  "a": "Approval/window, backup, pre-checks, the exact commands, lab test, post-checks, rollback plan, and ticket notes. See the Config change checklist on the Networks page.",
+  "src": [
+   {
+    "t": "NetAutLabs",
+    "u": "https://github.com/NetAutLabs/netautlabs"
+   }
+  ]
+ },
+ {
+  "track": "network",
+  "q": "Running-config vs startup-config?",
+  "k": "running startup save",
+  "a": "running-config is live in memory; startup-config loads at boot. Save with copy running-config startup-config (or write memory) or changes are lost on reload.",
+  "src": [
+   {
+    "t": "Cisco DevNet Learning Labs",
+    "u": "https://developer.cisco.com/learning/"
+   }
+  ]
+ },
+ {
+  "track": "network",
+  "q": "How do I avoid locking myself out?",
+  "k": "lockout safe change",
+  "a": "Use commit confirmed or 'reload in 10' before risky changes, keep console/out-of-band access, and apply ACLs carefully.",
+  "src": [
+   {
+    "t": "Cisco DevNet Learning Labs",
+    "u": "https://developer.cisco.com/learning/"
+   }
+  ]
+ },
+ {
+  "track": "network",
+  "q": "How do I store configs in Git?",
+  "k": "git version control configs",
+  "a": "Back up configs to a repo on a schedule, commit with timestamps, and use diffs to see what changed.",
+  "src": [
+   {
+    "t": "awesome-network-automation",
+    "u": "https://github.com/networktocode/awesome-network-automation"
+   }
+  ]
+ },
+ {
+  "track": "network",
+  "q": "What is idempotency?",
+  "k": "idempotent automation",
+  "a": "Running the same automation twice gives the same result without extra changes. Ansible resource modules aim for this.",
+  "src": [
+   {
+    "t": "Ansible docs",
+    "u": "https://docs.ansible.com/"
+   }
+  ]
+ },
+ {
+  "track": "network",
+  "q": "What is Jinja2 templating?",
+  "k": "jinja2 template config generation",
+  "a": "A template language used to generate configs from variables, e.g. {{ hostname }}. Ansible and many Python tools use it.",
+  "src": [
+   {
+    "t": "Ansible docs",
+    "u": "https://docs.ansible.com/"
+   }
+  ]
+ },
+ {
+  "track": "network",
+  "q": "What is TextFSM?",
+  "k": "textfsm parsing",
+  "a": "A template-based parser that turns CLI output into tables; ntc-templates provides many ready-made templates.",
+  "src": [
+   {
+    "t": "Netmiko docs",
+    "u": "https://ktbyers.github.io/netmiko/"
+   }
+  ]
+ },
+ {
+  "track": "network",
+  "q": "Where can I find more network automation tools?",
+  "k": "tools list resources",
+  "a": "The networktocode awesome-network-automation list collects tools, books, and communities.",
+  "src": [
+   {
+    "t": "awesome-network-automation",
+    "u": "https://github.com/networktocode/awesome-network-automation"
+   }
+  ]
+ },
+ {
+  "track": "network",
+  "q": "What is SNMP?",
+  "k": "snmp monitoring",
+  "a": "Simple Network Management Protocol polls device counters/status and sends traps. Use SNMPv3 for authentication and encryption.",
+  "src": [
+   {
+    "t": "awesome-network-automation",
+    "u": "https://github.com/networktocode/awesome-network-automation"
+   }
+  ]
+ },
+ {
+  "track": "network",
+  "q": "What is streaming telemetry / gNMI?",
+  "k": "gnmi telemetry streaming",
+  "a": "Devices push structured data continuously (often via gNMI over gRPC) instead of being polled, for faster monitoring.",
+  "src": [
+   {
+    "t": "awesome-network-automation",
+    "u": "https://github.com/networktocode/awesome-network-automation"
+   }
+  ]
+ },
+ {
+  "track": "network",
+  "q": "What is an ACL?",
+  "k": "acl access control list",
+  "a": "An ordered list of permit/deny rules on packets. It ends with an implicit deny, so order and a final permit matter.",
+  "src": [
+   {
+    "t": "Cisco DevNet Learning Labs",
+    "u": "https://developer.cisco.com/learning/"
+   }
+  ]
+ },
+ {
+  "track": "network",
+  "q": "How do I test automation safely?",
+  "k": "test lab safe",
+  "a": "Run against a Containerlab/netlab copy or a DevNet sandbox first, use check/dry-run modes, then a small pilot group.",
+  "src": [
+   {
+    "t": "Containerlab docs",
+    "u": "https://containerlab.dev/"
+   },
+   {
+    "t": "Cisco DevNet Learning Labs",
+    "u": "https://developer.cisco.com/learning/"
+   }
+  ]
+ },
+ {
+  "track": "network",
+  "q": "What is Python's role in network automation?",
+  "k": "python learn",
+  "a": "Python drives most libraries (Netmiko, NAPALM, Nornir). Learn basics: variables, lists/dicts, loops, functions, files, and JSON.",
+  "src": [
+   {
+    "t": "CiscoDevNet/netprog_basics",
+    "u": "https://github.com/CiscoDevNet/netprog_basics"
+   }
+  ]
+ },
+ {
+  "track": "network",
+  "q": "How do I call a REST API from Python?",
+  "k": "requests python api",
+  "a": "Use the requests library: requests.get(url, auth=..., headers={'Accept':'application/yang-data+json'}, verify=...). Check status_code then .json().",
+  "src": [
+   {
+    "t": "RFC 8040 RESTCONF",
+    "u": "https://datatracker.ietf.org/doc/html/rfc8040"
+   },
+   {
+    "t": "CiscoDevNet/netprog_basics",
+    "u": "https://github.com/CiscoDevNet/netprog_basics"
+   }
+  ]
+ },
+ {
+  "track": "network",
+  "q": "What port does NETCONF use?",
+  "k": "netconf port 830",
+  "a": "NETCONF over SSH uses TCP port 830 by default.",
+  "src": [
+   {
+    "t": "RFC 6241 NETCONF",
+    "u": "https://datatracker.ietf.org/doc/html/rfc6241"
+   }
+  ]
+ }
+]

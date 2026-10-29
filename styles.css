@@ -628,3 +628,19 @@ main {
   .header-inner { position: relative; }
   .subnav { top: var(--header-h); }
 }
+
+/* Ask */
+.ask-box { display: flex; gap: 0.5rem; margin: 0.5rem 0 0.75rem; }
+.ask-box input { flex: 1; min-width: 0; padding: 0.85rem 1rem; border-radius: 12px; border: 2px solid var(--border); background: var(--bg-elevated); color: var(--text); font-size: 1rem; font-family: inherit; }
+.ask-box input:focus { outline: none; border-color: var(--accent); }
+.ask-chips { display: flex; flex-wrap: wrap; gap: 0.4rem; margin-bottom: 1rem; }
+.ask-chips .chip { font-weight: 500; }
+.answer-card { background: var(--bg-elevated); border: 1px solid var(--border); border-radius: var(--radius); padding: 1.1rem 1.25rem; margin: 0.9rem 0; box-shadow: var(--shadow); }
+.answer-card.top { border-left: 4px solid var(--accent); }
+.answer-card h3 { margin: 0.3rem 0 0.5rem; font-size: 1.1rem; }
+.answer-card p { margin: 0 0 0.6rem; }
+.answer-card .srcs { font-size: 0.88rem; color: var(--text-muted); }
+.answer-card .srcs a { margin-right: 0.75rem; }
+.answer-meta { font-size: 0.75rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.04em; color: var(--text-muted); }
+.related-title { margin: 1.25rem 0 0; font-size: 1rem; color: var(--text-muted); }
+@media (max-width: 520px) { .ask-box { flex-direction: column; } }

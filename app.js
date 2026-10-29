@@ -1,7 +1,7 @@
 (function () {
   "use strict";
 
-  const VIEWS = ["home", "circuit", "network", "resources"];
+  const VIEWS = ["home", "circuit", "network", "ask", "resources"];
 
   /* ---------- Theme ---------- */
   const themeToggle = document.getElementById("themeToggle");
