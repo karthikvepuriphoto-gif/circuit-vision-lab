@@ -3,8 +3,8 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <meta name="description" content="Job-ready dual-track lab: Circuit Vision (electronics CV) and Network Config & Management. Curated repos, quizzes, and checklists." />
-  <title>Circuit Vision Lab · Job Learning Portal</title>
+  <meta name="description" content="NetOps Starter: Circuits &amp; Networks — an independent study aid for carrier circuits, OSS inventory, and network engineering: glossary, checklists, subnet calculator, show commands, troubleshooting flowcharts, drills." />
+  <title>NetOps Starter: Circuits &amp; Networks</title>
   <link rel="stylesheet" href="styles.css" />
   <link rel="stylesheet" href="extras.css" />
   <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>⚡</text></svg>" />
@@ -17,15 +17,16 @@
       <a class="brand" href="#home" data-nav="home">
         <span class="brand-mark" aria-hidden="true">⚡</span>
         <span>
-          <strong>Circuit Vision Lab</strong>
-          <small>Job learning portal</small>
+          <strong>NetOps Starter</strong>
+          <small>Circuits &amp; Networks</small>
         </span>
       </a>
       <button type="button" class="nav-toggle" id="navToggle" aria-expanded="false" aria-controls="siteNav" aria-label="Open menu">☰</button>
       <nav class="site-nav" id="siteNav" aria-label="Primary">
         <a href="#home" data-nav="home">Home</a>
-        <a href="#circuit" data-nav="circuit">Circuit Vision</a>
+        <a href="#circuits">Circuits &amp; OSS</a>
         <a href="#network" data-nav="network">Networks</a>
+        <a href="#toolkit">Toolkit</a>
         <a href="#ask" data-nav="ask">Ask</a>
         <a href="#resources" data-nav="resources">All resources</a>
         <button type="button" class="theme-btn" id="themeToggle" aria-label="Toggle dark mode" title="Toggle theme">◐</button>
@@ -38,11 +39,12 @@
     <section id="home" class="view active" aria-labelledby="home-title">
       <div class="hero">
         <p class="eyebrow">On-the-job resource · No signup</p>
-        <h1 id="home-title">Learn circuit vision &amp; network automation for work</h1>
-        <p class="lede">Two practical tracks you can use at your desk: recognize boards and schematics from images, and configure/manage networks with industry tools. Start with a short path, then use the job aids when you need them.</p>
+        <h1 id="home-title">Circuits &amp; networks, on the job</h1>
+        <p class="lede">Carrier circuits and OSS inventory basics (circuit IDs, LOA/CFA, turn-up testing, tickets) plus network job aids: subnet calculator, show-command cheat sheets, troubleshooting flowcharts, change checklists, config drills, and a learning path from SSH to automation (Netmiko, Ansible, Nornir).</p>
         <div class="hero-actions">
-          <a class="btn primary" href="#circuit" data-nav="circuit">Track A · Circuit Vision</a>
-          <a class="btn secondary" href="#network" data-nav="network">Track B · Networks</a>
+          <a class="btn primary" href="#circuits">Circuits &amp; OSS 101</a>
+          <a class="btn secondary" href="#network" data-nav="network">Networks track</a>
+          <a class="btn secondary" href="#toolkit">Open the Network toolkit</a>
         </div>
       </div>
 
@@ -54,19 +56,19 @@
       <div class="ask-chips" data-chips></div>
       <div class="track-cards">
         <article class="track-card circuit">
-          <div class="track-badge">Track A</div>
-          <h2>Circuit Vision</h2>
-          <p>Turn PCB photos and schematics into component lists and netlists. Build intuition for parts, capture quality, SPICE terms, and which open-source tools fit which job.</p>
+          <div class="track-badge">Main track</div>
+          <h2>Circuits &amp; OSS 101</h2>
+          <p>How carrier circuits are ordered, designed, assigned, turned up, tested and tracked in inventory/OSS tools such as CircuitVision.</p>
           <ul class="card-list">
-            <li>Curated learning repos</li>
-            <li>Component ID quiz</li>
-            <li>Photo &amp; handoff checklists</li>
-            <li>Tool decision guide</li>
+            <li>Glossary &amp; circuit ID explainer</li>
+            <li>Lifecycle flowchart &amp; service types</li>
+            <li>Turn-up and LOA/CFA checklists</li>
+            <li>Carrier ticket template &amp; 30-60-90 plan</li>
           </ul>
-          <a class="btn primary" href="#circuit" data-nav="circuit">Start Circuit Vision →</a>
+          <a class="btn primary" href="#circuits">Open Circuits &amp; OSS →</a>
         </article>
         <article class="track-card network">
-          <div class="track-badge">Track B</div>
+          <div class="track-badge">Main track</div>
           <h2>Network Config &amp; Management</h2>
           <p>From first SSH session to topology-as-code. Labs, Netmiko, Containerlab, and change-control checklists you can use on real tickets.</p>
           <ul class="card-list">
@@ -82,7 +84,7 @@
       <div class="panel start-here">
         <h2>Start here (on the job)</h2>
         <ol class="steps">
-          <li><strong>Pick a track</strong> that matches today’s work (board photo vs. device config).</li>
+          <li><strong>Keep the Toolkit handy</strong> — subnet calculator, show commands, flowcharts and the pre/post change checklist.</li>
           <li><strong>Follow the learning path</strong> — open the linked repos in order; don’t try to master everything at once.</li>
           <li><strong>Use the job aids</strong> as living checklists while you work (quiz, photo checklist, change control).</li>
           <li><strong>Search resources</strong> when you need a specific tool or concept.</li>
@@ -94,7 +96,7 @@
     <!-- CIRCUIT VISION -->
     <section id="circuit" class="view" aria-labelledby="circuit-title" hidden>
       <header class="view-header">
-        <p class="eyebrow">Track A · Electronics</p>
+        <p class="eyebrow">Optional · Electronics</p>
         <h1 id="circuit-title">Circuit Vision</h1>
         <p class="lede">Circuit vision means using computer vision / ML (or structured pipelines) to go from a <em>photo or drawing of a circuit</em> to something engineers can use: component IDs, connections, a netlist, or a SPICE simulation input.</p>
       </header>
@@ -176,7 +178,7 @@
     <!-- NETWORK -->
     <section id="network" class="view" aria-labelledby="network-title" hidden>
       <header class="view-header">
-        <p class="eyebrow">Track B · Infrastructure</p>
+        <p class="eyebrow">Main track · Infrastructure</p>
         <h1 id="network-title">Network Config &amp; Management</h1>
         <p class="lede">Learn to connect safely to devices, change configs with backups and rollback plans, then automate with Python (Netmiko), labs (NetAutLabs, Containerlab, netlab), and Cisco DevNet materials.</p>
       </header>
@@ -344,7 +346,7 @@ with ConnectHandler(**device) as conn:
       <header class="view-header">
         <p class="eyebrow">Q&amp;A · works offline in your browser</p>
         <h1 id="ask-title">Ask a question</h1>
-        <p class="lede">Type a question about circuit vision or network config. It matches against a curated knowledge base and shows the best answer plus related ones, with sources.</p>
+        <p class="lede">Type a question about circuits, carriers, OSS or network config. It matches against a curated knowledge base and shows the best answer plus related ones, with sources.</p>
       </header>
       <form class="ask-box" data-ask-form role="search">
         <label class="sr-only" for="askInput">Ask a question</label>
@@ -353,7 +355,17 @@ with ConnectHandler(**device) as conn:
       </form>
       <div class="ask-chips" data-chips></div>
       <div id="askResults" aria-live="polite"></div>
-      <p class="hint">Answers come from a curated list, not a live AI. Always confirm against vendor docs before production changes.</p>
+      <div class="panel elsewhere" id="askElsewhere">
+        <h2>Search elsewhere</h2>
+        <p class="hint">Opens a new tab with your question as a scoped search. Nothing is sent from this site itself.</p>
+        <div class="hero-actions" id="elsewhereBtns"></div>
+        <details><summary>Add my company's internal wiki search</summary>
+          <p>Paste your wiki's search URL with <code>{q}</code> where the query goes, e.g. <code>https://wiki.example.com/search?q={q}</code>. Saved only in this browser.</p>
+          <form id="wikiForm" class="subnet-form"><label class="sr-only" for="wikiUrl">Wiki search URL</label><input id="wikiUrl" type="url" placeholder="https://wiki.example.com/search?q={q}" autocomplete="off" /><button class="btn secondary" type="submit">Save</button><button class="btn ghost" type="button" id="wikiClear">Remove</button></form>
+          <p class="quiz-feedback" id="wikiMsg" role="status"></p>
+        </details>
+      </div>
+      <p class="hint">Don't type customer circuit IDs or internal data into public searches. Answers here come from a curated list, not a live AI. Always confirm against vendor docs before production changes.</p>
     </section>
 
     <!-- RESOURCES -->
@@ -368,7 +380,7 @@ with ConnectHandler(**device) as conn:
         <input type="search" id="resourceSearch" placeholder="Search repos, tools, topics…" autocomplete="off" />
         <div class="filter-chips" role="group" aria-label="Filter by track">
           <button type="button" class="chip active" data-filter="all">All</button>
-          <button type="button" class="chip" data-filter="circuit">Circuit Vision</button>
+          <button type="button" class="chip" data-filter="oss">Circuits &amp; OSS</button>
           <button type="button" class="chip" data-filter="network">Networks</button>
         </div>
       </div>
@@ -378,11 +390,13 @@ with ConnectHandler(**device) as conn:
   </main>
 
   <footer class="site-footer">
-    <p>Prepared for learning · Circuit Vision lab</p>
-    <p class="footer-meta">Static job aid · No accounts · Links go to public GitHub / Cisco DevNet</p>
+    <p>NetOps Starter: Circuits &amp; Networks</p>
+    <p class="footer-meta">Independent study aid — not affiliated with CircuitVision or any carrier. Don't paste customer circuit IDs or internal data here. No accounts; progress stays in your browser.</p>
   </footer>
 
   <script src="extras.js"></script>
+  <script src="netaids.js"></script>
+  <script src="oss.js"></script>
   <script src="app.js"></script>
   <script src="ask-engine.js"></script>
   <script src="ask.js"></script>

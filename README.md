@@ -1,37 +1,13 @@
-# Circuit Vision Lab
+# NetOps Starter: Circuits & Networks
 
-Job-ready dual-track learning portal for:
+Independent study aid for a network engineer working with carrier circuits and telecom OSS/inventory tools (e.g. CircuitVision cvNetwork/cvFiber/cvTicket). **Not affiliated with CircuitVision or any carrier.** Don't paste customer circuit IDs or internal data into the site.
 
-- **Track A — Circuit Vision** (electronics CV: PCB/schematic from images)
-- **Track B — Network Config & Management** (labs, Netmiko, topology-as-code)
+Live: https://karthikvepuriphoto-gif.github.io/circuit-vision-lab/ (repo name kept for the URL)
 
-Static site · no signup · works on GitHub Pages.
+## What's inside (static, no backend; progress in localStorage)
+- **Circuits & OSS 101** (`oss.js`): glossary, circuit ID explainer (fictional examples), lifecycle flowchart, service-type table, turn-up and LOA/CFA checklists, carrier ticket template, NetBox circuit-tracing walkthrough, unofficial CircuitVision module overview, 30-60-90 plan.
+- **Networks track + Toolkit** (`netaids.js`): subnet/CIDR calculator, show-command sheets (IOS, NX-OS, Junos), VLAN/OSPF/BGP troubleshooting flowcharts, pre/post change checklist.
+- **Drills, templates, progress** (`extras.js`): spot-the-wrong-config (15 cases), flashcards, job templates, My progress with JSON export/import, print one-pagers.
+- **Ask** (`ask.js`, `ask-engine.js`, `kb.json` built by `build_kb.py`): offline Q&A over ~157 entries plus "search elsewhere" buttons and an optional company-wiki search URL (stored only in the browser).
 
-## Live site
-
-https://karthikvepuriphoto-gif.github.io/circuit-vision-lab/
-
-## Local preview
-
-Open `index.html` in a browser, or:
-
-```bash
-python3 -m http.server 8080
-```
-
-## Contents
-
-- Curated learning paths with links to public GitHub / DevNet resources
-- Component ID quiz, photo & config-change checklists
-- SPICE/netlist glossary, tool decision guide
-- Netmiko cheat sheet & protocol reference
-- Searchable resource directory
-
-Prepared for learning · Circuit Vision lab
-
-## Extras (drills, practice, templates, progress, playground)
-- `extras.js` / `extras.css` add: Drills (netlist quiz, spot-the-wrong-config, flashcards),
-  Practice sets (`assets/practice/*.svg`, original drawings with answer keys),
-  Job templates (copy / download / print), Playground info page, My progress
-  (localStorage, bookmark stars, JSON export/import), and Print / Save as PDF one-pagers.
-- `playground/` — self-host instructions for the CircuitVision Streamlit app (Docker / free Hugging Face Space).
+Note: the GitHub project JKc66/CircuitVision (electronics schematic recognition) is unrelated; the earlier electronics track was retired.

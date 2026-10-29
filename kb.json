@@ -1,645 +1,5 @@
 [
  {
-  "track": "circuit",
-  "q": "What is circuit vision?",
-  "k": "definition overview image schematic pcb",
-  "a": "Using computer vision to turn a photo or drawing of a circuit (schematic or PCB) into structured data: detected components, connections, a netlist, or SPICE input.",
-  "src": [
-   {
-    "t": "JKc66/CircuitVision",
-    "u": "https://github.com/JKc66/CircuitVision"
-   },
-   {
-    "t": "s39674/Image2schematic",
-    "u": "https://github.com/s39674/Image2schematic"
-   }
-  ]
- },
- {
-  "track": "circuit",
-  "q": "Where should I start learning circuit vision?",
-  "k": "beginner start first",
-  "a": "Start with JKc66/CircuitVision (upload an image, see detected parts and a netlist), then study Image2schematic for the full pipeline, then the PCB detection repos, and Netlistify for SPICE-quality output.",
-  "src": [
-   {
-    "t": "JKc66/CircuitVision",
-    "u": "https://github.com/JKc66/CircuitVision"
-   },
-   {
-    "t": "s39674/Image2schematic",
-    "u": "https://github.com/s39674/Image2schematic"
-   },
-   {
-    "t": "NYCU-AI-EDA/Netlistify",
-    "u": "https://github.com/NYCU-AI-EDA/Netlistify"
-   }
-  ]
- },
- {
-  "track": "circuit",
-  "q": "What does JKc66/CircuitVision do?",
-  "k": "circuitvision streamlit app",
-  "a": "It is a Streamlit app: you upload a circuit image, it detects components and builds a netlist. Good for a quick hands-on demo. Check its README for install steps.",
-  "src": [
-   {
-    "t": "JKc66/CircuitVision",
-    "u": "https://github.com/JKc66/CircuitVision"
-   }
-  ]
- },
- {
-  "track": "circuit",
-  "q": "What is Netlistify?",
-  "k": "netlistify spice schematic",
-  "a": "A research project from NYCU AI-EDA that converts schematic images into netlists/SPICE. Use it when you need simulation-oriented output. See the repo README for models and setup.",
-  "src": [
-   {
-    "t": "NYCU-AI-EDA/Netlistify",
-    "u": "https://github.com/NYCU-AI-EDA/Netlistify"
-   }
-  ]
- },
- {
-  "track": "circuit",
-  "q": "What is Image2schematic?",
-  "k": "pcb photo schematic pipeline",
-  "a": "A project that goes from a PCB photo toward a schematic, showing the steps: preprocessing, component detection, and trace/connection reconstruction.",
-  "src": [
-   {
-    "t": "s39674/Image2schematic",
-    "u": "https://github.com/s39674/Image2schematic"
-   }
-  ]
- },
- {
-  "track": "circuit",
-  "q": "Which repo detects components on a PCB photo?",
-  "k": "pcb detection components board",
-  "a": "Look at s39674/PCB-Component-Detection and SanderGi/PCB-Detection. Try both on your own board photos and compare.",
-  "src": [
-   {
-    "t": "s39674/PCB-Component-Detection",
-    "u": "https://github.com/s39674/PCB-Component-Detection"
-   },
-   {
-    "t": "SanderGi/PCB-Detection",
-    "u": "https://github.com/SanderGi/PCB-Detection"
-   }
-  ]
- },
- {
-  "track": "circuit",
-  "q": "Schematic image vs PCB photo — what's the difference for CV?",
-  "k": "schematic pcb difference",
-  "a": "A schematic is a clean line drawing of symbols and wires, so symbol detection plus line tracing works well. A PCB photo has real parts, shadows, traces on several layers, and hidden vias, so it is much harder and often incomplete.",
-  "src": [
-   {
-    "t": "s39674/Image2schematic",
-    "u": "https://github.com/s39674/Image2schematic"
-   },
-   {
-    "t": "JKc66/CircuitVision",
-    "u": "https://github.com/JKc66/CircuitVision"
-   }
-  ]
- },
- {
-  "track": "circuit",
-  "q": "What is a netlist?",
-  "k": "netlist definition nets nodes",
-  "a": "A text list of the components and the nets (electrical nodes) that each pin connects to. It is what simulators and layout tools consume.",
-  "src": [
-   {
-    "t": "ngspice docs",
-    "u": "https://ngspice.sourceforge.io/docs.html"
-   },
-   {
-    "t": "NYCU-AI-EDA/Netlistify",
-    "u": "https://github.com/NYCU-AI-EDA/Netlistify"
-   }
-  ]
- },
- {
-  "track": "circuit",
-  "q": "What is SPICE?",
-  "k": "spice simulator simulation",
-  "a": "SPICE is a circuit simulator family. You feed it a netlist with component values and models, and it computes voltages and currents (DC, AC, transient). ngspice is a free open-source version.",
-  "src": [
-   {
-    "t": "ngspice docs",
-    "u": "https://ngspice.sourceforge.io/docs.html"
-   }
-  ]
- },
- {
-  "track": "circuit",
-  "q": "How do I simulate a netlist?",
-  "k": "simulate ngspice run",
-  "a": "Install ngspice, save the netlist as a .cir/.sp file with an analysis line (e.g. .tran or .op) and .end, then run: ngspice file.cir. See the ngspice manual for analysis commands.",
-  "src": [
-   {
-    "t": "ngspice docs",
-    "u": "https://ngspice.sourceforge.io/docs.html"
-   }
-  ]
- },
- {
-  "track": "circuit",
-  "q": "What does a SPICE resistor line look like?",
-  "k": "spice syntax resistor line",
-  "a": "Format: R<name> <node1> <node2> <value>, e.g. R1 in out 10k. Capacitors start with C, inductors with L, diodes with D, voltage sources with V.",
-  "src": [
-   {
-    "t": "ngspice docs",
-    "u": "https://ngspice.sourceforge.io/docs.html"
-   }
-  ]
- },
- {
-  "track": "circuit",
-  "q": "What is node 0 in SPICE?",
-  "k": "ground node 0 gnd",
-  "a": "Node 0 is ground, the reference for every voltage. Every SPICE circuit needs a path to node 0.",
-  "src": [
-   {
-    "t": "ngspice docs",
-    "u": "https://ngspice.sourceforge.io/docs.html"
-   }
-  ]
- },
- {
-  "track": "circuit",
-  "q": "What is a .model statement?",
-  "k": "model spice diode transistor",
-  "a": "It defines parameters for semiconductor devices (diodes, transistors), e.g. .model D1N4148 D(...). Without a correct model, simulation of active parts is not meaningful.",
-  "src": [
-   {
-    "t": "ngspice docs",
-    "u": "https://ngspice.sourceforge.io/docs.html"
-   }
-  ]
- },
- {
-  "track": "circuit",
-  "q": "What is a BOM?",
-  "k": "bill of materials bom",
-  "a": "Bill of Materials: the list of part types, values, packages, and quantities. Detected components can be grouped into a BOM after CV.",
-  "src": [
-   {
-    "t": "JKc66/CircuitVision",
-    "u": "https://github.com/JKc66/CircuitVision"
-   }
-  ]
- },
- {
-  "track": "circuit",
-  "q": "What are reference designators?",
-  "k": "designator r1 c1 u1 annotation",
-  "a": "Labels like R1, C3, U2, Q1, D4. The letter tells the part type: R resistor, C capacitor, L inductor, D diode, Q transistor, U IC, J connector, Y crystal, F fuse.",
-  "src": [
-   {
-    "t": "JKc66/CircuitVision",
-    "u": "https://github.com/JKc66/CircuitVision"
-   }
-  ]
- },
- {
-  "track": "circuit",
-  "q": "How do I identify a resistor?",
-  "k": "resistor identify color bands",
-  "a": "Through-hole resistors are small cylinders with color bands; SMD resistors are small black rectangles with a printed number code (e.g. 103 = 10k). Schematic symbol: zigzag or rectangle. Designator R.",
-  "src": [
-   {
-    "t": "s39674/PCB-Component-Detection",
-    "u": "https://github.com/s39674/PCB-Component-Detection"
-   }
-  ]
- },
- {
-  "track": "circuit",
-  "q": "How do I read SMD resistor codes?",
-  "k": "smd code 103 472",
-  "a": "Three-digit code: two digits then the multiplier power of ten. 103 = 10 x 10^3 = 10 kΩ; 472 = 4.7 kΩ. An R marks the decimal point (4R7 = 4.7 Ω).",
-  "src": [
-   {
-    "t": "s39674/PCB-Component-Detection",
-    "u": "https://github.com/s39674/PCB-Component-Detection"
-   }
-  ]
- },
- {
-  "track": "circuit",
-  "q": "How do I identify a capacitor?",
-  "k": "capacitor identify electrolytic ceramic",
-  "a": "Ceramic SMD caps are tan/brown rectangles usually with no marking; electrolytics are cylinders with a stripe marking the negative lead. Symbol: two parallel plates (one curved for polarized). Designator C.",
-  "src": [
-   {
-    "t": "s39674/PCB-Component-Detection",
-    "u": "https://github.com/s39674/PCB-Component-Detection"
-   }
-  ]
- },
- {
-  "track": "circuit",
-  "q": "How do I tell diode polarity?",
-  "k": "diode polarity cathode stripe",
-  "a": "The band/stripe marks the cathode. In the symbol, the bar is the cathode and the triangle points toward it (direction of conventional current).",
-  "src": [
-   {
-    "t": "s39674/PCB-Component-Detection",
-    "u": "https://github.com/s39674/PCB-Component-Detection"
-   }
-  ]
- },
- {
-  "track": "circuit",
-  "q": "How do I identify an IC?",
-  "k": "ic chip package u",
-  "a": "ICs are black packages with many pins (SOIC, QFP, QFN, BGA). A dot or notch marks pin 1. Designator U. Read the part number on top and look up the datasheet.",
-  "src": [
-   {
-    "t": "s39674/PCB-Component-Detection",
-    "u": "https://github.com/s39674/PCB-Component-Detection"
-   }
-  ]
- },
- {
-  "track": "circuit",
-  "q": "How do I find pin 1 on a chip?",
-  "k": "pin 1 dot notch",
-  "a": "Look for a dot, dimple, notch, or beveled edge; pin 1 is next to it, and pins count counter-clockwise from the top view on most packages.",
-  "src": [
-   {
-    "t": "s39674/PCB-Component-Detection",
-    "u": "https://github.com/s39674/PCB-Component-Detection"
-   }
-  ]
- },
- {
-  "track": "circuit",
-  "q": "How do I identify an inductor?",
-  "k": "inductor coil identify",
-  "a": "Often a coil of wire, or a block marked with a code; power inductors are larger dark squares. Symbol: a series of loops. Designator L.",
-  "src": [
-   {
-    "t": "s39674/PCB-Component-Detection",
-    "u": "https://github.com/s39674/PCB-Component-Detection"
-   }
-  ]
- },
- {
-  "track": "circuit",
-  "q": "How do I identify a transistor?",
-  "k": "transistor mosfet bjt package",
-  "a": "Three-terminal parts in TO-92, SOT-23, or TO-220 packages. Designator Q. Check the printed code against the datasheet to know the pinout.",
-  "src": [
-   {
-    "t": "s39674/PCB-Component-Detection",
-    "u": "https://github.com/s39674/PCB-Component-Detection"
-   }
-  ]
- },
- {
-  "track": "circuit",
-  "q": "How should I photograph a board for circuit vision?",
-  "k": "photo capture lighting camera",
-  "a": "Use even diffuse lighting, keep the camera parallel to the board, fill the frame, focus on markings, shoot both sides, and keep original full-resolution files. See the Photo checklist on the Circuit Vision page.",
-  "src": [
-   {
-    "t": "s39674/Image2schematic",
-    "u": "https://github.com/s39674/Image2schematic"
-   },
-   {
-    "t": "s39674/PCB-Component-Detection",
-    "u": "https://github.com/s39674/PCB-Component-Detection"
-   }
-  ]
- },
- {
-  "track": "circuit",
-  "q": "Why is glare a problem in PCB photos?",
-  "k": "glare reflection lighting",
-  "a": "Glare washes out markings and makes shiny solder look like other features, which hurts detection and OCR. Use diffuse light or a polarizer and avoid direct flash.",
-  "src": [
-   {
-    "t": "s39674/PCB-Component-Detection",
-    "u": "https://github.com/s39674/PCB-Component-Detection"
-   }
-  ]
- },
- {
-  "track": "circuit",
-  "q": "What resolution should board photos be?",
-  "k": "resolution megapixel quality",
-  "a": "Use the highest resolution you can and avoid compression. Small SMD markings need many pixels; tile and stitch large boards rather than shrinking them.",
-  "src": [
-   {
-    "t": "s39674/PCB-Component-Detection",
-    "u": "https://github.com/s39674/PCB-Component-Detection"
-   }
-  ]
- },
- {
-  "track": "circuit",
-  "q": "What is YOLO?",
-  "k": "yolo object detection ultralytics",
-  "a": "YOLO is a fast object detection model family. In circuit vision it locates components with bounding boxes. Ultralytics documents training on custom datasets.",
-  "src": [
-   {
-    "t": "Ultralytics YOLO docs",
-    "u": "https://docs.ultralytics.com/"
-   }
-  ]
- },
- {
-  "track": "circuit",
-  "q": "How do I train YOLO on my own components?",
-  "k": "train custom dataset yolo labels",
-  "a": "Label images with boxes per class (resistor, capacitor, ...), arrange them in YOLO format with a data YAML, then train with the Ultralytics CLI or Python API. Follow the Ultralytics training guide.",
-  "src": [
-   {
-    "t": "Ultralytics YOLO docs",
-    "u": "https://docs.ultralytics.com/"
-   }
-  ]
- },
- {
-  "track": "circuit",
-  "q": "How many images do I need to train a detector?",
-  "k": "dataset size images training",
-  "a": "There's no fixed number; more varied labeled images help. Start with a pretrained model and fine-tune; check validation mAP to see if you need more data.",
-  "src": [
-   {
-    "t": "Ultralytics YOLO docs",
-    "u": "https://docs.ultralytics.com/"
-   }
-  ]
- },
- {
-  "track": "circuit",
-  "q": "What is mAP?",
-  "k": "map metric precision recall",
-  "a": "Mean Average Precision: the standard detection accuracy metric combining precision and recall across classes and IoU thresholds. Higher is better.",
-  "src": [
-   {
-    "t": "Ultralytics YOLO docs",
-    "u": "https://docs.ultralytics.com/"
-   }
-  ]
- },
- {
-  "track": "circuit",
-  "q": "What is SAM (Segment Anything)?",
-  "k": "sam segment anything segmentation mask",
-  "a": "Meta's Segment Anything Model produces pixel masks for objects from prompts like points or boxes. It can outline parts or traces, but it does not know component classes by itself.",
-  "src": [
-   {
-    "t": "Segment Anything (Meta)",
-    "u": "https://github.com/facebookresearch/segment-anything"
-   }
-  ]
- },
- {
-  "track": "circuit",
-  "q": "Detection vs segmentation — which do I need?",
-  "k": "detection segmentation difference",
-  "a": "Detection gives boxes + labels (good for counting/identifying parts). Segmentation gives exact pixel outlines (good for traces, pads, precise shapes). Many pipelines combine both.",
-  "src": [
-   {
-    "t": "Ultralytics YOLO docs",
-    "u": "https://docs.ultralytics.com/"
-   },
-   {
-    "t": "Segment Anything (Meta)",
-    "u": "https://github.com/facebookresearch/segment-anything"
-   }
-  ]
- },
- {
-  "track": "circuit",
-  "q": "How do I read part markings with OCR?",
-  "k": "ocr text markings easyocr",
-  "a": "Crop each detected component and run OCR (e.g. EasyOCR) on it. Tiny laser-etched text often needs upscaling, contrast enhancement, and manual checking.",
-  "src": [
-   {
-    "t": "EasyOCR",
-    "u": "https://github.com/JaidedAI/EasyOCR"
-   }
-  ]
- },
- {
-  "track": "circuit",
-  "q": "Why does OCR fail on chip markings?",
-  "k": "ocr fail low contrast",
-  "a": "Markings are small, low-contrast, and often rotated. Improve lighting, crop tightly, rotate upright, upscale, and verify manually.",
-  "src": [
-   {
-    "t": "EasyOCR",
-    "u": "https://github.com/JaidedAI/EasyOCR"
-   }
-  ]
- },
- {
-  "track": "circuit",
-  "q": "How are wires/connections found in a schematic image?",
-  "k": "wire line tracing connections",
-  "a": "Pipelines remove detected symbols, then trace remaining lines (e.g. with thresholding and line/contour detection) and find junctions to group pins into nets.",
-  "src": [
-   {
-    "t": "s39674/Image2schematic",
-    "u": "https://github.com/s39674/Image2schematic"
-   },
-   {
-    "t": "NYCU-AI-EDA/Netlistify",
-    "u": "https://github.com/NYCU-AI-EDA/Netlistify"
-   }
-  ]
- },
- {
-  "track": "circuit",
-  "q": "Can circuit vision recover connections from a PCB photo?",
-  "k": "pcb traces connections multilayer",
-  "a": "Only partially. Top-layer traces are visible, but inner layers and vias under parts are hidden. Expect to verify with a multimeter continuity check or the design files.",
-  "src": [
-   {
-    "t": "s39674/Image2schematic",
-    "u": "https://github.com/s39674/Image2schematic"
-   }
-  ]
- },
- {
-  "track": "circuit",
-  "q": "How do I verify a CV-generated netlist?",
-  "k": "verify netlist check",
-  "a": "Compare against the schematic or design files, spot-check nets with a continuity meter, check that every part has the expected pin count, and simulate a simple case.",
-  "src": [
-   {
-    "t": "ngspice docs",
-    "u": "https://ngspice.sourceforge.io/docs.html"
-   },
-   {
-    "t": "NYCU-AI-EDA/Netlistify",
-    "u": "https://github.com/NYCU-AI-EDA/Netlistify"
-   }
-  ]
- },
- {
-  "track": "circuit",
-  "q": "Which tool should I use for a quick demo?",
-  "k": "demo quick tool choice",
-  "a": "CircuitVision (Streamlit) is the fastest way to show image → parts → netlist.",
-  "src": [
-   {
-    "t": "JKc66/CircuitVision",
-    "u": "https://github.com/JKc66/CircuitVision"
-   }
-  ]
- },
- {
-  "track": "circuit",
-  "q": "Which tool for SPICE-ready output?",
-  "k": "spice output tool choice",
-  "a": "Netlistify targets schematic-to-netlist conversion for simulation.",
-  "src": [
-   {
-    "t": "NYCU-AI-EDA/Netlistify",
-    "u": "https://github.com/NYCU-AI-EDA/Netlistify"
-   }
-  ]
- },
- {
-  "track": "circuit",
-  "q": "How do I run a Streamlit app?",
-  "k": "streamlit run python",
-  "a": "Install requirements (pip install -r requirements.txt), then run: streamlit run <app file>.py and open the local URL it prints. Check the repo README for the exact file name.",
-  "src": [
-   {
-    "t": "JKc66/CircuitVision",
-    "u": "https://github.com/JKc66/CircuitVision"
-   }
-  ]
- },
- {
-  "track": "circuit",
-  "q": "What is a Python virtual environment and why use one?",
-  "k": "venv virtualenv python setup",
-  "a": "A venv isolates a project's packages: python -m venv .venv, then activate it and pip install. It avoids version conflicts between repos.",
-  "src": [
-   {
-    "t": "JKc66/CircuitVision",
-    "u": "https://github.com/JKc66/CircuitVision"
-   }
-  ]
- },
- {
-  "track": "circuit",
-  "q": "Do I need a GPU?",
-  "k": "gpu cuda hardware",
-  "a": "Inference on a few images works on CPU. Training detectors is much faster with an NVIDIA GPU; cloud notebooks are an option.",
-  "src": [
-   {
-    "t": "Ultralytics YOLO docs",
-    "u": "https://docs.ultralytics.com/"
-   }
-  ]
- },
- {
-  "track": "circuit",
-  "q": "What is image preprocessing?",
-  "k": "preprocessing grayscale threshold",
-  "a": "Steps like resizing, grayscale, denoising, contrast adjustment, thresholding, and perspective correction that make images easier for models.",
-  "src": [
-   {
-    "t": "s39674/Image2schematic",
-    "u": "https://github.com/s39674/Image2schematic"
-   }
-  ]
- },
- {
-  "track": "circuit",
-  "q": "How do I fix a tilted photo?",
-  "k": "perspective warp correction homography",
-  "a": "Apply a perspective transform (homography) using the four board corners, e.g. with OpenCV getPerspectiveTransform + warpPerspective.",
-  "src": [
-   {
-    "t": "s39674/Image2schematic",
-    "u": "https://github.com/s39674/Image2schematic"
-   }
-  ]
- },
- {
-  "track": "circuit",
-  "q": "What is a footprint vs symbol?",
-  "k": "footprint symbol layout",
-  "a": "A symbol is the schematic drawing; a footprint is the physical copper pad pattern on the PCB. The same part has both.",
-  "src": [
-   {
-    "t": "JKc66/CircuitVision",
-    "u": "https://github.com/JKc66/CircuitVision"
-   }
-  ]
- },
- {
-  "track": "circuit",
-  "q": "What is a via?",
-  "k": "via pcb layer",
-  "a": "A plated hole connecting copper layers. Vias hide connections between layers, which limits photo-based reconstruction.",
-  "src": [
-   {
-    "t": "s39674/Image2schematic",
-    "u": "https://github.com/s39674/Image2schematic"
-   }
-  ]
- },
- {
-  "track": "circuit",
-  "q": "What should I include in a CV handoff?",
-  "k": "handoff documentation deliverable",
-  "a": "Original images, board name/revision, which side is which, the detected component list with confidence, open questions, and any manual corrections.",
-  "src": [
-   {
-    "t": "JKc66/CircuitVision",
-    "u": "https://github.com/JKc66/CircuitVision"
-   }
-  ]
- },
- {
-  "track": "circuit",
-  "q": "What is labeling/annotation for training?",
-  "k": "label annotation dataset",
-  "a": "Drawing boxes or masks on images and assigning class names so a model can learn. Consistent class definitions matter more than tools.",
-  "src": [
-   {
-    "t": "Ultralytics YOLO docs",
-    "u": "https://docs.ultralytics.com/"
-   }
-  ]
- },
- {
-  "track": "circuit",
-  "q": "How do I measure if a model is good enough?",
-  "k": "evaluate validation accuracy",
-  "a": "Hold out a test set of your real boards, check precision/recall per class, and review false detections visually.",
-  "src": [
-   {
-    "t": "Ultralytics YOLO docs",
-    "u": "https://docs.ultralytics.com/"
-   }
-  ]
- },
- {
-  "track": "circuit",
-  "q": "What is a confidence threshold?",
-  "k": "confidence threshold detection",
-  "a": "Detections below the threshold are discarded. Raise it for fewer false positives, lower it to miss fewer parts.",
-  "src": [
-   {
-    "t": "Ultralytics YOLO docs",
-    "u": "https://docs.ultralytics.com/"
-   }
-  ]
- },
- {
   "track": "network",
   "q": "Where do I start learning network automation?",
   "k": "start beginner network automation",
@@ -1472,6 +832,1202 @@
    {
     "t": "RFC 6241 NETCONF",
     "u": "https://datatracker.ietf.org/doc/html/rfc6241"
+   }
+  ]
+ },
+ {
+  "track": "network",
+  "q": "How do I calculate a subnet?",
+  "k": "subnet calculate cidr network broadcast hosts",
+  "a": "Use the Toolkit subnet calculator. By hand: hosts = 2^(32-prefix) - 2; the network address is the IP AND the mask; broadcast is the network with all host bits set. Example 192.168.10.37/27: network .32, broadcast .63, hosts .33-.62.",
+  "src": [
+   {
+    "t": "NetOps Starter toolkit",
+    "u": "#toolkit"
+   },
+   {
+    "t": "RFC 4632 CIDR",
+    "u": "https://www.rfc-editor.org/rfc/rfc4632"
+   }
+  ]
+ },
+ {
+  "track": "network",
+  "q": "What is CIDR notation?",
+  "k": "cidr prefix slash notation",
+  "a": "CIDR writes the mask as a prefix length: /24 = 255.255.255.0, /27 = 255.255.255.224. It replaced classful addressing and allows route summarization.",
+  "src": [
+   {
+    "t": "RFC 4632 CIDR",
+    "u": "https://www.rfc-editor.org/rfc/rfc4632"
+   }
+  ]
+ },
+ {
+  "track": "network",
+  "q": "How many hosts are in a /27, /28, /29, /30?",
+  "k": "hosts per prefix 27 28 29 30",
+  "a": "/27 = 30 usable, /28 = 14, /29 = 6, /30 = 2. Usable = 2^(32-prefix) minus network and broadcast.",
+  "src": [
+   {
+    "t": "NetOps Starter toolkit",
+    "u": "#toolkit"
+   }
+  ]
+ },
+ {
+  "track": "network",
+  "q": "Can I use /31 on point-to-point links?",
+  "k": "31 point to point link",
+  "a": "Yes. RFC 3021 allows /31 on point-to-point links: both addresses are usable, saving addresses versus /30. Most modern routers support it.",
+  "src": [
+   {
+    "t": "RFC 3021 /31 links",
+    "u": "https://www.rfc-editor.org/rfc/rfc3021"
+   }
+  ]
+ },
+ {
+  "track": "network",
+  "q": "What are the private IP ranges?",
+  "k": "private rfc1918 ranges 10 172 192",
+  "a": "10.0.0.0/8, 172.16.0.0/12 and 192.168.0.0/16 (RFC 1918). They are not routed on the Internet and need NAT for Internet access.",
+  "src": [
+   {
+    "t": "RFC 1918 private addressing",
+    "u": "https://www.rfc-editor.org/rfc/rfc1918"
+   }
+  ]
+ },
+ {
+  "track": "network",
+  "q": "What is a wildcard mask?",
+  "k": "wildcard mask acl ospf inverse",
+  "a": "The inverse of a subnet mask, used in Cisco ACLs and OSPF network statements: 0 bits must match, 1 bits are ignored. /24 mask 255.255.255.0 = wildcard 0.0.0.255.",
+  "src": [
+   {
+    "t": "NetOps Starter toolkit",
+    "u": "#toolkit"
+   }
+  ]
+ },
+ {
+  "track": "network",
+  "q": "What is route summarization?",
+  "k": "summarization aggregate supernet",
+  "a": "Advertising one shorter prefix that covers several longer ones, e.g. 10.1.0.0/22 covers 10.1.0.0-10.1.3.255. Reduces routing table size and churn.",
+  "src": [
+   {
+    "t": "RFC 4632 CIDR",
+    "u": "https://www.rfc-editor.org/rfc/rfc4632"
+   }
+  ]
+ },
+ {
+  "track": "network",
+  "q": "How do I troubleshoot an OSPF neighbor that won't come up?",
+  "k": "ospf neighbor down adjacency stuck",
+  "a": "Check IP reachability, OSPF enabled on the interface (not passive), and matching area, subnet, hello/dead timers, authentication, area type and MTU. Stuck in EXSTART/EXCHANGE usually means MTU mismatch. See the OSPF flowchart.",
+  "src": [
+   {
+    "t": "NetOps Starter toolkit",
+    "u": "#toolkit"
+   },
+   {
+    "t": "RFC 2328 OSPFv2",
+    "u": "https://www.rfc-editor.org/rfc/rfc2328"
+   }
+  ]
+ },
+ {
+  "track": "network",
+  "q": "What do OSPF neighbor states mean?",
+  "k": "ospf states full 2way exstart init",
+  "a": "Down → Init (hello seen) → 2-Way (bidirectional; normal final state between DROTHERs) → ExStart/Exchange (database description) → Loading → Full (synchronized).",
+  "src": [
+   {
+    "t": "RFC 2328 OSPFv2",
+    "u": "https://www.rfc-editor.org/rfc/rfc2328"
+   }
+  ]
+ },
+ {
+  "track": "network",
+  "q": "What is an OSPF DR/BDR?",
+  "k": "ospf dr bdr designated router",
+  "a": "On broadcast networks OSPF elects a Designated Router and Backup to reduce adjacencies. Highest priority wins, then highest router ID. Priority 0 = never DR.",
+  "src": [
+   {
+    "t": "RFC 2328 OSPFv2",
+    "u": "https://www.rfc-editor.org/rfc/rfc2328"
+   }
+  ]
+ },
+ {
+  "track": "network",
+  "q": "How do I troubleshoot a BGP session that is down?",
+  "k": "bgp down idle active session",
+  "a": "Check the state: Idle (config or no route to peer), Active (TCP 179 failing). Verify reachability from the update-source, remote-as, password, ebgp-multihop for loopbacks, and ACLs/firewalls on TCP 179. See the BGP flowchart.",
+  "src": [
+   {
+    "t": "NetOps Starter toolkit",
+    "u": "#toolkit"
+   },
+   {
+    "t": "RFC 4271 BGP-4",
+    "u": "https://www.rfc-editor.org/rfc/rfc4271"
+   }
+  ]
+ },
+ {
+  "track": "network",
+  "q": "What do BGP Idle and Active states mean?",
+  "k": "bgp idle active state",
+  "a": "Idle: not attempting (admin shut, no route, or after error). Active: trying to open the TCP session but failing. Established is the working state.",
+  "src": [
+   {
+    "t": "RFC 4271 BGP-4",
+    "u": "https://www.rfc-editor.org/rfc/rfc4271"
+   }
+  ]
+ },
+ {
+  "track": "network",
+  "q": "Why isn't my BGP route in the routing table?",
+  "k": "bgp route not installed next hop",
+  "a": "Usually the next hop is unreachable (common on iBGP — use next-hop-self), it isn't the best path, or a route with lower administrative distance wins.",
+  "src": [
+   {
+    "t": "NetOps Starter toolkit",
+    "u": "#toolkit"
+   },
+   {
+    "t": "RFC 4271 BGP-4",
+    "u": "https://www.rfc-editor.org/rfc/rfc4271"
+   }
+  ]
+ },
+ {
+  "track": "network",
+  "q": "eBGP vs iBGP?",
+  "k": "ebgp ibgp difference",
+  "a": "eBGP peers are in different ASes (usually directly connected, TTL 1); iBGP peers are in the same AS, don't change next hop by default, and don't re-advertise iBGP routes to other iBGP peers (needs full mesh or route reflectors).",
+  "src": [
+   {
+    "t": "RFC 4271 BGP-4",
+    "u": "https://www.rfc-editor.org/rfc/rfc4271"
+   }
+  ]
+ },
+ {
+  "track": "network",
+  "q": "How does BGP choose the best path?",
+  "k": "bgp best path selection attributes",
+  "a": "Simplified Cisco order: highest weight, highest local preference, locally originated, shortest AS path, lowest origin type, lowest MED, eBGP over iBGP, lowest IGP metric to next hop, then tie-breakers (oldest, lowest router ID).",
+  "src": [
+   {
+    "t": "RFC 4271 BGP-4",
+    "u": "https://www.rfc-editor.org/rfc/rfc4271"
+   }
+  ]
+ },
+ {
+  "track": "network",
+  "q": "What is administrative distance?",
+  "k": "administrative distance ad route preference",
+  "a": "Cisco's trust ranking between routing sources: connected 0, static 1, eBGP 20, OSPF 110, IS-IS 115, RIP 120, iBGP 200. Lower wins when the same prefix comes from different sources.",
+  "src": [
+   {
+    "t": "Cisco DevNet Learning Labs",
+    "u": "https://developer.cisco.com/learning/"
+   }
+  ]
+ },
+ {
+  "track": "network",
+  "q": "How do I check trunk ports on Cisco?",
+  "k": "show interfaces trunk allowed vlans",
+  "a": "show interfaces trunk (IOS) or show interface trunk (NX-OS) lists trunk ports, native VLAN, and VLANs allowed and active. Check both ends match.",
+  "src": [
+   {
+    "t": "NetOps Starter toolkit",
+    "u": "#toolkit"
+   }
+  ]
+ },
+ {
+  "track": "network",
+  "q": "How do I safely add a VLAN to a trunk?",
+  "k": "add vlan trunk allowed add",
+  "a": "Use switchport trunk allowed vlan add <id>. Without 'add' the command replaces the whole allowed list and can cause an outage.",
+  "src": [
+   {
+    "t": "NetOps Starter toolkit",
+    "u": "#toolkit"
+   }
+  ]
+ },
+ {
+  "track": "network",
+  "q": "What is a native VLAN mismatch?",
+  "k": "native vlan mismatch cdp",
+  "a": "The two ends of a trunk use different untagged (native) VLANs, so untagged traffic leaks between VLANs. CDP logs NATIVE_VLAN_MISMATCH. Set the same native VLAN on both sides.",
+  "src": [
+   {
+    "t": "NetOps Starter toolkit",
+    "u": "#toolkit"
+   }
+  ]
+ },
+ {
+  "track": "network",
+  "q": "What is spanning tree?",
+  "k": "stp spanning tree loop",
+  "a": "A protocol that blocks redundant switch links to prevent Layer 2 loops. Check root bridge and port states with show spanning-tree; Rapid PVST+ or MST are common.",
+  "src": [
+   {
+    "t": "NetOps Starter toolkit",
+    "u": "#toolkit"
+   }
+  ]
+ },
+ {
+  "track": "network",
+  "q": "Why is my port err-disabled?",
+  "k": "err-disabled errdisable port security bpdu guard",
+  "a": "A protection feature shut it: port security violation, BPDU guard, UDLD, link flap, etc. Check show interfaces status err-disabled and logs, fix the cause, then shutdown/no shutdown.",
+  "src": [
+   {
+    "t": "NetOps Starter toolkit",
+    "u": "#toolkit"
+   }
+  ]
+ },
+ {
+  "track": "network",
+  "q": "What is an EtherChannel / LAG?",
+  "k": "etherchannel lag lacp port-channel",
+  "a": "Several physical links bundled into one logical link for bandwidth and redundancy. LACP (802.3ad) negotiates it; use active/active or active/passive, not 'on' with LACP.",
+  "src": [
+   {
+    "t": "NetOps Starter toolkit",
+    "u": "#toolkit"
+   }
+  ]
+ },
+ {
+  "track": "network",
+  "q": "How do I check interface errors?",
+  "k": "interface errors crc input counters",
+  "a": "show interfaces <if> (IOS/NX-OS) or show interfaces <if> extensive (Junos). Rising CRC/input errors suggest bad cable/optic or duplex mismatch; clear counters and watch.",
+  "src": [
+   {
+    "t": "NetOps Starter toolkit",
+    "u": "#toolkit"
+   }
+  ]
+ },
+ {
+  "track": "network",
+  "q": "What is a duplex mismatch?",
+  "k": "duplex mismatch late collisions",
+  "a": "One side full duplex, the other half — causes slow, errored links (late collisions, CRC errors). Use auto/auto on both or hardcode both the same.",
+  "src": [
+   {
+    "t": "NetOps Starter toolkit",
+    "u": "#toolkit"
+   }
+  ]
+ },
+ {
+  "track": "network",
+  "q": "What is an SVI?",
+  "k": "svi vlan interface layer 3",
+  "a": "A Switch Virtual Interface (interface VlanX) gives a VLAN an IP address for routing/management. It is up only if the VLAN exists and has an active port.",
+  "src": [
+   {
+    "t": "NetOps Starter toolkit",
+    "u": "#toolkit"
+   }
+  ]
+ },
+ {
+  "track": "network",
+  "q": "How do I route between VLANs on a Layer 3 switch?",
+  "k": "inter-vlan routing ip routing svi",
+  "a": "Create SVIs for each VLAN with gateway IPs and enable ip routing. Hosts use the SVI IP as their default gateway.",
+  "src": [
+   {
+    "t": "NetOps Starter toolkit",
+    "u": "#toolkit"
+   }
+  ]
+ },
+ {
+  "track": "network",
+  "q": "What are the most useful Cisco show commands?",
+  "k": "cisco show commands ios cheat sheet",
+  "a": "show ip interface brief, show interfaces status, show vlan brief, show interfaces trunk, show ip route, show ip ospf neighbor, show ip bgp summary, show cdp/lldp neighbors, show logging. See the Toolkit cheat sheet.",
+  "src": [
+   {
+    "t": "NetOps Starter toolkit",
+    "u": "#toolkit"
+   }
+  ]
+ },
+ {
+  "track": "network",
+  "q": "What are common Juniper Junos show commands?",
+  "k": "juniper junos show commands",
+  "a": "show interfaces terse, show route, show ospf neighbor, show bgp summary, show lldp neighbors, show ethernet-switching table, show log messages, show configuration | display set.",
+  "src": [
+   {
+    "t": "NetOps Starter toolkit",
+    "u": "#toolkit"
+   },
+   {
+    "t": "Juniper documentation",
+    "u": "https://www.juniper.net/documentation/"
+   }
+  ]
+ },
+ {
+  "track": "network",
+  "q": "How do I commit safely on Junos?",
+  "k": "junos commit confirmed rollback compare",
+  "a": "Review with show | compare, validate with commit check, then commit confirmed <minutes>; if you lose access it rolls back automatically. Confirm with a plain commit. rollback 1 restores the previous config.",
+  "src": [
+   {
+    "t": "NetOps Starter toolkit",
+    "u": "#toolkit"
+   },
+   {
+    "t": "Juniper documentation",
+    "u": "https://www.juniper.net/documentation/"
+   }
+  ]
+ },
+ {
+  "track": "network",
+  "q": "NX-OS vs IOS differences to know?",
+  "k": "nx-os nexus ios differences feature",
+  "a": "NX-OS needs features enabled (feature ospf, feature bgp, feature interface-vlan), uses Ethernet1/1 naming, VRF-aware commands (vrf all), checkpoints/rollback, and vPC for multi-chassis port-channels.",
+  "src": [
+   {
+    "t": "NetOps Starter toolkit",
+    "u": "#toolkit"
+   }
+  ]
+ },
+ {
+  "track": "network",
+  "q": "What is vPC?",
+  "k": "vpc nexus virtual port channel",
+  "a": "Cisco Nexus virtual Port Channel: two switches present one port-channel to a downstream device. Check with show vpc brief; peer-link and keepalive must be healthy.",
+  "src": [
+   {
+    "t": "NetOps Starter toolkit",
+    "u": "#toolkit"
+   }
+  ]
+ },
+ {
+  "track": "network",
+  "q": "How do I use reload in as a safety net?",
+  "k": "reload in safety net lockout cisco",
+  "a": "Before a risky remote change on IOS, run reload in 10. If you lose access the device reboots to the saved config. If all is good, run reload cancel and save.",
+  "src": [
+   {
+    "t": "NetOps Starter toolkit",
+    "u": "#toolkit"
+   }
+  ]
+ },
+ {
+  "track": "network",
+  "q": "What should I capture before and after a change?",
+  "k": "pre post checks change verification",
+  "a": "Interfaces, routing table/prefix counts, OSPF/BGP neighbors, STP/trunks/port-channels, key pings/traceroutes, and logs. Re-run after and diff. Use the Toolkit pre/post checklist.",
+  "src": [
+   {
+    "t": "NetOps Starter toolkit",
+    "u": "#toolkit"
+   }
+  ]
+ },
+ {
+  "track": "network",
+  "q": "How do I read a traceroute?",
+  "k": "traceroute read hops asterisks",
+  "a": "Each line is a hop with round-trip times. Asterisks mean that hop didn't reply (often ICMP rate-limiting, not necessarily loss). Look where latency jumps and stays high, or where it stops completely.",
+  "src": [
+   {
+    "t": "NetOps Starter toolkit",
+    "u": "#toolkit"
+   }
+  ]
+ },
+ {
+  "track": "network",
+  "q": "What is MTU and why does it matter?",
+  "k": "mtu fragmentation jumbo",
+  "a": "Maximum packet size on a link (1500 bytes typical Ethernet). Mismatches break OSPF adjacencies and cause drops for large packets, especially over tunnels/QinQ; carriers may require larger MTU.",
+  "src": [
+   {
+    "t": "NetOps Starter toolkit",
+    "u": "#toolkit"
+   }
+  ]
+ },
+ {
+  "track": "network",
+  "q": "What is NAT?",
+  "k": "nat pat translation",
+  "a": "Network Address Translation rewrites IP addresses, usually private to public. PAT (overload) shares one public IP across many hosts using ports.",
+  "src": [
+   {
+    "t": "RFC 1918 private addressing",
+    "u": "https://www.rfc-editor.org/rfc/rfc1918"
+   }
+  ]
+ },
+ {
+  "track": "network",
+  "q": "What is HSRP/VRRP?",
+  "k": "hsrp vrrp gateway redundancy fhrp",
+  "a": "First-hop redundancy protocols: two routers share a virtual gateway IP so hosts keep working if one fails. HSRP is Cisco; VRRP is a standard.",
+  "src": [
+   {
+    "t": "NetOps Starter toolkit",
+    "u": "#toolkit"
+   }
+  ]
+ },
+ {
+  "track": "network",
+  "q": "What is LLDP/CDP used for?",
+  "k": "lldp cdp neighbors discovery",
+  "a": "Discovering directly connected neighbors: device name, port, platform. Great for verifying cabling and documentation. show cdp neighbors detail / show lldp neighbors.",
+  "src": [
+   {
+    "t": "NetOps Starter toolkit",
+    "u": "#toolkit"
+   }
+  ]
+ },
+ {
+  "track": "network",
+  "q": "What is a VRF?",
+  "k": "vrf routing instance",
+  "a": "A separate routing table on one router, keeping traffic of different customers or services isolated. Used heavily in MPLS L3VPN.",
+  "src": [
+   {
+    "t": "RFC 4364 BGP/MPLS IP VPNs",
+    "u": "https://www.rfc-editor.org/rfc/rfc4364"
+   }
+  ]
+ },
+ {
+  "track": "network",
+  "q": "How do I check logs on network devices?",
+  "k": "logs syslog show logging",
+  "a": "IOS: show logging; NX-OS: show logging logfile; Junos: show log messages. Send logs to a central syslog server with correct time (NTP) so events line up.",
+  "src": [
+   {
+    "t": "NetOps Starter toolkit",
+    "u": "#toolkit"
+   }
+  ]
+ },
+ {
+  "track": "network",
+  "q": "Why is NTP important?",
+  "k": "ntp time sync logs",
+  "a": "Accurate time makes logs and tickets correlate across devices and carriers; also needed for certificates and some authentication.",
+  "src": [
+   {
+    "t": "NetOps Starter toolkit",
+    "u": "#toolkit"
+   }
+  ]
+ },
+ {
+  "track": "oss",
+  "q": "What is a circuit ID?",
+  "k": "circuit id cid identifier",
+  "a": "The unique ID for a circuit used on orders, tickets and invoices. Carriers have their own formats (many US carriers use Telcordia CLCI-based ones); your inventory system may also have an internal ID. Always quote it on tickets. See the Circuit ID explainer.",
+  "src": [
+   {
+    "t": "NetOps Starter: Circuits & OSS 101",
+    "u": "#circuits"
+   },
+   {
+    "t": "NetBox circuit model",
+    "u": "https://docs.netbox.dev/en/stable/models/circuits/circuit/"
+   }
+  ]
+ },
+ {
+  "track": "oss",
+  "q": "How do I read a circuit ID?",
+  "k": "read decode circuit id format segments",
+  "a": "Split it into segments: commonly a location or prefix, service type code, bandwidth or modifier, serial number, and carrier/company code. Exact meaning depends on the carrier — check their documentation.",
+  "src": [
+   {
+    "t": "NetOps Starter: Circuits & OSS 101",
+    "u": "#circuits"
+   }
+  ]
+ },
+ {
+  "track": "oss",
+  "q": "What is a demarc?",
+  "k": "demarc demarcation point",
+  "a": "The point where the carrier's responsibility ends and yours begins, usually a NID port or patch panel. Problems on your side of the demarc are yours to fix.",
+  "src": [
+   {
+    "t": "NetOps Starter: Circuits & OSS 101",
+    "u": "#circuits"
+   }
+  ]
+ },
+ {
+  "track": "oss",
+  "q": "What is a NID?",
+  "k": "nid network interface device",
+  "a": "A carrier-owned device at the demarc. For Ethernet it's often a small managed switch that supports loopbacks and performance tests the carrier can run remotely.",
+  "src": [
+   {
+    "t": "NetOps Starter: Circuits & OSS 101",
+    "u": "#circuits"
+   },
+   {
+    "t": "MEF",
+    "u": "https://www.mef.net/"
+   }
+  ]
+ },
+ {
+  "track": "oss",
+  "q": "What is an extended demarc?",
+  "k": "extended demarc inside wiring",
+  "a": "Cabling from the carrier's demarc to your equipment room or rack. Clarify who orders and owns it — it's a common cause of turn-up delays.",
+  "src": [
+   {
+    "t": "NetOps Starter: Circuits & OSS 101",
+    "u": "#circuits"
+   }
+  ]
+ },
+ {
+  "track": "oss",
+  "q": "What is an LOA?",
+  "k": "loa letter of authorization",
+  "a": "Letter of Authorization: lets another party (e.g. a carrier) order a connection to your space or port. Usually expires (often 30-90 days).",
+  "src": [
+   {
+    "t": "NetOps Starter: Circuits & OSS 101",
+    "u": "#circuits"
+   }
+  ]
+ },
+ {
+  "track": "oss",
+  "q": "What is a CFA?",
+  "k": "cfa connecting facility assignment loa-cfa",
+  "a": "Connecting Facility Assignment: the exact location (panel and port) where a circuit or cross-connect lands. Often combined as an LOA-CFA document.",
+  "src": [
+   {
+    "t": "NetOps Starter: Circuits & OSS 101",
+    "u": "#circuits"
+   }
+  ]
+ },
+ {
+  "track": "oss",
+  "q": "How do I order a cross-connect?",
+  "k": "cross-connect order data center colo",
+  "a": "Get the LOA-CFA from the other party, check panel/port and media, order the cross-connect from the data center operator quoting it, configure your port, then verify light/link and label both ends. Use the LOA/CFA checklist.",
+  "src": [
+   {
+    "t": "NetOps Starter: Circuits & OSS 101",
+    "u": "#circuits"
+   }
+  ]
+ },
+ {
+  "track": "oss",
+  "q": "What is a meet-me room?",
+  "k": "meet-me room mmr colocation",
+  "a": "The room in a data center or carrier hotel where carriers and customers interconnect with cross-connects.",
+  "src": [
+   {
+    "t": "NetOps Starter: Circuits & OSS 101",
+    "u": "#circuits"
+   }
+  ]
+ },
+ {
+  "track": "oss",
+  "q": "What is DIA?",
+  "k": "dia dedicated internet access",
+  "a": "Dedicated Internet Access: Internet with committed bandwidth, an SLA and usually a static IP block; routing via static or BGP. Different from shared broadband.",
+  "src": [
+   {
+    "t": "NetOps Starter: Circuits & OSS 101",
+    "u": "#circuits"
+   }
+  ]
+ },
+ {
+  "track": "oss",
+  "q": "DIA vs broadband?",
+  "k": "dia broadband difference",
+  "a": "DIA has dedicated bandwidth, symmetrical speeds, SLAs and static IPs; broadband is shared, often asymmetrical and best effort but much cheaper.",
+  "src": [
+   {
+    "t": "NetOps Starter: Circuits & OSS 101",
+    "u": "#circuits"
+   }
+  ]
+ },
+ {
+  "track": "oss",
+  "q": "What is MPLS L3VPN?",
+  "k": "mpls l3vpn vpn carrier wan",
+  "a": "A carrier-managed private routed WAN. Each site connects CE to PE; the carrier keeps your routes in a VRF and routes between your sites (RFC 4364). Routing to the carrier is often BGP or static.",
+  "src": [
+   {
+    "t": "RFC 4364 BGP/MPLS IP VPNs",
+    "u": "https://www.rfc-editor.org/rfc/rfc4364"
+   }
+  ]
+ },
+ {
+  "track": "oss",
+  "q": "What is Metro Ethernet?",
+  "k": "metro ethernet carrier ethernet",
+  "a": "Layer 2 Ethernet services across a carrier network (MEF-defined): E-Line point-to-point, E-LAN multipoint, E-Tree rooted multipoint.",
+  "src": [
+   {
+    "t": "MEF",
+    "u": "https://www.mef.net/"
+   }
+  ]
+ },
+ {
+  "track": "oss",
+  "q": "What is E-Line, EPL and EVPL?",
+  "k": "eline epl evpl point to point",
+  "a": "E-Line is point-to-point Ethernet. EPL is port-based (whole port, transparent). EVPL is VLAN-based, so one physical port can carry several EVCs to different sites.",
+  "src": [
+   {
+    "t": "MEF",
+    "u": "https://www.mef.net/"
+   }
+  ]
+ },
+ {
+  "track": "oss",
+  "q": "What is E-LAN?",
+  "k": "elan multipoint ethernet",
+  "a": "Multipoint-to-multipoint Ethernet: all connected sites behave like one switched LAN.",
+  "src": [
+   {
+    "t": "MEF",
+    "u": "https://www.mef.net/"
+   }
+  ]
+ },
+ {
+  "track": "oss",
+  "q": "What is an EVC?",
+  "k": "evc ethernet virtual connection",
+  "a": "Ethernet Virtual Connection: the MEF term for the logical connection between UNIs that carries the customer's service.",
+  "src": [
+   {
+    "t": "MEF",
+    "u": "https://www.mef.net/"
+   }
+  ]
+ },
+ {
+  "track": "oss",
+  "q": "What is a UNI and an NNI?",
+  "k": "uni nni enni interface",
+  "a": "UNI is the customer handoff port. NNI/ENNI is the interconnect between two carriers' networks (e.g. when a last-mile partner is used).",
+  "src": [
+   {
+    "t": "MEF",
+    "u": "https://www.mef.net/"
+   }
+  ]
+ },
+ {
+  "track": "oss",
+  "q": "What are CIR and EIR?",
+  "k": "cir eir committed rate bandwidth profile",
+  "a": "CIR is the committed, guaranteed rate; EIR is extra traffic allowed above CIR without guarantees. Traffic above CIR+EIR is dropped by the policer.",
+  "src": [
+   {
+    "t": "MEF",
+    "u": "https://www.mef.net/"
+   },
+   {
+    "t": "ITU-T Y.1564",
+    "u": "https://www.itu.int/rec/T-REC-Y.1564"
+   }
+  ]
+ },
+ {
+  "track": "oss",
+  "q": "What is QinQ?",
+  "k": "qinq 802.1ad s-tag c-tag double tagging",
+  "a": "VLAN stacking (802.1ad): the carrier adds an outer S-tag around customer C-tags so customer VLANs pass transparently. Watch MTU — each tag adds 4 bytes.",
+  "src": [
+   {
+    "t": "MEF",
+    "u": "https://www.mef.net/"
+   }
+  ]
+ },
+ {
+  "track": "oss",
+  "q": "What is a wavelength service?",
+  "k": "wave wavelength dwdm optical",
+  "a": "A dedicated optical channel on a carrier's DWDM system (e.g. 10G/100G), point-to-point and protocol transparent. Used for data center interconnect and backbones.",
+  "src": [
+   {
+    "t": "NetOps Starter: Circuits & OSS 101",
+    "u": "#circuits"
+   }
+  ]
+ },
+ {
+  "track": "oss",
+  "q": "What is dark fiber?",
+  "k": "dark fiber unlit strands",
+  "a": "Leased fiber strands with no carrier equipment; you supply optics/equipment. Maximum control and bandwidth, but you own operation and troubleshooting.",
+  "src": [
+   {
+    "t": "NetOps Starter: Circuits & OSS 101",
+    "u": "#circuits"
+   }
+  ]
+ },
+ {
+  "track": "oss",
+  "q": "What is a DS1 / T1?",
+  "k": "ds1 t1 1.544",
+  "a": "A 1.544 Mbps TDM circuit made of 24 × 64 kbps DS0 channels. Legacy, still found in voice/alarm circuits.",
+  "src": [
+   {
+    "t": "NetOps Starter: Circuits & OSS 101",
+    "u": "#circuits"
+   }
+  ]
+ },
+ {
+  "track": "oss",
+  "q": "What is a DS3 / T3?",
+  "k": "ds3 t3 44.736",
+  "a": "A 44.736 Mbps TDM circuit carrying 28 DS1s. Mostly replaced by Ethernet.",
+  "src": [
+   {
+    "t": "NetOps Starter: Circuits & OSS 101",
+    "u": "#circuits"
+   }
+  ]
+ },
+ {
+  "track": "oss",
+  "q": "What is OSS vs BSS?",
+  "k": "oss bss operations business support systems",
+  "a": "OSS (operations support) covers inventory, design, provisioning, fault and performance. BSS (business support) covers orders, billing and customer management.",
+  "src": [
+   {
+    "t": "NetOps Starter: Circuits & OSS 101",
+    "u": "#circuits"
+   },
+   {
+    "t": "CircuitVision products",
+    "u": "https://www.circuitvision.com/products/"
+   }
+  ]
+ },
+ {
+  "track": "oss",
+  "q": "What does a network inventory system do?",
+  "k": "inventory system oss purpose",
+  "a": "It records equipment, ports, circuits, fiber, assignments and customers so you can design new services, find free capacity, and see what is impacted by an outage.",
+  "src": [
+   {
+    "t": "CircuitVision cvNetwork",
+    "u": "https://www.circuitvision.com/products/cvnetwork/"
+   },
+   {
+    "t": "NetBox circuits docs",
+    "u": "https://docs.netbox.dev/en/stable/features/circuits/"
+   }
+  ]
+ },
+ {
+  "track": "oss",
+  "q": "What is CircuitVision?",
+  "k": "circuitvision oss suite",
+  "a": "A telecom OSS software suite from CircuitVision: cvNetwork (network/circuit inventory, design and orders), cvFiber (outside-plant fiber GIS) and cvTicket (trouble/change ticketing). This site is not affiliated; see their product pages and your internal training.",
+  "src": [
+   {
+    "t": "CircuitVision products",
+    "u": "https://www.circuitvision.com/products/"
+   }
+  ]
+ },
+ {
+  "track": "oss",
+  "q": "What is cvNetwork?",
+  "k": "cvnetwork inventory design order",
+  "a": "Per CircuitVision's product page: network management and design — equipment inventory, circuit and service design, order management, engineering workflow, capacity and grooming.",
+  "src": [
+   {
+    "t": "CircuitVision cvNetwork",
+    "u": "https://www.circuitvision.com/products/cvnetwork/"
+   }
+  ]
+ },
+ {
+  "track": "oss",
+  "q": "What is cvFiber?",
+  "k": "cvfiber osp gis fiber mapping",
+  "a": "Per CircuitVision's product page: outside-plant fiber management with GIS mapping — cables, conduits, splices, patch panels, and strand-level circuit info to see impact.",
+  "src": [
+   {
+    "t": "CircuitVision cvFiber",
+    "u": "https://www.circuitvision.com/products/cvfiber/"
+   }
+  ]
+ },
+ {
+  "track": "oss",
+  "q": "What is cvTicket?",
+  "k": "cvticket trouble ticket change management noc",
+  "a": "Per CircuitVision's product page: trouble and change/maintenance ticketing for the NOC, linked to network data to see impacted circuits and bulk-notify customers.",
+  "src": [
+   {
+    "t": "CircuitVision cvTicket",
+    "u": "https://www.circuitvision.com/products/cvticket/"
+   }
+  ]
+ },
+ {
+  "track": "oss",
+  "q": "What are the steps in a circuit's lifecycle?",
+  "k": "circuit lifecycle steps order design turn-up",
+  "a": "Quote → order → design in OSS → assignments → build/install → turn-up and testing → customer acceptance → billing → operate → change → disconnect. See the lifecycle flowchart.",
+  "src": [
+   {
+    "t": "NetOps Starter: Circuits & OSS 101",
+    "u": "#circuits"
+   }
+  ]
+ },
+ {
+  "track": "oss",
+  "q": "What is circuit design?",
+  "k": "circuit design dlr path",
+  "a": "Choosing and recording the end-to-end path: facilities, equipment, ports, fibers, VLANs and IPs, producing a design record (DLR) in the OSS.",
+  "src": [
+   {
+    "t": "NetOps Starter: Circuits & OSS 101",
+    "u": "#circuits"
+   },
+   {
+    "t": "CircuitVision cvNetwork",
+    "u": "https://www.circuitvision.com/products/cvnetwork/"
+   }
+  ]
+ },
+ {
+  "track": "oss",
+  "q": "What is a DLR?",
+  "k": "dlr design layout record",
+  "a": "Design Layout Record: carrier document showing how a circuit is built end to end — useful when troubleshooting with the carrier.",
+  "src": [
+   {
+    "t": "NetOps Starter: Circuits & OSS 101",
+    "u": "#circuits"
+   }
+  ]
+ },
+ {
+  "track": "oss",
+  "q": "What are assignments in OSS?",
+  "k": "assignments reserve ports vlan",
+  "a": "Reserving specific resources (ports, fiber strands, VLANs, IP blocks, cross-connects) to a circuit so nobody else uses them. Released on disconnect.",
+  "src": [
+   {
+    "t": "NetOps Starter: Circuits & OSS 101",
+    "u": "#circuits"
+   },
+   {
+    "t": "CircuitVision cvNetwork",
+    "u": "https://www.circuitvision.com/products/cvnetwork/"
+   }
+  ]
+ },
+ {
+  "track": "oss",
+  "q": "What is a FOC date?",
+  "k": "foc firm order commitment",
+  "a": "Firm Order Commitment: the date the carrier commits to deliver. Track it on the order and escalate if it slips.",
+  "src": [
+   {
+    "t": "NetOps Starter: Circuits & OSS 101",
+    "u": "#circuits"
+   }
+  ]
+ },
+ {
+  "track": "oss",
+  "q": "What tests are run at circuit turn-up?",
+  "k": "turn-up testing tests",
+  "a": "Physical/optic checks, loopbacks, then a service test at CIR — RFC 2544 or ITU-T Y.1564 — measuring throughput, latency, jitter and loss. Save results on the ticket. See the turn-up checklist.",
+  "src": [
+   {
+    "t": "RFC 2544 benchmarking",
+    "u": "https://www.rfc-editor.org/rfc/rfc2544"
+   },
+   {
+    "t": "ITU-T Y.1564",
+    "u": "https://www.itu.int/rec/T-REC-Y.1564"
+   }
+  ]
+ },
+ {
+  "track": "oss",
+  "q": "What is RFC 2544?",
+  "k": "rfc 2544 benchmark test",
+  "a": "An IETF benchmarking methodology: throughput, latency, frame loss and back-to-back frames across frame sizes. Widely used (though designed for lab devices) for circuit turn-up.",
+  "src": [
+   {
+    "t": "RFC 2544 benchmarking",
+    "u": "https://www.rfc-editor.org/rfc/rfc2544"
+   }
+  ]
+ },
+ {
+  "track": "oss",
+  "q": "What is ITU-T Y.1564?",
+  "k": "y.1564 service activation test",
+  "a": "Ethernet service activation methodology: a service configuration test (CIR, EIR, policing) and a service performance test over time checking delay, delay variation and loss. Can test multiple services at once.",
+  "src": [
+   {
+    "t": "ITU-T Y.1564",
+    "u": "https://www.itu.int/rec/T-REC-Y.1564"
+   }
+  ]
+ },
+ {
+  "track": "oss",
+  "q": "RFC 2544 vs Y.1564?",
+  "k": "2544 vs 1564 difference",
+  "a": "RFC 2544 tests one stream sequentially and was designed for lab benchmarking; Y.1564 was designed for service activation, tests multiple services (CIR/EIR) at once and checks SLA KPIs.",
+  "src": [
+   {
+    "t": "RFC 2544 benchmarking",
+    "u": "https://www.rfc-editor.org/rfc/rfc2544"
+   },
+   {
+    "t": "ITU-T Y.1564",
+    "u": "https://www.itu.int/rec/T-REC-Y.1564"
+   }
+  ]
+ },
+ {
+  "track": "oss",
+  "q": "What is a loopback test?",
+  "k": "loopback test isolate fault",
+  "a": "A device returns traffic to the sender so you can test one segment at a time. Carriers loop their NID; if the loop toward the carrier passes, the problem is likely on your side.",
+  "src": [
+   {
+    "t": "NetOps Starter: Circuits & OSS 101",
+    "u": "#circuits"
+   }
+  ]
+ },
+ {
+  "track": "oss",
+  "q": "What are typical optic light levels?",
+  "k": "light levels dbm rx tx optics",
+  "a": "Check Rx/Tx dBm against the transceiver's datasheet range. Too low = dirty/damaged fiber or long path; too high on short links can overload the receiver. Clean connectors first.",
+  "src": [
+   {
+    "t": "NetOps Starter: Circuits & OSS 101",
+    "u": "#circuits"
+   }
+  ]
+ },
+ {
+  "track": "oss",
+  "q": "How do I open a trouble ticket with a carrier?",
+  "k": "carrier ticket trouble open",
+  "a": "Have the circuit ID, A/Z locations, start time with time zone, impact, symptoms, what you already tested (light, errors, loopbacks), site access contact and testing authorization. Use the carrier ticket template.",
+  "src": [
+   {
+    "t": "NetOps Starter: Circuits & OSS 101",
+    "u": "#circuits"
+   }
+  ]
+ },
+ {
+  "track": "oss",
+  "q": "How do I escalate a carrier ticket?",
+  "k": "escalate carrier ticket escalation",
+  "a": "Ask for the ticket number and next update time, then use the carrier's escalation list (tier/time based). Keep a timeline of updates; reference SLA terms for hard-down circuits.",
+  "src": [
+   {
+    "t": "NetOps Starter: Circuits & OSS 101",
+    "u": "#circuits"
+   }
+  ]
+ },
+ {
+  "track": "oss",
+  "q": "What is an SLA for a circuit?",
+  "k": "sla availability mttr credits",
+  "a": "Service Level Agreement: commitments on availability, latency, jitter, loss and repair time, with credits if missed. Check how outages must be reported to qualify.",
+  "src": [
+   {
+    "t": "NetOps Starter: Circuits & OSS 101",
+    "u": "#circuits"
+   }
+  ]
+ },
+ {
+  "track": "oss",
+  "q": "What is MTTR?",
+  "k": "mttr mean time to repair",
+  "a": "Mean Time To Repair: average time to restore service after a failure. A key SLA and NOC metric.",
+  "src": [
+   {
+    "t": "NetOps Starter: Circuits & OSS 101",
+    "u": "#circuits"
+   }
+  ]
+ },
+ {
+  "track": "oss",
+  "q": "What is on-net vs off-net?",
+  "k": "on-net off-net last mile",
+  "a": "On-net: the carrier's own facilities reach the building. Off-net: they use another provider for the last mile (via an NNI), which usually adds cost and lead time.",
+  "src": [
+   {
+    "t": "NetOps Starter: Circuits & OSS 101",
+    "u": "#circuits"
+   }
+  ]
+ },
+ {
+  "track": "oss",
+  "q": "What is path diversity?",
+  "k": "diversity diverse path redundancy",
+  "a": "Two circuits that don't share building entrances, conduits, or carrier equipment, so one cut doesn't take both down. Ask for route maps and diversity guarantees in writing.",
+  "src": [
+   {
+    "t": "NetOps Starter: Circuits & OSS 101",
+    "u": "#circuits"
+   }
+  ]
+ },
+ {
+  "track": "oss",
+  "q": "What happens on a circuit disconnect?",
+  "k": "disconnect circuit decommission",
+  "a": "Submit the disconnect order, remove cross-connects/equipment, release assignments in inventory and confirm billing stops. Stale inventory and lingering billing are common problems.",
+  "src": [
+   {
+    "t": "NetOps Starter: Circuits & OSS 101",
+    "u": "#circuits"
+   },
+   {
+    "t": "CircuitVision cvNetwork",
+    "u": "https://www.circuitvision.com/products/cvnetwork/"
+   }
+  ]
+ },
+ {
+  "track": "oss",
+  "q": "How do I trace a circuit in an inventory system?",
+  "k": "trace circuit inventory netbox termination",
+  "a": "Find the circuit by ID, check provider/type/status, open the A and Z terminations, follow cables to device interfaces, then check VLANs/IPs. Practise on the NetBox public demo.",
+  "src": [
+   {
+    "t": "NetBox circuits docs",
+    "u": "https://docs.netbox.dev/en/stable/features/circuits/"
+   },
+   {
+    "t": "NetBox circuit terminations",
+    "u": "https://docs.netbox.dev/en/stable/models/circuits/circuittermination/"
+   },
+   {
+    "t": "NetBox public demo",
+    "u": "https://demo.netbox.dev/"
+   }
+  ]
+ },
+ {
+  "track": "oss",
+  "q": "How does NetBox model circuits?",
+  "k": "netbox circuits provider termination model",
+  "a": "Providers own circuits; each circuit has a type, ID (cid), status, commit rate, and A/Z terminations attached to sites or provider networks and cabled to device interfaces.",
+  "src": [
+   {
+    "t": "NetBox circuits docs",
+    "u": "https://docs.netbox.dev/en/stable/features/circuits/"
+   },
+   {
+    "t": "NetBox circuit model",
+    "u": "https://docs.netbox.dev/en/stable/models/circuits/circuit/"
+   },
+   {
+    "t": "NetBox circuit terminations",
+    "u": "https://docs.netbox.dev/en/stable/models/circuits/circuittermination/"
+   }
+  ]
+ },
+ {
+  "track": "oss",
+  "q": "What is a maintenance window notification?",
+  "k": "maintenance window notification planned",
+  "a": "A carrier or internal notice of planned work. Check which of your circuits are impacted (inventory), notify affected users, and confirm services after the window.",
+  "src": [
+   {
+    "t": "CircuitVision cvTicket",
+    "u": "https://www.circuitvision.com/products/cvticket/"
+   }
+  ]
+ },
+ {
+  "track": "oss",
+  "q": "What is a cross-connect ID?",
+  "k": "cross-connect id xconnect",
+  "a": "The data center operator's reference for a cross-connect. Record it in inventory with both panel/port ends; you need it to troubleshoot or disconnect.",
+  "src": [
+   {
+    "t": "NetOps Starter: Circuits & OSS 101",
+    "u": "#circuits"
+   }
+  ]
+ },
+ {
+  "track": "oss",
+  "q": "What should I learn first in a circuits/OSS role?",
+  "k": "start learning circuits oss first",
+  "a": "Your company's circuit ID format, the order → design → turn-up flow, how to look up a circuit in the inventory/OSS, and how to open carrier tickets. Follow the 30-60-90 plan.",
+  "src": [
+   {
+    "t": "NetOps Starter: Circuits & OSS 101",
+    "u": "#circuits"
    }
   ]
  }

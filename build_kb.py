@@ -24,6 +24,30 @@ S={
 "nc":("RFC 6241 NETCONF","https://datatracker.ietf.org/doc/html/rfc6241"),
 "rc":("RFC 8040 RESTCONF","https://datatracker.ietf.org/doc/html/rfc8040"),
 }
+S.update({
+"r1918":("RFC 1918 private addressing","https://www.rfc-editor.org/rfc/rfc1918"),
+"r4632":("RFC 4632 CIDR","https://www.rfc-editor.org/rfc/rfc4632"),
+"r3021":("RFC 3021 /31 links","https://www.rfc-editor.org/rfc/rfc3021"),
+"r4271":("RFC 4271 BGP-4","https://www.rfc-editor.org/rfc/rfc4271"),
+"r2328":("RFC 2328 OSPFv2","https://www.rfc-editor.org/rfc/rfc2328"),
+"r4364":("RFC 4364 BGP/MPLS IP VPNs","https://www.rfc-editor.org/rfc/rfc4364"),
+"r2544":("RFC 2544 benchmarking","https://www.rfc-editor.org/rfc/rfc2544"),
+"y1564":("ITU-T Y.1564","https://www.itu.int/rec/T-REC-Y.1564"),
+"r6349":("RFC 6349 TCP throughput testing","https://www.rfc-editor.org/rfc/rfc6349"),
+"mef":("MEF","https://www.mef.net/"),
+"nbc":("NetBox circuits docs","https://docs.netbox.dev/en/stable/features/circuits/"),
+"nbcm":("NetBox circuit model","https://docs.netbox.dev/en/stable/models/circuits/circuit/"),
+"nbct":("NetBox circuit terminations","https://docs.netbox.dev/en/stable/models/circuits/circuittermination/"),
+"nbdemo":("NetBox public demo","https://demo.netbox.dev/"),
+"cvp":("CircuitVision products","https://www.circuitvision.com/products/"),
+"cvn":("CircuitVision cvNetwork","https://www.circuitvision.com/products/cvnetwork/"),
+"cvf":("CircuitVision cvFiber","https://www.circuitvision.com/products/cvfiber/"),
+"cvt":("CircuitVision cvTicket","https://www.circuitvision.com/products/cvticket/"),
+"tk":("NetOps Starter toolkit","#toolkit"),
+"oss":("NetOps Starter: Circuits & OSS 101","#circuits"),
+"jdoc":("Juniper documentation","https://www.juniper.net/documentation/"),
+})
+O="oss"
 E=[]
 def a(t,q,k,ans,src): E.append({"track":t,"q":q,"k":k,"a":ans,"src":[{"t":S[s][0],"u":S[s][1]} for s in src]})
 C="circuit";N="network"
@@ -143,5 +167,104 @@ a(N,"How do I test automation safely?","test lab safe","Run against a Containerl
 a(N,"What is Python's role in network automation?","python learn","Python drives most libraries (Netmiko, NAPALM, Nornir). Learn basics: variables, lists/dicts, loops, functions, files, and JSON.",["npb"])
 a(N,"How do I call a REST API from Python?","requests python api","Use the requests library: requests.get(url, auth=..., headers={'Accept':'application/yang-data+json'}, verify=...). Check status_code then .json().",["rc","npb"])
 a(N,"What port does NETCONF use?","netconf port 830","NETCONF over SSH uses TCP port 830 by default.",["nc"])
+
+# ---- Networking additions ----
+a(N,"How do I calculate a subnet?","subnet calculate cidr network broadcast hosts","Use the Toolkit subnet calculator. By hand: hosts = 2^(32-prefix) - 2; the network address is the IP AND the mask; broadcast is the network with all host bits set. Example 192.168.10.37/27: network .32, broadcast .63, hosts .33-.62.",["tk","r4632"])
+a(N,"What is CIDR notation?","cidr prefix slash notation","CIDR writes the mask as a prefix length: /24 = 255.255.255.0, /27 = 255.255.255.224. It replaced classful addressing and allows route summarization.",["r4632"])
+a(N,"How many hosts are in a /27, /28, /29, /30?","hosts per prefix 27 28 29 30","/27 = 30 usable, /28 = 14, /29 = 6, /30 = 2. Usable = 2^(32-prefix) minus network and broadcast.",["tk"])
+a(N,"Can I use /31 on point-to-point links?","31 point to point link","Yes. RFC 3021 allows /31 on point-to-point links: both addresses are usable, saving addresses versus /30. Most modern routers support it.",["r3021"])
+a(N,"What are the private IP ranges?","private rfc1918 ranges 10 172 192","10.0.0.0/8, 172.16.0.0/12 and 192.168.0.0/16 (RFC 1918). They are not routed on the Internet and need NAT for Internet access.",["r1918"])
+a(N,"What is a wildcard mask?","wildcard mask acl ospf inverse","The inverse of a subnet mask, used in Cisco ACLs and OSPF network statements: 0 bits must match, 1 bits are ignored. /24 mask 255.255.255.0 = wildcard 0.0.0.255.",["tk"])
+a(N,"What is route summarization?","summarization aggregate supernet","Advertising one shorter prefix that covers several longer ones, e.g. 10.1.0.0/22 covers 10.1.0.0-10.1.3.255. Reduces routing table size and churn.",["r4632"])
+a(N,"How do I troubleshoot an OSPF neighbor that won't come up?","ospf neighbor down adjacency stuck","Check IP reachability, OSPF enabled on the interface (not passive), and matching area, subnet, hello/dead timers, authentication, area type and MTU. Stuck in EXSTART/EXCHANGE usually means MTU mismatch. See the OSPF flowchart.",["tk","r2328"])
+a(N,"What do OSPF neighbor states mean?","ospf states full 2way exstart init","Down → Init (hello seen) → 2-Way (bidirectional; normal final state between DROTHERs) → ExStart/Exchange (database description) → Loading → Full (synchronized).",["r2328"])
+a(N,"What is an OSPF DR/BDR?","ospf dr bdr designated router","On broadcast networks OSPF elects a Designated Router and Backup to reduce adjacencies. Highest priority wins, then highest router ID. Priority 0 = never DR.",["r2328"])
+a(N,"How do I troubleshoot a BGP session that is down?","bgp down idle active session","Check the state: Idle (config or no route to peer), Active (TCP 179 failing). Verify reachability from the update-source, remote-as, password, ebgp-multihop for loopbacks, and ACLs/firewalls on TCP 179. See the BGP flowchart.",["tk","r4271"])
+a(N,"What do BGP Idle and Active states mean?","bgp idle active state","Idle: not attempting (admin shut, no route, or after error). Active: trying to open the TCP session but failing. Established is the working state.",["r4271"])
+a(N,"Why isn't my BGP route in the routing table?","bgp route not installed next hop","Usually the next hop is unreachable (common on iBGP — use next-hop-self), it isn't the best path, or a route with lower administrative distance wins.",["tk","r4271"])
+a(N,"eBGP vs iBGP?","ebgp ibgp difference","eBGP peers are in different ASes (usually directly connected, TTL 1); iBGP peers are in the same AS, don't change next hop by default, and don't re-advertise iBGP routes to other iBGP peers (needs full mesh or route reflectors).",["r4271"])
+a(N,"How does BGP choose the best path?","bgp best path selection attributes","Simplified Cisco order: highest weight, highest local preference, locally originated, shortest AS path, lowest origin type, lowest MED, eBGP over iBGP, lowest IGP metric to next hop, then tie-breakers (oldest, lowest router ID).",["r4271"])
+a(N,"What is administrative distance?","administrative distance ad route preference","Cisco's trust ranking between routing sources: connected 0, static 1, eBGP 20, OSPF 110, IS-IS 115, RIP 120, iBGP 200. Lower wins when the same prefix comes from different sources.",["devnet"])
+a(N,"How do I check trunk ports on Cisco?","show interfaces trunk allowed vlans","show interfaces trunk (IOS) or show interface trunk (NX-OS) lists trunk ports, native VLAN, and VLANs allowed and active. Check both ends match.",["tk"])
+a(N,"How do I safely add a VLAN to a trunk?","add vlan trunk allowed add","Use switchport trunk allowed vlan add <id>. Without 'add' the command replaces the whole allowed list and can cause an outage.",["tk"])
+a(N,"What is a native VLAN mismatch?","native vlan mismatch cdp","The two ends of a trunk use different untagged (native) VLANs, so untagged traffic leaks between VLANs. CDP logs NATIVE_VLAN_MISMATCH. Set the same native VLAN on both sides.",["tk"])
+a(N,"What is spanning tree?","stp spanning tree loop","A protocol that blocks redundant switch links to prevent Layer 2 loops. Check root bridge and port states with show spanning-tree; Rapid PVST+ or MST are common.",["tk"])
+a(N,"Why is my port err-disabled?","err-disabled errdisable port security bpdu guard","A protection feature shut it: port security violation, BPDU guard, UDLD, link flap, etc. Check show interfaces status err-disabled and logs, fix the cause, then shutdown/no shutdown.",["tk"])
+a(N,"What is an EtherChannel / LAG?","etherchannel lag lacp port-channel","Several physical links bundled into one logical link for bandwidth and redundancy. LACP (802.3ad) negotiates it; use active/active or active/passive, not 'on' with LACP.",["tk"])
+a(N,"How do I check interface errors?","interface errors crc input counters","show interfaces <if> (IOS/NX-OS) or show interfaces <if> extensive (Junos). Rising CRC/input errors suggest bad cable/optic or duplex mismatch; clear counters and watch.",["tk"])
+a(N,"What is a duplex mismatch?","duplex mismatch late collisions","One side full duplex, the other half — causes slow, errored links (late collisions, CRC errors). Use auto/auto on both or hardcode both the same.",["tk"])
+a(N,"What is an SVI?","svi vlan interface layer 3","A Switch Virtual Interface (interface VlanX) gives a VLAN an IP address for routing/management. It is up only if the VLAN exists and has an active port.",["tk"])
+a(N,"How do I route between VLANs on a Layer 3 switch?","inter-vlan routing ip routing svi","Create SVIs for each VLAN with gateway IPs and enable ip routing. Hosts use the SVI IP as their default gateway.",["tk"])
+a(N,"What are the most useful Cisco show commands?","cisco show commands ios cheat sheet","show ip interface brief, show interfaces status, show vlan brief, show interfaces trunk, show ip route, show ip ospf neighbor, show ip bgp summary, show cdp/lldp neighbors, show logging. See the Toolkit cheat sheet.",["tk"])
+a(N,"What are common Juniper Junos show commands?","juniper junos show commands","show interfaces terse, show route, show ospf neighbor, show bgp summary, show lldp neighbors, show ethernet-switching table, show log messages, show configuration | display set.",["tk","jdoc"])
+a(N,"How do I commit safely on Junos?","junos commit confirmed rollback compare","Review with show | compare, validate with commit check, then commit confirmed <minutes>; if you lose access it rolls back automatically. Confirm with a plain commit. rollback 1 restores the previous config.",["tk","jdoc"])
+a(N,"NX-OS vs IOS differences to know?","nx-os nexus ios differences feature","NX-OS needs features enabled (feature ospf, feature bgp, feature interface-vlan), uses Ethernet1/1 naming, VRF-aware commands (vrf all), checkpoints/rollback, and vPC for multi-chassis port-channels.",["tk"])
+a(N,"What is vPC?","vpc nexus virtual port channel","Cisco Nexus virtual Port Channel: two switches present one port-channel to a downstream device. Check with show vpc brief; peer-link and keepalive must be healthy.",["tk"])
+a(N,"How do I use reload in as a safety net?","reload in safety net lockout cisco","Before a risky remote change on IOS, run reload in 10. If you lose access the device reboots to the saved config. If all is good, run reload cancel and save.",["tk"])
+a(N,"What should I capture before and after a change?","pre post checks change verification","Interfaces, routing table/prefix counts, OSPF/BGP neighbors, STP/trunks/port-channels, key pings/traceroutes, and logs. Re-run after and diff. Use the Toolkit pre/post checklist.",["tk"])
+a(N,"How do I read a traceroute?","traceroute read hops asterisks","Each line is a hop with round-trip times. Asterisks mean that hop didn't reply (often ICMP rate-limiting, not necessarily loss). Look where latency jumps and stays high, or where it stops completely.",["tk"])
+a(N,"What is MTU and why does it matter?","mtu fragmentation jumbo","Maximum packet size on a link (1500 bytes typical Ethernet). Mismatches break OSPF adjacencies and cause drops for large packets, especially over tunnels/QinQ; carriers may require larger MTU.",["tk"])
+a(N,"What is NAT?","nat pat translation","Network Address Translation rewrites IP addresses, usually private to public. PAT (overload) shares one public IP across many hosts using ports.",["r1918"])
+a(N,"What is HSRP/VRRP?","hsrp vrrp gateway redundancy fhrp","First-hop redundancy protocols: two routers share a virtual gateway IP so hosts keep working if one fails. HSRP is Cisco; VRRP is a standard.",["tk"])
+a(N,"What is LLDP/CDP used for?","lldp cdp neighbors discovery","Discovering directly connected neighbors: device name, port, platform. Great for verifying cabling and documentation. show cdp neighbors detail / show lldp neighbors.",["tk"])
+a(N,"What is a VRF?","vrf routing instance","A separate routing table on one router, keeping traffic of different customers or services isolated. Used heavily in MPLS L3VPN.",["r4364"])
+a(N,"How do I check logs on network devices?","logs syslog show logging","IOS: show logging; NX-OS: show logging logfile; Junos: show log messages. Send logs to a central syslog server with correct time (NTP) so events line up.",["tk"])
+a(N,"Why is NTP important?","ntp time sync logs","Accurate time makes logs and tickets correlate across devices and carriers; also needed for certificates and some authentication.",["tk"])
+
+# ---- Circuits, carriers & OSS ----
+a(O,"What is a circuit ID?","circuit id cid identifier","The unique ID for a circuit used on orders, tickets and invoices. Carriers have their own formats (many US carriers use Telcordia CLCI-based ones); your inventory system may also have an internal ID. Always quote it on tickets. See the Circuit ID explainer.",["oss","nbcm"])
+a(O,"How do I read a circuit ID?","read decode circuit id format segments","Split it into segments: commonly a location or prefix, service type code, bandwidth or modifier, serial number, and carrier/company code. Exact meaning depends on the carrier — check their documentation.",["oss"])
+a(O,"What is a demarc?","demarc demarcation point","The point where the carrier's responsibility ends and yours begins, usually a NID port or patch panel. Problems on your side of the demarc are yours to fix.",["oss"])
+a(O,"What is a NID?","nid network interface device","A carrier-owned device at the demarc. For Ethernet it's often a small managed switch that supports loopbacks and performance tests the carrier can run remotely.",["oss","mef"])
+a(O,"What is an extended demarc?","extended demarc inside wiring","Cabling from the carrier's demarc to your equipment room or rack. Clarify who orders and owns it — it's a common cause of turn-up delays.",["oss"])
+a(O,"What is an LOA?","loa letter of authorization","Letter of Authorization: lets another party (e.g. a carrier) order a connection to your space or port. Usually expires (often 30-90 days).",["oss"])
+a(O,"What is a CFA?","cfa connecting facility assignment loa-cfa","Connecting Facility Assignment: the exact location (panel and port) where a circuit or cross-connect lands. Often combined as an LOA-CFA document.",["oss"])
+a(O,"How do I order a cross-connect?","cross-connect order data center colo","Get the LOA-CFA from the other party, check panel/port and media, order the cross-connect from the data center operator quoting it, configure your port, then verify light/link and label both ends. Use the LOA/CFA checklist.",["oss"])
+a(O,"What is a meet-me room?","meet-me room mmr colocation","The room in a data center or carrier hotel where carriers and customers interconnect with cross-connects.",["oss"])
+a(O,"What is DIA?","dia dedicated internet access","Dedicated Internet Access: Internet with committed bandwidth, an SLA and usually a static IP block; routing via static or BGP. Different from shared broadband.",["oss"])
+a(O,"DIA vs broadband?","dia broadband difference","DIA has dedicated bandwidth, symmetrical speeds, SLAs and static IPs; broadband is shared, often asymmetrical and best effort but much cheaper.",["oss"])
+a(O,"What is MPLS L3VPN?","mpls l3vpn vpn carrier wan","A carrier-managed private routed WAN. Each site connects CE to PE; the carrier keeps your routes in a VRF and routes between your sites (RFC 4364). Routing to the carrier is often BGP or static.",["r4364"])
+a(O,"What is Metro Ethernet?","metro ethernet carrier ethernet","Layer 2 Ethernet services across a carrier network (MEF-defined): E-Line point-to-point, E-LAN multipoint, E-Tree rooted multipoint.",["mef"])
+a(O,"What is E-Line, EPL and EVPL?","eline epl evpl point to point","E-Line is point-to-point Ethernet. EPL is port-based (whole port, transparent). EVPL is VLAN-based, so one physical port can carry several EVCs to different sites.",["mef"])
+a(O,"What is E-LAN?","elan multipoint ethernet","Multipoint-to-multipoint Ethernet: all connected sites behave like one switched LAN.",["mef"])
+a(O,"What is an EVC?","evc ethernet virtual connection","Ethernet Virtual Connection: the MEF term for the logical connection between UNIs that carries the customer's service.",["mef"])
+a(O,"What is a UNI and an NNI?","uni nni enni interface","UNI is the customer handoff port. NNI/ENNI is the interconnect between two carriers' networks (e.g. when a last-mile partner is used).",["mef"])
+a(O,"What are CIR and EIR?","cir eir committed rate bandwidth profile","CIR is the committed, guaranteed rate; EIR is extra traffic allowed above CIR without guarantees. Traffic above CIR+EIR is dropped by the policer.",["mef","y1564"])
+a(O,"What is QinQ?","qinq 802.1ad s-tag c-tag double tagging","VLAN stacking (802.1ad): the carrier adds an outer S-tag around customer C-tags so customer VLANs pass transparently. Watch MTU — each tag adds 4 bytes.",["mef"])
+a(O,"What is a wavelength service?","wave wavelength dwdm optical","A dedicated optical channel on a carrier's DWDM system (e.g. 10G/100G), point-to-point and protocol transparent. Used for data center interconnect and backbones.",["oss"])
+a(O,"What is dark fiber?","dark fiber unlit strands","Leased fiber strands with no carrier equipment; you supply optics/equipment. Maximum control and bandwidth, but you own operation and troubleshooting.",["oss"])
+a(O,"What is a DS1 / T1?","ds1 t1 1.544","A 1.544 Mbps TDM circuit made of 24 × 64 kbps DS0 channels. Legacy, still found in voice/alarm circuits.",["oss"])
+a(O,"What is a DS3 / T3?","ds3 t3 44.736","A 44.736 Mbps TDM circuit carrying 28 DS1s. Mostly replaced by Ethernet.",["oss"])
+a(O,"What is OSS vs BSS?","oss bss operations business support systems","OSS (operations support) covers inventory, design, provisioning, fault and performance. BSS (business support) covers orders, billing and customer management.",["oss","cvp"])
+a(O,"What does a network inventory system do?","inventory system oss purpose","It records equipment, ports, circuits, fiber, assignments and customers so you can design new services, find free capacity, and see what is impacted by an outage.",["cvn","nbc"])
+a(O,"What is CircuitVision?","circuitvision oss suite","A telecom OSS software suite from CircuitVision: cvNetwork (network/circuit inventory, design and orders), cvFiber (outside-plant fiber GIS) and cvTicket (trouble/change ticketing). This site is not affiliated; see their product pages and your internal training.",["cvp"])
+a(O,"What is cvNetwork?","cvnetwork inventory design order","Per CircuitVision's product page: network management and design — equipment inventory, circuit and service design, order management, engineering workflow, capacity and grooming.",["cvn"])
+a(O,"What is cvFiber?","cvfiber osp gis fiber mapping","Per CircuitVision's product page: outside-plant fiber management with GIS mapping — cables, conduits, splices, patch panels, and strand-level circuit info to see impact.",["cvf"])
+a(O,"What is cvTicket?","cvticket trouble ticket change management noc","Per CircuitVision's product page: trouble and change/maintenance ticketing for the NOC, linked to network data to see impacted circuits and bulk-notify customers.",["cvt"])
+a(O,"What are the steps in a circuit's lifecycle?","circuit lifecycle steps order design turn-up","Quote → order → design in OSS → assignments → build/install → turn-up and testing → customer acceptance → billing → operate → change → disconnect. See the lifecycle flowchart.",["oss"])
+a(O,"What is circuit design?","circuit design dlr path","Choosing and recording the end-to-end path: facilities, equipment, ports, fibers, VLANs and IPs, producing a design record (DLR) in the OSS.",["oss","cvn"])
+a(O,"What is a DLR?","dlr design layout record","Design Layout Record: carrier document showing how a circuit is built end to end — useful when troubleshooting with the carrier.",["oss"])
+a(O,"What are assignments in OSS?","assignments reserve ports vlan","Reserving specific resources (ports, fiber strands, VLANs, IP blocks, cross-connects) to a circuit so nobody else uses them. Released on disconnect.",["oss","cvn"])
+a(O,"What is a FOC date?","foc firm order commitment","Firm Order Commitment: the date the carrier commits to deliver. Track it on the order and escalate if it slips.",["oss"])
+a(O,"What tests are run at circuit turn-up?","turn-up testing tests","Physical/optic checks, loopbacks, then a service test at CIR — RFC 2544 or ITU-T Y.1564 — measuring throughput, latency, jitter and loss. Save results on the ticket. See the turn-up checklist.",["r2544","y1564"])
+a(O,"What is RFC 2544?","rfc 2544 benchmark test","An IETF benchmarking methodology: throughput, latency, frame loss and back-to-back frames across frame sizes. Widely used (though designed for lab devices) for circuit turn-up.",["r2544"])
+a(O,"What is ITU-T Y.1564?","y.1564 service activation test","Ethernet service activation methodology: a service configuration test (CIR, EIR, policing) and a service performance test over time checking delay, delay variation and loss. Can test multiple services at once.",["y1564"])
+a(O,"RFC 2544 vs Y.1564?","2544 vs 1564 difference","RFC 2544 tests one stream sequentially and was designed for lab benchmarking; Y.1564 was designed for service activation, tests multiple services (CIR/EIR) at once and checks SLA KPIs.",["r2544","y1564"])
+a(O,"What is a loopback test?","loopback test isolate fault","A device returns traffic to the sender so you can test one segment at a time. Carriers loop their NID; if the loop toward the carrier passes, the problem is likely on your side.",["oss"])
+a(O,"What are typical optic light levels?","light levels dbm rx tx optics","Check Rx/Tx dBm against the transceiver's datasheet range. Too low = dirty/damaged fiber or long path; too high on short links can overload the receiver. Clean connectors first.",["oss"])
+a(O,"How do I open a trouble ticket with a carrier?","carrier ticket trouble open","Have the circuit ID, A/Z locations, start time with time zone, impact, symptoms, what you already tested (light, errors, loopbacks), site access contact and testing authorization. Use the carrier ticket template.",["oss"])
+a(O,"How do I escalate a carrier ticket?","escalate carrier ticket escalation","Ask for the ticket number and next update time, then use the carrier's escalation list (tier/time based). Keep a timeline of updates; reference SLA terms for hard-down circuits.",["oss"])
+a(O,"What is an SLA for a circuit?","sla availability mttr credits","Service Level Agreement: commitments on availability, latency, jitter, loss and repair time, with credits if missed. Check how outages must be reported to qualify.",["oss"])
+a(O,"What is MTTR?","mttr mean time to repair","Mean Time To Repair: average time to restore service after a failure. A key SLA and NOC metric.",["oss"])
+a(O,"What is on-net vs off-net?","on-net off-net last mile","On-net: the carrier's own facilities reach the building. Off-net: they use another provider for the last mile (via an NNI), which usually adds cost and lead time.",["oss"])
+a(O,"What is path diversity?","diversity diverse path redundancy","Two circuits that don't share building entrances, conduits, or carrier equipment, so one cut doesn't take both down. Ask for route maps and diversity guarantees in writing.",["oss"])
+a(O,"What happens on a circuit disconnect?","disconnect circuit decommission","Submit the disconnect order, remove cross-connects/equipment, release assignments in inventory and confirm billing stops. Stale inventory and lingering billing are common problems.",["oss","cvn"])
+a(O,"How do I trace a circuit in an inventory system?","trace circuit inventory netbox termination","Find the circuit by ID, check provider/type/status, open the A and Z terminations, follow cables to device interfaces, then check VLANs/IPs. Practise on the NetBox public demo.",["nbc","nbct","nbdemo"])
+a(O,"How does NetBox model circuits?","netbox circuits provider termination model","Providers own circuits; each circuit has a type, ID (cid), status, commit rate, and A/Z terminations attached to sites or provider networks and cabled to device interfaces.",["nbc","nbcm","nbct"])
+a(O,"What is a maintenance window notification?","maintenance window notification planned","A carrier or internal notice of planned work. Check which of your circuits are impacted (inventory), notify affected users, and confirm services after the window.",["cvt"])
+a(O,"What is a cross-connect ID?","cross-connect id xconnect","The data center operator's reference for a cross-connect. Record it in inventory with both panel/port ends; you need it to troubleshoot or disconnect.",["oss"])
+a(O,"What should I learn first in a circuits/OSS role?","start learning circuits oss first","Your company's circuit ID format, the order → design → turn-up flow, how to look up a circuit in the inventory/OSS, and how to open carrier tickets. Follow the 30-60-90 plan.",["oss"])
+
+E=[e for e in E if e["track"]!="circuit"]
 json.dump(E,open("kb.json","w"),ensure_ascii=False,indent=1)
 print(len(E))

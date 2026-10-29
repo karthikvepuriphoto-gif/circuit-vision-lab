@@ -1,5 +1,5 @@
 (function () {
-  var CHIPS = ["How do I find pin 1 on a chip?", "What is a netlist?", "How do I train YOLO?", "Netmiko times out", "How do I roll back a bad change?", "VLAN not working", "NETCONF vs RESTCONF", "Start a Containerlab lab"];
+  var CHIPS = ["What is an LOA-CFA?", "How do I read a circuit ID?", "RFC 2544 vs Y.1564", "What is EVPL?", "BGP session stuck in Active", "OSPF stuck in EXSTART", "How many hosts in a /27?", "How do I roll back a bad change?"];
   var engine = null, results = document.getElementById("askResults");
   function esc(s) { return String(s).replace(/[&<>"]/g, function (c) { return { "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;" }[c]; }); }
   fetch("kb.json").then(function (r) { return r.json(); }).then(function (kb) {
@@ -22,18 +22,18 @@
     run(q);
   }
   function card(r, top) {
-    var t = r.e.track === "circuit" ? "Circuit Vision" : "Networks";
+    var t = r.e.track === "oss" ? "Circuits & OSS" : "Networks";
     return '<article class="answer-card' + (top ? " top" : "") + '"><div class="answer-meta">' + (top ? "Best match · " : "") + t + "</div><h3>" + esc(r.e.q) + "</h3><p>" + esc(r.e.a) + '</p><div class="srcs">Sources: ' +
-      r.e.src.map(function (s) { return '<a href="' + esc(s.u) + '" target="_blank" rel="noopener">' + esc(s.t) + "</a>"; }).join("") + "</div></article>";
+      r.e.src.map(function (s) { return s.u.charAt(0) === "#" ? '<a href="' + esc(s.u) + '">' + esc(s.t) + "</a>" : '<a href="' + esc(s.u) + '" target="_blank" rel="noopener">' + esc(s.t) + "</a>"; }).join("") + "</div></article>";
   }
   function run(q) {
     if (!engine) { results.innerHTML = "<p>Loading…</p>"; return; }
     document.getElementById("askInput").value = q;
     var r = engine.search(q, 4);
+    if (window.CVElsewhere) window.CVElsewhere(q);
     if (!r.length || (r[0].cover < 0.34 && r[0].score < 6)) {
-      results.innerHTML = '<article class="answer-card"><h3>No confident answer for “' + esc(q) + '”</h3><p>Try rephrasing with a key term (e.g. “netlist”, “VLAN”, “Netmiko”, “PCB photo”), or a shorter question.</p>' +
-        '<p>Browse: <a href="#circuit">Circuit Vision track</a> · <a href="#network">Networks track</a> · <a href="#resources">All resources</a></p>' +
-        '<p class="srcs">Search docs: <a href="https://ktbyers.github.io/netmiko/" target="_blank" rel="noopener">Netmiko</a> <a href="https://docs.ansible.com/" target="_blank" rel="noopener">Ansible</a> <a href="https://containerlab.dev/" target="_blank" rel="noopener">Containerlab</a> <a href="https://docs.ultralytics.com/" target="_blank" rel="noopener">Ultralytics YOLO</a> <a href="https://developer.cisco.com/learning/" target="_blank" rel="noopener">Cisco DevNet</a></p></article>' +
+      results.innerHTML = '<article class="answer-card"><h3>No confident answer for “' + esc(q) + '”</h3><p>Try rephrasing with a key term (e.g. “LOA”, “circuit ID”, “VLAN”, “BGP”), or use the search buttons below.</p>' +
+        '<p>Browse: <a href="#circuits">Circuits &amp; OSS 101</a> · <a href="#network">Networks track</a> · <a href="#toolkit">Toolkit</a> · <a href="#resources">All resources</a></p></article>' +
         (r.length ? '<h3 class="related-title">Possibly related</h3>' + r.slice(0, 3).map(function (x) { return card(x, false); }).join("") : "");
       return;
     }

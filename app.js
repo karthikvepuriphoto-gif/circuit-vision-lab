@@ -80,41 +80,13 @@
 
   /* ---------- Resources ---------- */
   const RESOURCES = [
-    {
-      track: "circuit",
-      name: "CircuitVision",
-      url: "https://github.com/JKc66/CircuitVision",
-      blurb: "Streamlit app: image → parts → netlist. Fastest hands-on start.",
-      tags: "streamlit netlist detection beginner",
-    },
-    {
-      track: "circuit",
-      name: "Image2schematic",
-      url: "https://github.com/s39674/Image2schematic",
-      blurb: "PCB photo to schematic pipeline with a clear teaching narrative.",
-      tags: "pcb schematic pipeline",
-    },
-    {
-      track: "circuit",
-      name: "PCB-Component-Detection",
-      url: "https://github.com/s39674/PCB-Component-Detection",
-      blurb: "Detect and classify components on printed circuit boards.",
-      tags: "pcb detection cv yolo",
-    },
-    {
-      track: "circuit",
-      name: "PCB-Detection",
-      url: "https://github.com/SanderGi/PCB-Detection",
-      blurb: "Alternate PCB detection approach — compare models and data.",
-      tags: "pcb detection cv",
-    },
-    {
-      track: "circuit",
-      name: "Netlistify",
-      url: "https://github.com/NYCU-AI-EDA/Netlistify",
-      blurb: "Schematic to SPICE/netlist with stronger EDA-oriented models.",
-      tags: "spice netlist schematic advanced",
-    },
+    { track: "oss", name: "CircuitVision products (official)", url: "https://www.circuitvision.com/products/", blurb: "Vendor overview of cvNetwork, cvFiber and cvTicket telecom OSS modules.", tags: "circuitvision oss inventory cvnetwork cvfiber cvticket" },
+    { track: "oss", name: "NetBox circuits docs", url: "https://docs.netbox.dev/en/stable/features/circuits/", blurb: "How an open-source inventory models providers, circuits and terminations.", tags: "netbox inventory circuits providers terminations" },
+    { track: "oss", name: "NetBox public demo", url: "https://demo.netbox.dev/", blurb: "Practise tracing circuits with fake data (free demo login, reset nightly).", tags: "netbox demo practice inventory" },
+    { track: "oss", name: "MEF (Carrier Ethernet)", url: "https://www.mef.net/", blurb: "Standards body behind E-Line, E-LAN, EVC and service definitions.", tags: "mef carrier ethernet eline elan evc" },
+    { track: "oss", name: "RFC 2544 benchmarking", url: "https://www.rfc-editor.org/rfc/rfc2544", blurb: "Throughput, latency, frame loss and back-to-back tests used at turn-up.", tags: "testing turn-up rfc2544 throughput" },
+    { track: "oss", name: "ITU-T Y.1564", url: "https://www.itu.int/rec/T-REC-Y.1564", blurb: "Ethernet service activation test methodology (CIR/EIR, KPIs).", tags: "testing turn-up y1564 service activation" },
+    { track: "oss", name: "RFC 4364 (MPLS L3VPN)", url: "https://www.rfc-editor.org/rfc/rfc4364", blurb: "BGP/MPLS IP VPNs — how carrier L3VPN services work.", tags: "mpls l3vpn vpn bgp vrf" },
     {
       track: "network",
       name: "NetAutLabs",
@@ -171,9 +143,9 @@
   const resourceSearch = document.getElementById("resourceSearch");
   const resourceEmpty = document.getElementById("resourceEmpty");
 
-  document.querySelectorAll(".chip").forEach((chip) => {
+  document.querySelectorAll(".resource-controls .chip").forEach((chip) => {
     chip.addEventListener("click", () => {
-      document.querySelectorAll(".chip").forEach((c) => c.classList.remove("active"));
+      document.querySelectorAll(".resource-controls .chip").forEach((c) => c.classList.remove("active"));
       chip.classList.add("active");
       resourceFilter = chip.dataset.filter;
       renderResources();
@@ -193,7 +165,7 @@
       .map(
         (r) => `
       <a class="resource-card" href="${r.url}" target="_blank" rel="noopener">
-        <span class="track-pill ${r.track}">${r.track === "circuit" ? "Circuit Vision" : "Networks"}</span>
+        <span class="track-pill ${r.track}">${r.track === "oss" ? "Circuits &amp; OSS" : "Networks"}</span>
         <h3>${escapeHtml(r.name)}</h3>
         <p>${escapeHtml(r.blurb)}</p>
       </a>`

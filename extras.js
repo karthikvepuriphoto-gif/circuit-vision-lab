@@ -1,4 +1,4 @@
-/* Circuit Vision Lab — extras: drills, practice sets, templates, playground,
+/* NetOps Starter — extras: drills, templates,
    progress/bookmarks, print one-pagers. Self-contained; loaded before app.js. */
 (function () {
   "use strict";
@@ -18,15 +18,14 @@
   function setScore(id, score, total) { const prev = state.scores[id]; if (!prev || score >= prev.score) state.scores[id] = { score, total, at: new Date().toISOString() }; if (score / total >= 0.6) state.done[id] = state.done[id] || new Date().toISOString(); save(); syncDoneButtons(); }
 
   const LESSONS = [
-    ["circuit-path", "Circuit Vision · Learning path"], ["circuit-quiz", "Circuit Vision · Component quiz"],
-    ["circuit-photo", "Circuit Vision · Photo checklist"], ["circuit-glossary", "Circuit Vision · Glossary"],
-    ["circuit-tools", "Circuit Vision · Tool guide"], ["net-path", "Networks · Learning path"],
+    ["oss-gloss", "Circuits · Glossary"], ["oss-id", "Circuits · Circuit ID explainer"], ["oss-life", "Circuits · Lifecycle"],
+    ["oss-types", "Circuits · Service types"], ["oss-trace", "Circuits · Trace a circuit (NetBox)"], ["oss-cv", "Circuits · CircuitVision overview"],
+    ["tk-subnet", "Toolkit · Subnet calculator"], ["tk-show", "Toolkit · Show commands"], ["flow-vlan", "Toolkit · VLAN/trunk flowchart"],
+    ["flow-ospf", "Toolkit · OSPF flowchart"], ["flow-bgp", "Toolkit · BGP flowchart"], ["net-path", "Networks · Learning path"],
     ["net-lab", "Networks · Lab path"], ["net-change", "Networks · Change checklist"],
     ["net-netmiko", "Networks · Netmiko sheet"], ["net-protocols", "Networks · Protocols"],
-    ["drill-netlist", "Drill · Netlist reading quiz"], ["drill-config", "Drill · Spot the wrong config"],
-    ["drill-flash", "Drill · Flashcards"], ["practice-1", "Practice · Set 1 voltage divider"],
-    ["practice-2", "Practice · Set 2 RC + LED"], ["practice-3", "Practice · Set 3 board ID"],
-  ];
+    ["drill-config", "Drill · Spot the wrong config"],
+    ["drill-flash", "Drill · Flashcards"],   ];
 
   /* ---------- Views ---------- */
   function view(id, eyebrow, title, lede, body) {
@@ -39,17 +38,6 @@
   }
 
   /* ===== DRILLS ===== */
-  const NETLIST_Q = [
-    { net: "* Voltage divider\nV1 in 0 DC 12\nR1 in out 10k\nR2 out 0 10k\n.op\n.end", q: "What is the DC voltage at node out?", a: ["6 V", "12 V", "3 V", "0 V"], c: 0, why: "Equal resistors split the source in half: 12 × 10k / (10k + 10k) = 6 V." },
-    { net: "* Voltage divider\nV1 in 0 DC 12\nR1 in out 10k\nR2 out 0 10k", q: "Which node is ground in SPICE?", a: ["0", "in", "out", "V1"], c: 0, why: "Node 0 is always the ground/reference node in SPICE (many tools also accept gnd)." },
-    { net: "R1 in out 1k\nC1 out 0 1u", q: "What kind of filter is this (input at in, output at out)?", a: ["RC low-pass", "RC high-pass", "LC band-pass", "Voltage divider"], c: 0, why: "Series R then shunt C to ground passes low frequencies. Cutoff fc = 1/(2πRC) ≈ 159 Hz." },
-    { net: "C1 out 0 100n", q: "What is the value of C1?", a: ["100 nF", "100 F", "100 mF", "100 pF"], c: 0, why: "SPICE suffix n = nano (1e-9), so 100n = 100 nF = 0.1 µF." },
-    { net: "R5 a b 1M", q: "In SPICE, what is the value of R5?", a: ["1 milliohm", "1 megohm", "1 ohm", "1 kilohm"], c: 0, why: "Classic trap: SPICE suffixes are case-insensitive and M means milli. Use 1MEG (or 1e6) for a megohm." },
-    { net: "D1 n2 0 LEDMODEL", q: "Which node is the diode's anode?", a: ["n2", "0", "LEDMODEL", "Cannot tell"], c: 0, why: "SPICE diode syntax is D<name> <anode> <cathode> <model>. Current flows n2 → 0 when forward biased." },
-    { net: "Q1 c b e 2N3904", q: "For a BJT line, what is the node order?", a: ["Collector, base, emitter", "Base, collector, emitter", "Emitter, base, collector", "Gate, drain, source"], c: 0, why: "SPICE BJT syntax: Q<name> <collector> <base> <emitter> [substrate] <model>." },
-    { net: "V1 in 0 DC 5\nR1 in a 1k\nR2 a 0 2k\nR3 a 0 2k", q: "How many elements connect to node a?", a: ["3", "2", "4", "1"], c: 0, why: "R1, R2 and R3 all list node a. Counting node connections is how you sanity-check a netlist built by a CV tool." },
-  ];
-
   const CONFIG_Q = [
     { title: "Uplink is down after a new install", snip: "interface GigabitEthernet0/1\n description Uplink to core\n ip address 10.1.1.1 255.255.255.0\n shutdown", a: ["The interface is still administratively shut down", "The subnet mask is wrong", "Descriptions are not allowed on routed ports", "GigabitEthernet needs speed set manually"], c: 0, why: "Router interfaces on Cisco IOS default to shutdown. Add `no shutdown`; `show ip interface brief` would show “administratively down”." },
     { title: "Goal: SSH-only management", snip: "line vty 0 4\n login local\n transport input telnet", a: ["transport input should be ssh", "login local disables SSH", "vty 0 4 is too few lines", "Nothing is wrong"], c: 0, why: "`transport input telnet` allows only Telnet (clear text). For SSH-only use `transport input ssh`, and generate RSA keys first." },
@@ -58,6 +46,14 @@
     { title: "Route to the 192.168.10.0/24 branch doesn't work", snip: "ip route 192.168.10.0 255.255.255.255 10.0.0.2", a: ["The mask is /32 (a single host) instead of 255.255.255.0", "The next hop must be an interface name", "Static routes need 'permanent'", "192.168.10.0 is reserved"], c: 0, why: "255.255.255.255 matches only one host. For the whole branch LAN use 255.255.255.0." },
     { title: "After applying ACL, only HTTPS works — routing and SSH dropped", snip: "ip access-list extended EDGE-IN\n permit tcp any host 10.0.0.10 eq 443\n!\ninterface GigabitEthernet0/0\n ip access-group EDGE-IN in", a: ["Implicit deny at the end blocks everything not permitted", "ACLs must be applied 'out'", "Port 443 should be written https only", "Extended ACLs can't match hosts"], c: 0, why: "Every ACL ends with an implicit `deny ip any any`. Explicitly permit needed traffic (routing protocol, management) before applying." },
     { title: "Netmiko script 'runs' but config never changes", snip: "conn = ConnectHandler(**device)\nconn.send_command(\"interface Gi0/1\")\nconn.send_command(\"description TEST\")", a: ["Use send_config_set() for config commands", "device_type must be 'ios'", "ConnectHandler needs .connect()", "Descriptions need quotes"], c: 0, why: "send_command() runs exec-mode commands. send_config_set([...]) enters config mode, sends the lines, and exits. Then save with save_config()." },
+    { title: "Port-channel between two switches never comes up", snip: "! SW1\ninterface range Gi1/0/1 - 2\n channel-group 1 mode active\n! SW2\ninterface range Gi1/0/1 - 2\n channel-group 1 mode on", a: ["LACP on one side, static 'on' on the other", "Port-channel numbers must differ", "Only one link can be in a channel", "mode active needs PAgP"], c: 0, why: "`mode on` forms a static bundle with no negotiation; `mode active` speaks LACP. Use active/active or active/passive (LACP) on both ends. Check with `show etherchannel summary`." },
+    { title: "eBGP to the peer's loopback stays Active", snip: "router bgp 65001\n neighbor 192.0.2.2 remote-as 65002\n! 192.0.2.2 is the peer's Loopback0, reached via a static route", a: ["Needs ebgp-multihop 2 and update-source Loopback0", "remote-as must equal the local AS", "BGP can't peer with loopbacks", "Port 179 must be configured"], c: 0, why: "eBGP expects directly connected peers (TTL 1) and sources from the outgoing interface. For loopback peering add `neighbor 192.0.2.2 ebgp-multihop 2` and `neighbor 192.0.2.2 update-source Loopback0` on both sides." },
+    { title: "iBGP peer has the prefix in its BGP table but not in its routing table", snip: "! Edge router (learns 203.0.113.0/24 from eBGP 198.51.100.1)\nrouter bgp 65001\n neighbor 10.0.0.2 remote-as 65001\n neighbor 10.0.0.2 update-source Loopback0", a: ["Missing next-hop-self toward the iBGP peer", "iBGP needs a different AS", "update-source is not allowed for iBGP", "The prefix length is too long"], c: 0, why: "iBGP keeps the external next hop (198.51.100.1). If the inner router can't reach it, the route isn't usable. Add `neighbor 10.0.0.2 next-hop-self` (or advertise the external link into the IGP)." },
+    { title: "OSPF neighbor stuck in EXSTART/EXCHANGE", snip: "! R1\ninterface Gi0/0\n ip address 10.0.12.1 255.255.255.252\n ip mtu 1400\n ip ospf 1 area 0\n! R2\ninterface Gi0/0\n ip address 10.0.12.2 255.255.255.252\n ip ospf 1 area 0", a: ["IP MTU mismatch between the two ends", "/30 can't run OSPF", "Router IDs must match", "Area 0 needs a virtual link"], c: 0, why: "OSPF compares interface MTU in DBD packets; a mismatch leaves neighbors stuck in EXSTART/EXCHANGE. Make MTUs match (preferred) or use `ip ospf mtu-ignore`." },
+    { title: "SVI for VLAN 20 shows down/down", snip: "vlan 10\n name USERS\n!\ninterface Vlan20\n ip address 10.20.0.1 255.255.255.0\n no shutdown", a: ["VLAN 20 doesn't exist / has no active ports", "SVIs need 'switchport'", "The mask must be /16", "no shutdown is not valid on SVIs"], c: 0, why: "An SVI is up only when the VLAN exists and at least one port (access or trunk forwarding it) is up in that VLAN. Create `vlan 20` and assign/allow ports." },
+    { title: "Hosts reach their own gateway but not other VLANs (L3 switch)", snip: "no ip routing\n!\ninterface Vlan10\n ip address 10.10.0.1 255.255.255.0\ninterface Vlan20\n ip address 10.20.0.1 255.255.255.0", a: ["IP routing is disabled on the switch", "SVIs need OSPF to route", "VLAN 10 and 20 must share a subnet", "Hosts need a static ARP"], c: 0, why: "On Catalyst L3 switches `ip routing` must be enabled for routing between SVIs. Without it the switch acts as a host on each VLAN." },
+    { title: "Junos: new interface IP isn't active", snip: "[edit]\nuser@sw# set interfaces ge-0/0/1 unit 0 family inet address 10.1.1.1/24\nuser@sw# exit\nThe configuration has been changed but not committed\nExit with uncommitted changes? [yes,no] (yes) yes", a: ["The change was never committed", "Junos needs 'write memory'", "unit 0 is invalid", "The mask must be dotted decimal"], c: 0, why: "Junos edits the candidate config; nothing takes effect until `commit` (use `commit check` first and `commit confirmed 5` for safety)." },
+    { title: "CDP logs %CDP-4-NATIVE_VLAN_MISMATCH and untagged traffic leaks", snip: "! SW1\ninterface Gi1/0/48\n switchport mode trunk\n switchport trunk native vlan 99\n! SW2\ninterface Gi1/0/48\n switchport mode trunk", a: ["Native VLAN differs (99 vs default 1)", "Trunks can't have a native VLAN", "VLAN 99 is reserved", "Need 'switchport nonegotiate'"], c: 0, why: "Untagged frames go into each side's native VLAN, so 99 on SW1 merges with VLAN 1 on SW2. Set the same native VLAN on both ends." },
   ];
 
   const FLASH = [
@@ -112,17 +108,14 @@
   }
 
   const flashCats = ["All", ...new Set(FLASH.map((f) => f[0]))];
-  view("drills", "Practice · Both tracks", "Drills", "Short, self-checking drills. Scores are saved in this browser under My progress.",
-    `<nav class="subnav" aria-label="Drill sections"><a href="#drill-netlist">Netlist reading</a><a href="#drill-config">Spot the wrong config</a><a href="#drill-flash">Flashcards</a></nav>
-     <article id="drill-netlist" class="panel"><h2>Netlist reading quiz</h2><p>Read the SPICE netlist, then answer. This is exactly what you check after a CV tool outputs a netlist.</p>${quizBlock("xqNetlist")}</article>
+  view("drills", "Practice", "Drills", "Short, self-checking drills. Scores are saved in this browser under My progress.",
+    `<nav class="subnav" aria-label="Drill sections"><a href="#drill-config">Spot the wrong config</a><a href="#drill-flash">Flashcards</a></nav>
      <article id="drill-config" class="panel"><h2>Spot the wrong config</h2><p>Each scenario shows a snippet (Cisco IOS-style unless noted) and a symptom. Pick the error.</p>${quizBlock("xqConfig")}</article>
      <article id="drill-flash" class="panel"><h2>Flashcards</h2><p>Tap the card to flip. NETCONF, RESTCONF, Ansible, Nornir and SSH.</p>
        <div class="filter-chips" id="flashCats" role="group" aria-label="Flashcard topic">${flashCats.map((c, k) => `<button type="button" class="chip${k ? "" : " active"}" data-cat="${c}">${c}</button>`).join("")}</div>
        <button type="button" class="flashcard" id="flashCard" aria-live="polite"></button>
        <div class="quiz-actions"><button type="button" class="btn ghost" id="flashPrev">← Prev</button><button type="button" class="btn secondary" id="flashNext">Next →</button><span class="quiz-progress" id="flashCount"></span></div></article>`);
-  document.getElementById("xqNetlist").dataset.lesson = "drill-netlist";
   document.getElementById("xqConfig").dataset.lesson = "drill-config";
-  mountQuiz("xqNetlist", NETLIST_Q, (q) => `<pre class="code-block">${esc(q.net)}</pre><p class="quiz-prompt">${esc(q.q)}</p>`);
   mountQuiz("xqConfig", CONFIG_Q, (q) => `<p class="quiz-prompt">Symptom: ${esc(q.title)}</p><pre class="code-block">${esc(q.snip)}</pre><p>What is wrong?</p>`);
 
   (function flash() {
@@ -145,41 +138,6 @@
     }));
     render();
   })();
-
-  /* ===== PRACTICE SETS ===== */
-  const SETS = [
-    { id: "practice-1", img: "assets/practice/set1-divider.svg", title: "Set 1 · Voltage divider schematic", tasks: ["Count the components by type.", "Name the nodes and write the SPICE netlist.", "What voltage appears at OUT?"],
-      key: `<p><strong>Components (3):</strong> 1 DC voltage source (V1), 2 resistors (R1, R2). Plus 1 ground symbol (not a component).</p><pre class="code-block">* Set 1 voltage divider
-V1 in 0 DC 12
-R1 in out 10k
-R2 out 0 10k
-.op
-.end</pre><p><strong>V(out) = 12 × 10k / (10k + 10k) = 6 V.</strong> Long battery plate = + terminal, so node in is +12 V.</p>` },
-    { id: "practice-2", img: "assets/practice/set2-rc-led.svg", title: "Set 2 · RC filter feeding an LED", tasks: ["Count and identify every component.", "Write the netlist using nodes n1, n2 and 0.", "At DC steady state, does C1 carry current? Roughly what is the LED current?"],
-      key: `<p><strong>Components (5):</strong> V1 (5 V source), R1 1k, C1 1 µF, R2 330 Ω, D1 LED (triangle points toward the bar = cathode, toward ground).</p><pre class="code-block">* Set 2 RC + LED
-V1 n0 0 DC 5
-R1 n0 n1 1k
-C1 n1 0 1u
-R2 n1 n2 330
-D1 n2 0 LEDMODEL
-.model LEDMODEL D(IS=1e-20 N=1.8)  ; placeholder model
-.op
-.end</pre><p>The top-left wire is its own node (named n0 here), between V1 and R1. At DC steady state <strong>C1 is an open circuit (no current)</strong>. With a red LED (V<sub>f</sub> ≈ 2 V): I ≈ (5 − 2) / (1k + 330) ≈ <strong>2.3 mA</strong>. The RC corner frequency is 1/(2π·1k·1µ) ≈ 159 Hz (ignoring the LED branch load).</p>` },
-    { id: "practice-3", img: "assets/practice/set3-board.svg", title: "Set 3 · Identify parts on a board (illustration)", tasks: ["List every reference designator and what it is.", "Decode the 3-digit resistor codes.", "What is J1 likely for, and which pin is ground?"],
-      key: `<table class="data-table"><thead><tr><th>Ref</th><th>Part</th><th>Notes</th></tr></thead><tbody>
-<tr><td>R1</td><td>SMD resistor</td><td>103 = 10 × 10³ = 10 kΩ</td></tr>
-<tr><td>R2</td><td>SMD resistor</td><td>472 = 47 × 10² = 4.7 kΩ</td></tr>
-<tr><td>R3</td><td>SMD resistor</td><td>331 = 33 × 10¹ = 330 Ω (likely LED current limit)</td></tr>
-<tr><td>C1, C2</td><td>Ceramic capacitors</td><td>Unmarked; C1 next to U1 is likely a decoupling cap</td></tr>
-<tr><td>D1</td><td>LED</td><td>Power/status indicator</td></tr>
-<tr><td>U1</td><td>8-pin IC (SOIC-8)</td><td>Dot marks pin 1</td></tr>
-<tr><td>J1</td><td>4-pin header</td><td>VCC, GND, SDA, SCL → I²C interface; pin 2 is GND</td></tr></tbody></table>
-<p><strong>Totals:</strong> 3 resistors, 2 capacitors, 1 LED, 1 IC, 1 connector = 8 parts (plus 4 mounting holes). 4.7 kΩ is a common I²C pull-up value — a good hint about R2's role.</p>` },
-  ];
-  view("practice", "Practice · Circuit Vision", "Sample practice sets", "Original diagrams drawn for this site (free to reuse). Try the tasks first, then open the answer key.",
-    SETS.map((s) => `<article id="${s.id}" class="panel"><h2>${s.title}</h2><figure class="practice-fig"><img src="${s.img}" alt="${esc(s.title)}" loading="lazy" /><figcaption><a href="${s.img}" download>Download SVG</a></figcaption></figure><ol>${s.tasks.map((t) => `<li>${t}</li>`).join("")}</ol><details class="answer"><summary>Show answer key</summary>${s.key}</details></article>`).join("") +
-    `<article class="panel"><h2>More practice data</h2><p>The CircuitVision authors publish their training pipeline as public Kaggle notebooks (dataset links are inside):</p><ul><li><a href="https://www.kaggle.com/code/mah01sam/yolov11-training-and-project-pipeline" target="_blank" rel="noopener">YOLOv11 training &amp; project pipeline (Kaggle)</a></li></ul></article>`);
-  document.querySelectorAll("#practice details.answer").forEach((d) => d.addEventListener("toggle", () => { const id = d.closest("article").id; if (d.open && !state.done[id]) markDone(id, true); }));
 
   /* ===== TEMPLATES ===== */
   const TPL = [
@@ -257,17 +215,19 @@ Risk: <low/medium/high>   Approver: <name>
 
 ## Communication
 - Notify before: <who>   Notify after: <who>`],
-    ["vendor-cv", "Questions for a circuit-vision tool vendor", `# Vendor questions — circuit vision / schematic-to-netlist tools
-1. What input types are supported (PCB photos, scanned schematics, hand drawings, PDFs)? Minimum resolution?
-2. Which component classes are detected? Can we add custom classes?
-3. What output formats (SPICE netlist, KiCad, CSV BOM)? Sample output available?
-4. Published accuracy on which dataset? Can we run a pilot on our own images?
-5. Does processing run on-premises / offline, or are images sent to a cloud or third-party AI API?
-6. Data retention: are our images stored or used for training? Can we opt out?
-7. How are component values (OCR of markings) verified? Is there a human-review UI?
-8. Licensing: per seat, per image, or site? Any open-source components and their licenses?
-9. Integration: API, CLI, batch mode? Rate limits?
-10. Support, update cadence, and export of our data if we leave.`],
+    ["vendor-carrier", "Questions for a carrier (new circuit order)", `# Carrier questions — new circuit / service order
+1. Is the address on-net, near-net or off-net? Who is the last-mile provider if off-net?
+2. Service type and handoff: DIA / E-Line (EPL or EVPL) / E-LAN / MPLS / wave? Copper or fiber, SM or MM, connector, port speed, MTU?
+3. Bandwidth: port speed vs committed rate (CIR); burst or overage rules?
+4. Where exactly is the demarc? Who provides the extended demarc / inside wiring?
+5. Lead time, FOC date process, and who schedules site access?
+6. IP details (DIA): block size, routing (static or BGP), ASN requirements, IPv6?
+7. VLAN tagging / QinQ requirements for Ethernet services?
+8. SLA: availability, latency, jitter, loss, MTTR, and credit process?
+9. Turn-up testing: will you run RFC 2544 or Y.1564 and share results?
+10. Support: NOC number, ticket portal, escalation list, maintenance notification process?
+11. Diversity: separate entrance, path and equipment from our existing circuits? Can you provide a KMZ/route map?
+12. Contract term, early termination, upgrade terms.`],
     ["vendor-net", "Questions for a network gear vendor", `# Vendor questions — network hardware / NOS
 1. Which management APIs are supported: NETCONF, RESTCONF, gNMI, vendor REST? Which YANG models (OpenConfig, native)?
 2. Is there an official Ansible collection, and Netmiko / NAPALM / Nornir support?
@@ -292,11 +252,6 @@ Risk: <low/medium/high>   Approver: <name>
   document.querySelectorAll("[data-dl]").forEach((b) => b.addEventListener("click", () => download(b.dataset.dl + ".md", tplText(b.dataset.dl), "text/markdown")));
 
   /* ===== PLAYGROUND ===== */
-  view("playground", "Track A · Hands-on", "CircuitVision playground", "Upload a circuit image and get a SPICE netlist. It needs a Python server with ML models, so it can't run on this static site.",
-    `<article class="panel"><h2>Try it now</h2><p>The CircuitVision authors host a public demo: <a href="https://CircuitVision.jawadk.me" target="_blank" rel="noopener">CircuitVision.jawadk.me</a> (third-party, may be slow or offline). Avoid uploading confidential company schematics to any public demo.</p><p>Source: <a href="https://github.com/JKc66/CircuitVision" target="_blank" rel="noopener">JKc66/CircuitVision</a> (Apache-2.0).</p></article>
-     <article class="panel"><h2>Run your own copy</h2><ol class="steps"><li><strong>Local (Docker):</strong> clone the repo, set <code>GEMINI_API_KEY</code>, run <code>docker compose up</code>, open <code>http://localhost:8501</code>.</li><li><strong>Free cloud:</strong> a Hugging Face Docker Space (free CPU tier) — step-by-step in this site's <a href="https://github.com/karthikvepuriphoto-gif/circuit-vision-lab/tree/main/playground" target="_blank" rel="noopener">playground/ folder</a>.</li><li>Use the <a href="#practice">practice sets</a> as test images and compare the output to the answer keys.</li></ol>
-     <p class="hint">CircuitVision uses Google Gemini for reading component values, so it needs a Gemini API key (Google offers a free tier). Images you process are sent to that API.</p></article>`);
-
   /* ===== PROGRESS ===== */
   view("progress", "Saved in this browser", "My progress", "Mark lessons done, star resources, and move your progress between devices with a JSON file.",
     `<article class="panel"><h2>Overview</h2><div class="progress-bar" aria-hidden="true"><span id="progBar"></span></div><p id="progSummary"></p>
@@ -322,7 +277,7 @@ Risk: <low/medium/high>   Approver: <name>
     const f = e.target.files[0]; if (!f) return;
     f.text().then((t) => {
       const d = JSON.parse(t);
-      if (d.app !== "circuit-vision-lab") throw new Error("not a Circuit Vision Lab progress file");
+      if (d.app !== "circuit-vision-lab") throw new Error("not a NetOps Starter progress file");
       state = { done: Object.assign({}, state.done, d.done), bookmarks: Object.assign({}, state.bookmarks, d.bookmarks), scores: Object.assign({}, state.scores, d.scores) };
       Object.entries(d.checklists || {}).forEach(([k, v]) => { if (/checklist/i.test(k) && typeof v === "string") localStorage.setItem(k, v); });
       save(); syncDoneButtons(); syncStars(); msg("Imported and merged. Reload to refresh checklists.", true);
@@ -332,14 +287,14 @@ Risk: <low/medium/high>   Approver: <name>
   document.getElementById("progReset").addEventListener("click", () => { if (confirm("Clear all saved progress and bookmarks on this device?")) { state = { done: {}, bookmarks: {}, scores: {} }; save(); syncDoneButtons(); syncStars(); } });
 
   /* Mark-done buttons on lesson panels */
-  LESSONS.forEach(([id]) => {
+  document.addEventListener("DOMContentLoaded", () => LESSONS.forEach(([id]) => {
     const art = document.getElementById(id); if (!art) return;
     const h = art.querySelector("h2"); if (!h) return;
     const b = document.createElement("button");
     b.type = "button"; b.className = "done-btn no-print"; b.dataset.done = id;
     b.addEventListener("click", () => markDone(id, !state.done[id]));
     h.insertAdjacentElement("afterend", b);
-  });
+  }));
   function syncDoneButtons() { document.querySelectorAll("[data-done]").forEach((b) => { const on = !!state.done[b.dataset.done]; b.textContent = on ? "✓ Done" : "Mark as done"; b.classList.toggle("is-done", on); b.setAttribute("aria-pressed", on); }); }
 
   /* Bookmark stars on resource cards (grid is rendered by app.js) */
@@ -368,6 +323,7 @@ Risk: <low/medium/high>   Approver: <name>
     const b = document.createElement("button"); b.type = "button"; b.className = "btn ghost no-print"; b.textContent = "🖨 Print";
     b.addEventListener("click", () => printPanel(art)); art.querySelector(".quiz-actions").appendChild(b);
   });
+  window.CVPrint = printPanel;
   function printPanel(art) {
     document.body.classList.add("printing-one"); art.classList.add("print-me");
     const done = () => { document.body.classList.remove("printing-one"); art.classList.remove("print-me"); window.removeEventListener("afterprint", done); };
@@ -376,7 +332,7 @@ Risk: <low/medium/high>   Approver: <name>
 
   /* ---------- Nav links ---------- */
   const theme = document.getElementById("themeToggle");
-  [["drills", "Drills"], ["practice", "Practice"], ["templates", "Templates"], ["playground", "Playground"], ["progress", "My progress"]].forEach(([id, label]) => {
+  [["drills", "Drills"], ["templates", "Templates"], ["progress", "My progress"]].forEach(([id, label]) => {
     const a = document.createElement("a"); a.href = "#" + id; a.textContent = label; a.dataset.xnav = id;
     a.addEventListener("click", () => { nav.classList.remove("open"); const t = document.getElementById("navToggle"); if (t) t.setAttribute("aria-expanded", "false"); });
     nav.insertBefore(a, theme);
@@ -387,7 +343,7 @@ Risk: <low/medium/high>   Approver: <name>
 
   /* Home quick links */
   const home = document.getElementById("home");
-  if (home) { const p = document.createElement("div"); p.className = "panel"; p.innerHTML = `<h2>New: practice &amp; job aids</h2><div class="hero-actions"><a class="btn secondary" href="#drills">Drills</a><a class="btn secondary" href="#practice">Practice sets</a><a class="btn secondary" href="#templates">Templates</a><a class="btn secondary" href="#playground">Playground</a><a class="btn primary" href="#progress">My progress</a></div>`; home.appendChild(p); }
+  if (home) { const p = document.createElement("div"); p.className = "panel"; p.innerHTML = `<h2>Job aids</h2><div class="hero-actions"><a class="btn secondary" href="#toolkit">Subnet calculator</a><a class="btn secondary" href="#tk-show">Show commands</a><a class="btn secondary" href="#flow-vlan">Troubleshooting flowcharts</a><a class="btn secondary" href="#drill-config">Config drills</a><a class="btn secondary" href="#templates">Templates</a><a class="btn primary" href="#progress">My progress</a></div>`; home.appendChild(p); }
 
   document.addEventListener("DOMContentLoaded", () => { syncDoneButtons(); syncStars(); renderProgress(); navActive(); });
   syncDoneButtons(); renderProgress(); setTimeout(() => { syncStars(); navActive(); }, 0);

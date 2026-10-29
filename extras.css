@@ -32,7 +32,33 @@ label.btn { cursor: pointer; }
   a[href^="http"]::after { content: " (" attr(href) ")"; font-size: 8pt; word-break: break-all; }
   body.printing-one .view-header, body.printing-one main .view > *:not(.print-me), body.printing-one main .view > .panel:not(.print-me) { display: none !important; }
   body.printing-one .print-me { border: 0; margin: 0; padding: 0; }
-  body.printing-one .print-me h2::after { content: " — Circuit Vision Lab one-pager"; font-weight: 400; font-size: 0.7em; color: #555; }
+  body.printing-one .print-me h2::after { content: " — NetOps Starter one-pager"; font-weight: 400; font-size: 0.7em; color: #555; }
   .checklist input { -webkit-appearance: checkbox; appearance: checkbox; }
 }
 .xq [hidden], .quiz-actions [hidden] { display: none !important; }
+/* Network toolkit */
+.subnet-form { display: flex; flex-wrap: wrap; gap: 0.5rem; align-items: center; }
+.subnet-form label { width: 100%; font-weight: 600; }
+.subnet-form input { flex: 1 1 240px; padding: 0.65rem 0.8rem; border: 1px solid var(--border); border-radius: 10px; background: var(--bg); color: var(--text); font: 1rem var(--mono); }
+#subnetOut th { text-align: left; width: 45%; }
+.flow-steps { margin: 0; padding-left: 1.3rem; }
+.flow-steps li { margin-bottom: 0.9rem; padding-left: 0.2rem; }
+.flow-steps li::marker { font-weight: 700; color: var(--accent); }
+.flow-cmd { display: block; margin: 0.35rem 0; padding: 0.4rem 0.6rem; border-radius: 8px; background: var(--bg); border: 1px solid var(--border); font-family: var(--mono); font-size: 0.85rem; white-space: pre-wrap; word-break: break-word; }
+.flow-fix { margin: 0.3rem 0 0; color: var(--text-muted); }
+.flow-fix span { font-weight: 700; color: var(--accent); }
+#cmdTable code { white-space: pre-wrap; word-break: break-word; }
+/* Circuits & OSS */
+.resource-card .track-pill.oss { background: var(--circuit-soft); color: var(--circuit); }
+.disclaimer { border-left: 4px solid var(--network); }
+.oss-search { width: 100%; padding: 0.6rem 0.8rem; border: 1px solid var(--border); border-radius: 10px; background: var(--bg); color: var(--text); font: inherit; margin-bottom: 0.75rem; }
+.gl-item[hidden] { display: none; }
+.cid { margin: 0.75rem 0; }
+.cid-label { display: block; font-size: 0.85rem; color: var(--text-muted); margin-bottom: 0.3rem; }
+.cid-row { display: flex; flex-wrap: wrap; align-items: center; gap: 0.2rem; }
+.cid-seg { font: 600 1.05rem var(--mono); padding: 0.35rem 0.6rem; border: 1px solid var(--border); border-radius: 8px; background: var(--bg); color: var(--text); cursor: pointer; min-width: 2rem; }
+.cid-seg.active, .cid-seg:hover { border-color: var(--accent); background: var(--accent-soft); }
+.cid-sep { font: 700 1.1rem var(--mono); color: var(--text-muted); }
+.cid-explain { min-height: 2.6em; padding: 0.6rem 0.8rem; border-radius: 10px; background: var(--accent-soft); }
+.elsewhere { margin-top: 1rem; }
+.elsewhere details summary { cursor: pointer; color: var(--accent); font-weight: 600; margin-top: 0.75rem; }
