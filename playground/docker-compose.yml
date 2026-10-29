@@ -1,0 +1,13 @@
+# Run from inside a CircuitVision checkout:
+#   docker compose -f /path/to/playground/docker-compose.yml --project-directory . up --build
+services:
+  circuitvision:
+    build:
+      context: .
+      dockerfile: Dockerfile.playground   # copy it into the checkout first
+    env_file: .env
+    environment:
+      - PORT=8501
+    ports:
+      - "8501:8501"
+    restart: unless-stopped

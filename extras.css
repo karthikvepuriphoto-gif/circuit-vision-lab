@@ -1,0 +1,38 @@
+/* Extras: drills, practice, templates, progress, print */
+.site-nav { flex-wrap: wrap; }
+.done-btn { display: inline-block; margin: 0 0.5rem 0.75rem 0; padding: 0.3rem 0.75rem; border-radius: 999px; border: 1px solid var(--border); background: var(--bg); color: var(--text-muted); font: inherit; font-size: 0.85rem; cursor: pointer; }
+.done-btn.is-done { background: var(--accent-soft); color: var(--ok); border-color: var(--ok); font-weight: 600; }
+.print-btn { margin: 0 0.5rem 0.75rem 0; font-size: 0.85rem; padding: 0.3rem 0.75rem; }
+.btn.small { padding: 0.2rem 0.6rem; font-size: 0.8rem; }
+.xq .code-block, #practice .code-block, .tpl-body { white-space: pre-wrap; word-break: break-word; }
+.flashcard { display: flex; flex-direction: column; gap: 0.75rem; align-items: flex-start; width: 100%; min-height: 170px; margin: 1rem 0; padding: 1.25rem; border: 1px solid var(--border); border-radius: var(--radius); background: var(--bg); color: var(--text); font: inherit; text-align: left; cursor: pointer; box-shadow: var(--shadow); }
+.flashcard.flipped { background: var(--accent-soft); border-color: var(--accent); }
+.flashcard .fc-text { font-size: 1.15rem; font-weight: 600; }
+.flashcard small { color: var(--text-muted); }
+.practice-fig { margin: 0 0 1rem; }
+.practice-fig img { width: 100%; max-width: 560px; height: auto; border: 1px solid var(--border); border-radius: 10px; background: #fff; }
+.practice-fig figcaption { font-size: 0.85rem; margin-top: 0.3rem; }
+details.answer { margin-top: 1rem; border: 1px dashed var(--border); border-radius: 10px; padding: 0.6rem 0.9rem; }
+details.answer summary { cursor: pointer; font-weight: 600; color: var(--accent); }
+.progress-bar { height: 12px; background: var(--border); border-radius: 999px; overflow: hidden; }
+.progress-bar span { display: block; height: 100%; width: 0; background: var(--accent); transition: width 0.3s; }
+.resource-card { position: relative; }
+.star-btn { position: absolute; top: 0.5rem; right: 0.6rem; font-size: 1.3rem; line-height: 1; color: var(--text-muted); cursor: pointer; padding: 0.2rem; }
+.star-btn.on { color: #e0a800; }
+label.btn { cursor: pointer; }
+@media (max-width: 760px) { .flashcard { min-height: 150px; } .quiz-actions .btn { flex: 1 1 auto; } }
+
+@media print {
+  :root, [data-theme="dark"] { --bg: #fff; --bg-elevated: #fff; --text: #000; --text-muted: #333; --border: #999; --accent: #000; --accent-soft: #fff; }
+  body { background: #fff; color: #000; font-size: 11pt; }
+  .site-header, .site-footer, .skip-link, .subnav, .no-print, .theme-btn, .nav-toggle, .quiz-actions, .star-btn { display: none !important; }
+  .panel, .start-here { box-shadow: none !important; border: 1px solid #999; break-inside: avoid; }
+  .code-block, pre { background: #f4f4f4 !important; color: #000 !important; border: 1px solid #999; white-space: pre-wrap; }
+  a { color: #000; text-decoration: underline; }
+  a[href^="http"]::after { content: " (" attr(href) ")"; font-size: 8pt; word-break: break-all; }
+  body.printing-one .view-header, body.printing-one main .view > *:not(.print-me), body.printing-one main .view > .panel:not(.print-me) { display: none !important; }
+  body.printing-one .print-me { border: 0; margin: 0; padding: 0; }
+  body.printing-one .print-me h2::after { content: " — Circuit Vision Lab one-pager"; font-weight: 400; font-size: 0.7em; color: #555; }
+  .checklist input { -webkit-appearance: checkbox; appearance: checkbox; }
+}
+.xq [hidden], .quiz-actions [hidden] { display: none !important; }

@@ -3,7 +3,7 @@
 <rect width="480" height="260" fill="#fff"/>
 <g stroke="#111" stroke-width="2" fill="none">
 <!-- source circle -->
-<circle cx="50" cy="130" r="22"/><path d="M38 130 q6 -12 12 0 t12 0"/>
+<circle cx="50" cy="130" r="22"/>
 <line x1="50" y1="108" x2="50" y2="40"/><line x1="50" y1="152" x2="50" y2="220"/>
 <line x1="50" y1="40" x2="110" y2="40"/>
 <polyline points="110,40 118,30 130,50 142,30 154,50 166,30 178,50 186,40"/>
@@ -22,7 +22,7 @@
 <line x1="215" y1="220" x2="215" y2="232"/><line x1="200" y1="232" x2="230" y2="232"/><line x1="207" y1="238" x2="223" y2="238"/>
 </g>
 <g fill="#111"><circle cx="240" cy="40" r="4"/><circle cx="240" cy="220" r="4"/></g>
-<text x="80" y="135">V1 5 V</text><text x="125" y="22">R1 1k</text><text x="268" y="130">C1 1µF</text>
+<text x="45" y="125" font-size="16">+</text><text x="46" y="146" font-size="16">−</text><text x="80" y="135">V1 5 V DC</text><text x="125" y="22">R1 1k</text><text x="268" y="130">C1 1µF</text>
 <text x="400" y="90">R2 330</text><text x="405" y="175">D1 (LED)</text>
 <text x="230" y="28">n1</text><text x="385" y="133">n2</text>
 </svg>

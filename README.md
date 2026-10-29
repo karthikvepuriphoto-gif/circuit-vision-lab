@@ -28,3 +28,10 @@ python3 -m http.server 8080
 - Searchable resource directory
 
 Prepared for learning · Circuit Vision lab
+
+## Extras (drills, practice, templates, progress, playground)
+- `extras.js` / `extras.css` add: Drills (netlist quiz, spot-the-wrong-config, flashcards),
+  Practice sets (`assets/practice/*.svg`, original drawings with answer keys),
+  Job templates (copy / download / print), Playground info page, My progress
+  (localStorage, bookmark stars, JSON export/import), and Print / Save as PDF one-pagers.
+- `playground/` — self-host instructions for the CircuitVision Streamlit app (Docker / free Hugging Face Space).
