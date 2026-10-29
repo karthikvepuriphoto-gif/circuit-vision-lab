@@ -313,7 +313,7 @@ Risk: <low/medium/high>   Approver: <name>
   if (grid) new MutationObserver(() => syncStars()).observe(grid, { childList: true });
 
   /* ===== PRINT one-pagers ===== */
-  [["circuit-photo", "Board photo checklist"], ["net-change", "Config change checklist"], ["net-netmiko", "Netmiko cheat sheet"], ["net-protocols", "Protocol table"]].forEach(([id]) => {
+  [["net-change", "Config change checklist"], ["net-netmiko", "Netmiko cheat sheet"], ["net-protocols", "Protocol table"]].forEach(([id]) => {
     const art = document.getElementById(id); if (!art) return;
     const b = document.createElement("button"); b.type = "button"; b.className = "btn ghost print-btn no-print"; b.textContent = "🖨 Print / Save as PDF";
     b.addEventListener("click", () => printPanel(art));
@@ -331,11 +331,10 @@ Risk: <low/medium/high>   Approver: <name>
   }
 
   /* ---------- Nav links ---------- */
-  const theme = document.getElementById("themeToggle");
   [["drills", "Drills"], ["templates", "Templates"], ["progress", "My progress"]].forEach(([id, label]) => {
     const a = document.createElement("a"); a.href = "#" + id; a.textContent = label; a.dataset.xnav = id;
     a.addEventListener("click", () => { nav.classList.remove("open"); const t = document.getElementById("navToggle"); if (t) t.setAttribute("aria-expanded", "false"); });
-    nav.insertBefore(a, theme);
+    nav.appendChild(a);
   });
   function navActive() { const base = (location.hash || "#home").slice(1); const v = (document.getElementById(base) || {}).closest ? document.getElementById(base).closest(".view") : null;
     document.querySelectorAll("[data-xnav]").forEach((a) => a.classList.toggle("active", !!v && a.dataset.xnav === v.id)); }

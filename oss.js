@@ -180,5 +180,4 @@ Please provide: carrier ticket #, ETA for next update, test results.`;
   const RETIRED = ["circuit", "practice", "playground"];
   function retire() { const h = location.hash.slice(1); if (RETIRED.some((r) => h === r || h.startsWith(r + "-"))) location.replace("#circuits"); }
   window.addEventListener("hashchange", retire); retire();
-  ["circuit"].forEach((id) => { const v = document.getElementById(id); if (v) v.setAttribute("data-retired", ""); });
 })();
